@@ -1,0 +1,36 @@
+---
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Accordion from "@/components/interactive/Accordion.astro";
+import AccordionItem from "@/components/interactive/AccordionItem.astro";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Pill above the heading. */
+  tag?: string;
+  /** Section heading. */
+  heading: string;
+  /** Questions and answers. Answers may hold inline markup. */
+  items: { q: string; a: string }[];
+}
+
+const { render = true, tag, heading, items } = Astro.props;
+---
+
+<Section render={render} align="center">
+  <ContentWrapper centered>
+    <Eyebrow variant="tag" render={!!tag}>{tag}</Eyebrow>
+    <Heading tag="h2">{heading}</Heading>
+  </ContentWrapper>
+  <Accordion class="max-width-small">
+    {items.map((f) => (
+      <AccordionItem heading={f.q}>
+        <Paragraph><Fragment set:html={f.a} /></Paragraph>
+      </AccordionItem>
+    ))}
+  </Accordion>
+</Section>

@@ -16,12 +16,18 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
+    "@astrojs/react": "^7.1.4",
     "@astrojs/sitemap": "^3.7.4",
+    "@radix-ui/react-navigation-menu": "^1.4.1",
     "astro": "^7.4.4",
     "lottie-web": "^5.12.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "typescript": "^6.0.3"
   },
   "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^1.1.2"
   },

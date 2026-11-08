@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import Grid from "@/components/wrapper/Grid.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Card from "@/components/item/Card.astro";
+import NewsletterSection from "@/components/section/NewsletterSection.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+
+const items = await getCollection("education");
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+---
+
+<Layout fullTitle={"Medicare Webinars | Live & On-Demand Expert Sessions"} description={"Explore live and-on-demand Medicare webinars from Exact Benefits. Learn enrollment, plans, and updates from experts to make confident decisions today."}>
+  <Section>
+    <Heading tag="h1" variant="h3">Medicare Resource Library</Heading>
+    <Grid small={2} large={3}>
+      {items.map((item) => (
+        <Card
+          raised
+          eyebrow={`${item.data.location} · ${formatDate(item.data.date)}`}
+          heading={item.data.title}
+          headingVariant="h4"
+          text={item.data.short}
+          buttonLabel="LEARN MORE"
+          buttonHref={`/education-pieces/${item.id}`}
+        />
+      ))}
+    </Grid>
+  </Section>
+
+  <NewsletterSection tag="" heading={"Savings are just the beginning ."} text={"An easy way to stay informed on Medicare facts, updates, and important changes is to sign up for the free Exact Medicare Newsletter. Helpful articles, tips, and events will be sent directly to your inbox.mployee Medicare Guide"} book={false} />
+
+  <ContactSection />
+</Layout>

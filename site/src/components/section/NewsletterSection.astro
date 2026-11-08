@@ -1,0 +1,61 @@
+---
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Card from "@/components/item/Card.astro";
+import Img from "@/components/media/Img.astro";
+import guideBook from "@/assets/images/home/home-newsletter-guide-book.webp";
+import background from "@/assets/images/home/home-newsletter-background.webp";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Pill above the heading. Empty hides it. */
+  tag?: string;
+  /** Section heading. */
+  heading?: string;
+  /** Heading level. Use `h1` when this opens the page. */
+  headingTag?: "h1" | "h2";
+  /** Body text. */
+  text?: string;
+  /** Show the guide cover. */
+  book?: boolean;
+}
+
+const {
+  render = true,
+  tag = "The Medicare Employer Guide",
+  heading = "The most trusted newsletter in Medicare.",
+  headingTag = "h2",
+  text = "From coordination of benefits and compliance risks to retiree coverage strategies, this newsletter helps HR leaders and business owners make confident decisions. Join hundreds of employers who rely on The Medicare Employer Guide for clear, practical insights.",
+  book = true,
+} = Astro.props;
+---
+
+<Section render={render}>
+  <ContentWrapper variant="card" mediaOpacity={100}>
+    <ContentWrapper variant="columns">
+      <Eyebrow variant="tag-outline" render={!!tag}>{tag}</Eyebrow>
+      <Heading tag={headingTag} variant="h3">{heading}</Heading>
+      <Paragraph>{text}</Paragraph>
+      <Card
+        class="margin-top-6"
+        eyebrow="Form placeholder"
+        heading="Subscribe form (Go High Level)"
+        text="The live Go High Level embed goes here once it is approved in 02-compliance/tag-registry.csv."
+      />
+      <Img
+        slot="column2"
+        render={book}
+        src={guideBook}
+        alt="Cover of The Employer Medicare Guide"
+        transparent
+        variant="constrained"
+        sizes="(width >= 62rem) 30vw, 90vw"
+      />
+    </ContentWrapper>
+    <Img slot="column2" src={background} alt="" />
+  </ContentWrapper>
+</Section>

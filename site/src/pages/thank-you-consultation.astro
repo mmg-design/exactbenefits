@@ -1,0 +1,30 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Button from "@/components/Button.astro";
+import Img from "@/components/media/Img.astro";
+import FaqSection from "@/components/section/FaqSection.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+import img0 from "@/assets/images/thank-you/thank-you-consultation-mockup.webp";
+
+const faqs0 = [{"q": "What happens if an employee delays Medicare?", "a": "If an eligible employee delays Medicare, your group plan usually becomes the primary payer until they enroll. This can increase your plan’s cost exposure and may lead to higher premiums. We help you review each employee’s situation to make sure the timing is right and no one loses coverage or pays penalties."}, {"q": "Does this cost the employer anything?", "a": "There’s no added fee for working with Exact Benefits. In many cases, employers actually save money because Medicare becomes the primary payer for eligible employees, reducing claims on your group plan. Our advisors guide you through the process so you stay compliant and financially protected."}, {"q": "What if we’re a small group and Medicare pays first?", "a": "For groups under 20 employees, Medicare <em>usually</em> becomes the primary payer. That means your group plan acts as secondary coverage. We help you structure coverage correctly, avoid compliance issues, and make sure your employees understand how their benefits work so there are no surprises."}];
+---
+
+<Layout fullTitle={"Consultation Thank-You | Exact Benefits"} description={"Thank you for scheduling your Medicare consultation with Exact Benefits. Check your inbox for confirmation details  we look forward to speaking with you soon."}>
+  <Section>
+    <ContentWrapper variant="columns" reverse style="--_visual-ratio: 1 / 1;">
+    <Heading tag="h1" variant="h3">Thank You!</Heading>
+    <Paragraph variant="large">Your consultation has been scheduled. Check your inbox for more details, and we'll be in touch shortly</Paragraph>
+    <ButtonWrapper>
+      <Button element="link" size="large" href={"/"}>Return home</Button>
+    </ButtonWrapper>
+    <Img slot="column2" src={img0} alt={"Exact Benefits Medicare consultant on a call with an employer"} transparent />
+    </ContentWrapper>
+  </Section>
+  <FaqSection tag={"FAQ's"} heading={"We’ve got the answers."} items={faqs0} />
+  <ContactSection />
+</Layout>

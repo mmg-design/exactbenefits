@@ -1,0 +1,73 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Grid from "@/components/wrapper/Grid.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Button from "@/components/Button.astro";
+import Card from "@/components/item/Card.astro";
+import Img from "@/components/media/Img.astro";
+import PartnershipsSection from "@/components/section/PartnershipsSection.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+import newsletterBackground from "@/assets/images/home/home-newsletter-background.webp";
+import img0 from "@/assets/images/strategy/ichra-strategy-feature-3.webp";
+import img1 from "@/assets/images/strategy/ichra-strategy-feature-4.webp";
+import img2 from "@/assets/images/strategy/ichra-strategy-feature-5.webp";
+
+const cards0 = [{"heading": "Budget Control", "text": "You set the monthly allowance. No surprise premium hikes. No renewals that blow up your benefits line item."}, {"heading": "Tax Advantages", "text": "Reimbursements are free from employer payroll taxes and exempt from employee income taxes. Both sides save."}, {"heading": "Employee Choice", "text": "Employees pick their own plan, including marketplace coverage, off-exchange plans, or Medicare. Their plan travels with them if they leave."}, {"heading": "ACA Compliance", "text": "ICHRA satisfies the employer mandate for applicable large employers when allowances meet affordability standards. For 2026, that threshold is 9.96% of household income."}, {"heading": "No Participation Minimums", "text": "Unlike group plans that require 60 to 70% enrollment, ICHRA has no participation floor. Offer it to all employees or specific classes."}, {"heading": "Ohio Tax Credit Eligible", "text": "Under HB 133, qualifying Ohio employers with 2 to 50 employees could receive a $400 tax credit per covered worker. That is real money back for doing the right thing."}];
+const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"Organization\",\n      \"@id\": \"https://www.exactbenefits.com/#organization\",\n      \"name\": \"Exact Benefits Powered by Exact Medicare\",\n      \"url\": \"https://www.exactbenefits.com/\",\n      \"telephone\": \"+1-888-893-9553\"\n    },\n    {\n      \"@type\": \"Service\",\n      \"@id\": \"https://www.exactbenefits.com/ichra-strategy#service\",\n      \"name\": \"ICHRA Strategy for Ohio Employers\",\n      \"serviceType\": \"Individual Coverage Health Reimbursement Arrangement (ICHRA) Consulting\",\n      \"description\": \"Exact Benefits helps Ohio employers design, launch, and manage Individual Coverage Health Reimbursement Arrangement (ICHRA) plans. The service includes plan design, employee classification, allowance planning, ACA affordability guidance, reimbursement workflows, Medicare integration, and ongoing compliance support.\",\n      \"provider\": {\n        \"@id\": \"https://www.exactbenefits.com/#organization\"\n      },\n      \"url\": \"https://www.exactbenefits.com/ichra-strategy\",\n      \"areaServed\": {\n        \"@type\": \"State\",\n        \"name\": \"Ohio\"\n      },\n      \"audience\": {\n        \"@type\": \"Audience\",\n        \"audienceType\": \"Ohio employers\"\n      },\n      \"termsOfService\": \"https://www.exactbenefits.com/sms-terms-of-service\",\n      \"offers\": {\n        \"@type\": \"Offer\",\n        \"url\": \"https://www.exactbenefits.com/ichra-strategy\",\n        \"priceSpecification\": {\n          \"@type\": \"PriceSpecification\",\n          \"price\": \"0\",\n          \"priceCurrency\": \"USD\",\n          \"description\": \"Schedule a call with an Exact Benefits advisor.\"\n        }\n      }\n    }\n  ]\n}";
+---
+
+<Layout fullTitle={"ICHRA Strategy for Employers | Exact Benefits"} description={"Explore ICHRA strategy for employers with Exact Benefits. Learn budget control, tax savings, and how Ohio businesses offer flexible health benefits."}>
+  <Fragment slot="head"><script is:inline type="application/ld+json" set:html={schema} /></Fragment>
+  <Section>
+    <ContentWrapper variant="card" mediaOpacity={100}>
+      <ContentWrapper centered>
+    <Eyebrow variant="tag-outline">Employer Medicare and Benefits Solutions</Eyebrow>
+        <Heading tag="h1" variant="h2" maxWidth={24}>A Smarter Way for Ohio Employers to Offer Health Benefits</Heading>
+        <Paragraph variant="large" maxWidth={50}>Individual Coverage Health Reimbursement Arrangements (ICHRA) give employers full control over their benefits budget while letting employees choose the coverage that fits their life, including Medicare. Exact Benefits helps Ohio employers design, launch, and manage ICHRA plans that actually work.<br/></Paragraph>
+    <ButtonWrapper>
+      <Button element="link" emphasis="accent" size="large" href={"#CONSULT"}>Talk to a Benefits Advisor</Button>
+    </ButtonWrapper>
+      </ContentWrapper>
+      <Img slot="column2" src={newsletterBackground} alt="" />
+    </ContentWrapper>
+  </Section>
+  <PartnershipsSection />
+  <Section>
+    <ContentWrapper variant="columns" style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">What is ICHRA?</Eyebrow>
+    <Heading tag="h2" variant="h3">Health Benefits Without the One-Size-Fits-All Problem</Heading>
+    <Paragraph variant="large">ICHRA is a formal, ACA-compliant health benefit that lets employers reimburse employees tax-free for individual health insurance premiums and qualified medical expenses. Instead of buying a group plan and hoping it works for everyone, employers set a monthly allowance and employees pick the plan that fits their needs. That includes individual market plans, marketplace coverage, and yes, Medicare. For Ohio employers navigating rising group plan costs, ICHRA offers something group insurance never could: budget predictability and employee choice in a single benefit. There are no annual contribution caps, no minimum participation requirements, and no restrictions on company size. Whether you have 5 employees or 500, ICHRA works.</Paragraph>
+    <Img slot="column2" src={img0} alt={"Ohio employer reviewing ICHRA strategy with benefits advisor"} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper variant="columns" reverse style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">Why Ohio Employers Are Paying Attention</Eyebrow>
+    <Heading tag="h2" variant="h3">Ohio Medicare, ICHRA, and a $400 Tax Credit</Heading>
+    <Paragraph variant="large">Ohio is at the front of a national shift toward ICHRA adoption. House Bill 133, which passed unanimously in the Ohio House in June 2025, would give small employers (2 to 50 employees) a $400 nonrefundable tax credit per employee covered by an ICHRA. The only requirements are that employers contribute at least $400 per worker annually and offer the ICHRA to some or all of their team. For employers already exploring Medicare for employers as part of their benefits strategy, this is a meaningful incentive. ICHRA allows businesses to reimburse employees enrolled in Medicare Ohio plans the same way they reimburse employees on individual market coverage. That flexibility is a game-changer for companies with aging workforces or employees approaching Medicare eligibility.</Paragraph>
+    <Img slot="column2" src={img1} alt={"Two individuals standing in the doorway of a business, smiling at the camera."} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper variant="columns" style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">How Exact Benefits Helps</Eyebrow>
+    <Heading tag="h2" variant="h3">From Setup to Reimbursement, We Handle It</Heading>
+    <Paragraph variant="large">Designing an ICHRA plan means making decisions about employee classes, allowance amounts, compliance documentation, and reimbursement workflows. Most employers do not want to figure that out alone, and they should not have to. Exact Benefits walks Ohio employers through every step. We help you define eligible employee classes, set allowances that meet ACA affordability thresholds, and build a reimbursement process that runs without drama. For companies with employees on Medicare, we make sure your ICHRA works alongside Medicare Parts A, B, and D so nothing falls through the cracks. Our team stays current on Ohio Medicare regulations and federal ICHRA rules so your plan stays compliant year over year. Subscribe to the Exact Benefits newsletter to get updates on ICHRA legislation, employer Medicare strategy, and benefits administration delivered to your inbox.</Paragraph>
+    <Img slot="column2" src={img2} alt={"Four business colleagues collaborating around a laptop and tablet in a modern office setting."} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper centered>
+      <Heading tag="h2" variant="h3">What Makes ICHRA Work for Employers</Heading>
+    </ContentWrapper>
+    <Grid small={2} large={3}>
+      {cards0.map((c) => <Card raised headingVariant="h4" {...c} />)}
+    </Grid>
+  </Section>
+  <ContactSection />
+</Layout>

@@ -35,6 +35,9 @@ Status values: `OPEN` · `WAITING` (asked, awaiting reply) · `RESOLVED`
 | OQ-28 | **Homepage copy issues (kept verbatim):** the "Ongoing support" bento card repeats the "Educational workshops" text and has a typo ("thatprepare"); two myth cards share the tag "ALL PLANS ARE THE SAME!"; the visible "4.9/5 on 5,026 reviews" claim relates to OQ-13. | Content changes need approval. | Marketing | OPEN | 2026-11-07 |
 | OQ-29 | **Team headshots:** live alt text named the "Ricky" photo "Dan" and reused Ashley's description for Courtney. New alt text uses the file names (Ashley, Ricky, Matt Buchan, Courtney, Sarah). Please confirm names. | Alt text must be accurate. | Marketing | OPEN | 2026-11-07 |
 | OQ-30 | **Social share image:** the live/default share image is a 385×418 headshot; social networks expect 1200×630. Provide a proper one? | Link previews look poor today. | Marketing | OPEN | 2026-11-07 |
+| OQ-31 | **Blog images with no alt text.** 2 in-article images came from the CMS with no alt text and are marked for review in `asset-inventory.csv`. Please supply descriptions or confirm decorative. | CLAUDE.md rule 7. | Marketing | OPEN | |
+| OQ-32 | **Lumos demo page.** `/example-components` still builds (noindexed, not in the sitemap, not linked). Delete it before launch? Recommended. | Should not be reachable on production. | Project lead | OPEN | |
+| OQ-33 | **Employers pages.** `detail_employers` has no CSV and no live URLs in the crawl, so it was not built (see OQ-07, OQ-22). Confirm nothing is needed. | Zero-loss check. | Marketing | OPEN | |
 | OQ-21 | **Webflow-hosted files.** OG images and any linked PDFs are served from `cdn.prod.website-files.com`. When is Webflow hosting cancelled? Plan at least a 30-day overlap. | Files on Webflow's CDN disappear when the site is cancelled. Every one must be downloaded and re-hosted first. | Andy Milligan | OPEN | 2026-11-07 |
 
 ## Resolved

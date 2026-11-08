@@ -33,12 +33,15 @@ type Kind =
       variant?: "main";
       /** Visual emphasis. */
       emphasis?: Emphasis;
+      /** Button size. `main` is the everyday size, `large` is for primary calls to action. */
+      size?: "main" | "large";
       label?: never;
       pressed?: never;
       direction?: never;
     }
   | {
       variant: "link";
+      size?: never;
       /** A link carries no weight of its own: it is already the quietest. */
       emphasis?: never;
       label?: never;
@@ -48,6 +51,7 @@ type Kind =
   | {
       variant: "play";
       emphasis?: Emphasis;
+      size?: never;
       /** Accessible label. Defaults to `Play` or `Pause`. */
       label?: string;
       /** Show the pause icon and pressed state. */
@@ -57,6 +61,7 @@ type Kind =
   | {
       variant: "close";
       emphasis?: Emphasis;
+      size?: never;
       /** Accessible label. Defaults to `Close`. */
       label?: string;
       pressed?: never;
@@ -65,6 +70,7 @@ type Kind =
   | {
       variant: "arrow";
       emphasis?: Emphasis;
+      size?: never;
       /** Accessible label. Defaults to `Next` or `Previous`. */
       label?: string;
       pressed?: never;
@@ -83,6 +89,7 @@ type AllProps = HTMLAttributes<"button"> &
     render?: boolean;
     variant?: "main" | "link" | "play" | "close" | "arrow";
     emphasis?: Emphasis;
+    size?: "main" | "large";
     label?: string;
     pressed?: boolean;
     direction?: "forward" | "back";
@@ -95,6 +102,7 @@ const {
   render = true,
   variant = "main",
   emphasis = "primary",
+  size = "main",
   label,
   pressed = false,
   direction = "forward",
@@ -129,6 +137,7 @@ const named = {
       "button_wrap",
       emphasis !== "primary" && emphasis,
       variant !== "main" && variant,
+      size === "large" && "large",
       variant === "arrow" && direction === "back" && "back",
       className,
     ]}
@@ -140,6 +149,9 @@ const named = {
     {isWritten && (
       <span class="button_text text-style-trim">
         <Fragment set:html={content} />
+        {variant === "link" && (
+          <Icon class="button_link-arrow" src={arrow} variant="small" />
+        )}
       </span>
     )}
     {variant === "play" && (
@@ -164,7 +176,7 @@ const named = {
       justify-content: center;
       align-items: center;
       gap: 0.5em;
-      padding: 0.75em 1.5em;
+      padding: 0.5em 1.25em;
       background-color: var(--button-background);
       color: var(--button-text);
       border: var(--border-width) solid var(--button-border);
@@ -200,13 +212,20 @@ const named = {
           border-color: var(--button-border-hover);
         }
         &:not(.link):hover:not(:disabled) {
-          transform: translateY(-0.125rem);
+          transform: scale(0.95);
           background-image: linear-gradient(
             180deg,
             var(--button-background-hover),
             var(--button-background-end-hover)
           );
+          box-shadow:
+            0 0 0 0.25rem var(--button-ring),
+            0 0 0 calc(0.25rem + var(--border-width)) var(--light-100);
         }
+      }
+      &.large {
+        padding: 1.125em 2em;
+        font-size: var(--text-large);
       }
       &.secondary {
         --button-background: var(--button-2-background);
@@ -233,32 +252,40 @@ const named = {
         --button-text: var(--link-accent);
         --button-text-hover: var(--link-accent);
         text-transform: none;
-        --button-border: var(--link-border);
+        --button-border: transparent;
         --button-background-hover: transparent;
-        --button-text-hover: var(--link-text-hover);
-        --button-border-hover: var(--link-border);
+        --button-border-hover: transparent;
 
         padding: 0.4em 0;
         border: 0;
-        border-bottom: var(--border-width) solid var(--button-border);
         border-radius: 0;
-        background-image: linear-gradient(
-          var(--link-border-hover),
-          var(--link-border-hover)
-        );
-        background-repeat: no-repeat;
-        background-origin: border-box;
-        background-position: 100% 100%;
-        background-size: 0 var(--border-width);
-        transition:
-          background-size calc(var(--hover-duration) * 2) var(--hover-ease),
-          color var(--hover-duration) var(--hover-ease),
-          border-color var(--hover-duration) var(--hover-ease);
+        transition: color var(--hover-duration) var(--hover-ease);
+
+        /* Hung off the text, so the label stays centered and nothing shifts
+           when the arrow arrives. */
+        & .button_text {
+          position: relative;
+        }
+        & .button_link-arrow {
+          position: absolute;
+          top: 50%;
+          left: 100%;
+          margin-inline-start: 0.4em;
+          opacity: 0;
+          translate: -0.3em -50%;
+          transition:
+            opacity var(--hover-duration) var(--hover-ease),
+            translate var(--hover-duration) var(--hover-ease);
+        }
         @media (hover: hover) {
-          &:hover:not(:disabled) {
-            background-position: 0 100%;
-            background-size: 100% var(--border-width);
+          &:hover:not(:disabled) .button_link-arrow {
+            opacity: 1;
+            translate: 0 -50%;
           }
+        }
+        &:focus-visible .button_link-arrow {
+          opacity: 1;
+          translate: 0 -50%;
         }
       }
       &:is(.play, .close, .arrow) {

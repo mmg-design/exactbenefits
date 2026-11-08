@@ -1,0 +1,37 @@
+---
+import Section from "@/components/wrapper/Section.astro";
+import Marquee from "@/components/interactive/Marquee.astro";
+import Img from "@/components/media/Img.astro";
+import cigna from "@/assets/images/partners/global-partner-cigna.webp";
+import aetna from "@/assets/images/partners/global-partner-aetna.webp";
+import heartland from "@/assets/images/partners/global-partner-heartland-national.webp";
+import devoted from "@/assets/images/partners/global-partner-devoted.webp";
+import humana from "@/assets/images/partners/global-partner-humana.webp";
+import wellcare from "@/assets/images/partners/global-partner-wellcare.webp";
+import anthem from "@/assets/images/partners/global-partner-anthem.webp";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+}
+
+const { render = true } = Astro.props;
+
+const partners = [
+  { src: cigna, name: "Cigna" },
+  { src: aetna, name: "Aetna" },
+  { src: heartland, name: "Heartland National" },
+  { src: devoted, name: "Devoted Health" },
+  { src: humana, name: "Humana" },
+  { src: wellcare, name: "WellCare" },
+  { src: anthem, name: "Anthem" },
+];
+---
+
+<Section render={render} paddingTop="small" paddingBottom="small">
+  <Marquee label="Our Medicare carrier partners" controls={false}>
+    {partners.map((p) => (
+      <Img src={p.src} alt={p.name} variant="densities" height={44} transparent />
+    ))}
+  </Marquee>
+</Section>

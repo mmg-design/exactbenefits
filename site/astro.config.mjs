@@ -1,12 +1,16 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import react from "@astrojs/react";
 import { SITE_URL } from "./src/consts.ts";
 import { isNoindexRoute } from "./src/utils/seo.ts";
 
 export default defineConfig({
   site: SITE_URL,
+  trailingSlash: "never",
+  build: { format: "file" },
   integrations: [
+    react(),
     sitemap({
       filter: (page) => !isNoindexRoute(new URL(page).pathname),
     }),

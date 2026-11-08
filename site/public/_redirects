@@ -1,0 +1,3 @@
+# Mirrors 03-redirects/redirect-map.csv. The apex-to-www redirect lives in Cloudflare, not here.
+/blog/employer-medicare-penalties-what-triggers-retroactive-fees /blog/medicare-late-enrollment-penalties-what-employers-need-to-know 301
+/how-to-complete-form-cms-l564 /filling-out-the-l564-form 301

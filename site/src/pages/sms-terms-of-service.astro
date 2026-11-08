@@ -1,0 +1,17 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import ArticleLayout from "@/components/content/ArticleLayout.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+
+/* Policy text: word for word from Webflow. Changes need Legal approval (CLAUDE.md rule 10). */
+const body = "<p>1. When you opt-in to the service, we will send you a message to confirm your signup. By opting into this service you can expect to receive messages from Exact Benefits! Message and data rates may apply. Message frequency varies. Text “HELP” for help. Text “STOP” to cancel.</p>\n<p>2. You can cancel this service at any time. Just text “STOP” to opt out. After you send the message “STOP” to us, we will send you a reply message to confirm that you have been unsubscribed. After this, you will no longer receive messages from us. If you want to join again, just sign up as you did the first time and we will start sending messages to you again.</p>\n<p>3. If at any time you forget what keywords are supported, just text “HELP”. After you send the message “HELP” to us, we will respond with instructions on how to use our service as well as how to unsubscribe.</p>\n<p>4. Carriers are not liable for delayed or undelivered messages.</p>\n<p>5. For all questions about the services provided by this short code, you can send an email to info@exactbenefits.com.</p>\n<p>If you have any questions regarding privacy, please read our <a href=\"/privacy-policy\">privacy policy</a>.</p>";
+const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"Organization\",\n      \"@id\": \"https://www.exactbenefits.com/#organization\",\n      \"name\": \"Exact Benefits Powered by Exact Medicare\",\n      \"url\": \"https://www.exactbenefits.com/\",\n      \"telephone\": \"+1-888-893-9553\",\n      \"email\": \"info@exactbenefits.com\"\n    }\n  ]\n}";
+---
+
+<Layout fullTitle={"SMS Terms of Service | Exact Benefits"} description={"Read Exact Benefits SMS Terms of Service to understand opt-in messages, HELP/STOP instructions, message frequency, and user privacy and cancellation rules"}>
+  <Fragment slot="head"><script is:inline type="application/ld+json" set:html={schema} /></Fragment>
+  <ArticleLayout tag="Legal" heading="SMS Terms of Service" subheading="March 27, 2026" sideText={"Schedule a call with a licensed Medicare professional to discuss your needs and how we can transform your employee benefits."}>
+    <Fragment set:html={body} />
+  </ArticleLayout>
+  <ContactSection />
+</Layout>

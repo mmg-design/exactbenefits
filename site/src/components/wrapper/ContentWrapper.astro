@@ -10,6 +10,7 @@ type ContentWrapperVariant =
   | "contain"
   | "sticky-content"
   | "sticky-visual"
+  | "sticky-stack"
   | "card";
 
 type Base = HTMLAttributes<"div"> & {
@@ -44,7 +45,7 @@ type Props = Base &
         cardTheme?: never;
       }
     | {
-        variant: "columns" | "breakout" | "contain";
+        variant: "columns" | "breakout";
         /** Show the second column first. */
         reverse?: boolean;
         centered?: never;
@@ -52,7 +53,16 @@ type Props = Base &
         cardTheme?: never;
       }
     | {
-        variant: "sticky-content" | "sticky-visual";
+        variant: "contain";
+        /** Show the second column first. */
+        reverse?: boolean;
+        centered?: never;
+        mediaOpacity?: never;
+        /** Solid card theme, using the theme's main background. */
+        cardTheme?: "dark" | "light";
+      }
+    | {
+        variant: "sticky-content" | "sticky-visual" | "sticky-stack";
         reverse?: never;
         centered?: never;
         mediaOpacity?: never;
@@ -91,7 +101,7 @@ const {
   reverse = false,
   centered = false,
   mediaOpacity,
-  cardTheme = "dark",
+  cardTheme,
   column1Class,
   column2Class,
   class: className,
@@ -125,8 +135,10 @@ const variantClasses =
   variant === "stack"
     ? []
     : variant === "card"
-      ? ["card-layout", `theme-${cardTheme}`]
-      : [variant];
+      ? ["card-layout", `theme-${cardTheme ?? "dark"}`]
+      : variant === "contain" && cardTheme
+        ? ["contain", "themed", `theme-${cardTheme}`]
+        : [variant];
 
 const column1 = await slotContent(Astro.slots);
 const column2 = await slotContent(Astro.slots, "column2");
@@ -259,6 +271,39 @@ const column2 = await slotContent(Astro.slots, "column2");
           }
         }
       }
+      /* Second column's children slide up and pile over one another as the
+         page scrolls, beside a pinned first column. Short screens scroll
+         normally, so a pinned card can never hide the one under it. */
+      &.sticky-stack {
+        --_stack-top: 30svh;
+        display: grid;
+        @media (width >= 62rem) {
+          --_column-count: 2;
+          & > :first-child {
+            align-self: start;
+          }
+        }
+        & > :last-child > * {
+          margin-bottom: var(--section-space-medium);
+        }
+        @media (height >= 40rem) {
+          & > :last-child > * {
+            position: sticky;
+            top: calc(var(--_stack-top) + var(--_stack-step, 0) * 2svh);
+          }
+          & > :last-child > :nth-child(2) { --_stack-step: 1; }
+          & > :last-child > :nth-child(3) { --_stack-step: 2; }
+          & > :last-child > :nth-child(4) { --_stack-step: 3; }
+          & > :last-child > :nth-child(5) { --_stack-step: 4; }
+          & > :last-child > :nth-child(6) { --_stack-step: 5; }
+          @media (width >= 62rem) {
+            & > :first-child {
+              position: sticky;
+              top: var(--_stack-top);
+            }
+          }
+        }
+      }
       &.breakout {
         display: grid;
         width: 100vw;
@@ -315,6 +360,14 @@ const column2 = await slotContent(Astro.slots, "column2");
               order: -1;
             }
           }
+        }
+      }
+      &.contain.themed {
+        background-color: var(--background);
+        border: var(--border-width) solid var(--light-300);
+        & > :last-child {
+          justify-content: center;
+          padding: var(--space-6);
         }
       }
       &.card-layout {

@@ -186,12 +186,19 @@ const content = await slotContent(Astro.slots);
         scale var(--open-duration) var(--open-ease);
     }
 
+    .dropdown_toggle .dropdown_icon.icon {
+      --_size: 0.7em;
+    }
+
     .dropdown_wrap.responsive .dropdown_content {
+      background-color: var(--light-100);
+      box-shadow: 0 0.75rem 2rem var(--shadow-soft);
       @media (width < 80rem) {
         position: static;
         width: auto;
         max-width: none;
         background-color: transparent;
+        box-shadow: none;
         translate: 0 0;
         scale: 1;
       }

@@ -7,17 +7,21 @@
   --dark-700: #1a2531;
   --dark-800: #0d131a;
   --dark-900: #111922;
+  --dark-950: #06090c;
+  --teal-50: #f7fcfc;
   --teal-100: #e6f6f6;
   --teal-200: #d9f1f1;
   --teal-300: #b0e3e3;
   --teal-500: #00a4a4;
   --teal-600: #008383;
   --teal-700: #007b7b;
+  --teal-800: #004a4a;
   --teal-900: #003939;
   --lime-100: #fdfeec;
   --lime-200: #fbfee2;
   --lime-500: #e6f53d;
   --lime-600: #cfdd37;
+  --lime-700: #b8c431;
   --text-lighter: #636262;
   --brand-500: var(--teal-500);
   --brand-text: var(--dark-900);
@@ -170,6 +174,10 @@
   --text-large-font-family: var(--primary-family);
   --text-large-font-weight: var(--primary-regular);
   --text-large-text-wrap: pretty;
+
+  --text-medium: clamp(var(--text-medium-min) / 16 * 1rem, ((var(--text-medium-min) - ((var(--text-medium-max) - var(--text-medium-min)) / (var(--viewport-max) - var(--viewport-min)) * var(--viewport-min))) / 16 * 1rem + ((var(--text-medium-max) - var(--text-medium-min)) / (var(--viewport-max) - var(--viewport-min))) * 100vw), var(--text-medium-max) / 16 * 1rem);
+  --text-medium-min: 16;
+  --text-medium-max: 18;
 
   --text-main: clamp(var(--text-main-min) / 16 * 1rem, ((var(--text-main-min) - ((var(--text-main-max) - var(--text-main-min)) / (var(--viewport-max) - var(--viewport-min)) * var(--viewport-min))) / 16 * 1rem + ((var(--text-main-max) - var(--text-main-min)) / (var(--viewport-max) - var(--viewport-min))) * 100vw), var(--text-main-max) / 16 * 1rem);
   --text-main-min: 16;

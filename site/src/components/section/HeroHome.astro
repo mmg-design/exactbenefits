@@ -4,6 +4,7 @@ import Section from "@/components/wrapper/Section.astro";
 import Img from "@/components/media/Img.astro";
 import blurRight from "@/assets/images/home/home-hero-blur-right.webp";
 import blurLeft from "@/assets/images/home/home-hero-blur-left.webp";
+import poster from "@/assets/images/home/home-hero-advisor-poster.webp";
 import animation from "@/assets/animations/home-hero-benefits.json?url";
 
 type Props = Pick<
@@ -59,32 +60,43 @@ const {
         data-src={animation}
         role="img"
         aria-label="Smiling Exact Benefits advisor with four highlights: No HR Burden, dedicated account manager; Zero Cost, completely free service; Trusted Guidance, licensed Medicare experts; Savings, save over $7,000 per employee."
-      />
+      >
+        {/* Shows the settled frame at once; the animation takes over from that frame. */}
+        <Img src={poster} alt="" transparent loading="eager" fetchPriority="high" variant="constrained" sizes="(min-width: 62rem) 50vw, 100vw" />
+      </div>
     )}
   </div>
 </Section>
 
 <script>
-  import lottie from "lottie-web/build/player/lottie_svg";
+  const SETTLED_FRAME = 60;
 
-  for (const el of document.querySelectorAll<HTMLElement>(".hero-home_animation")) {
-    const path = el.dataset.src;
-    if (!path) continue;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const player = lottie.loadAnimation({
-      container: el,
-      renderer: "svg",
-      loop: false,
-      autoplay: !reduced,
-      path,
-      rendererSettings: { preserveAspectRatio: "xMidYMax meet" },
-    });
-    if (reduced) {
+  async function start() {
+    const { default: lottie } = await import("lottie-web/build/player/lottie_svg");
+    for (const el of document.querySelectorAll<HTMLElement>(".hero-home_animation")) {
+      const path = el.dataset.src;
+      if (!path) continue;
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const player = lottie.loadAnimation({
+        container: el,
+        renderer: "svg",
+        loop: false,
+        autoplay: false,
+        path,
+        rendererSettings: { preserveAspectRatio: "xMidYMax meet" },
+      });
       player.addEventListener("DOMLoaded", () => {
-        player.goToAndStop(player.totalFrames - 1, true);
+        if (reduced) player.goToAndStop(player.totalFrames - 1, true);
+        else player.playSegments([SETTLED_FRAME, player.totalFrames], true);
+        el.querySelector(":scope > .image")?.remove();
       });
     }
   }
+
+  /* The animation waits until the page is ready, so it can't hold up the first view. */
+  const whenIdle = () => ("requestIdleCallback" in window ? requestIdleCallback(start, { timeout: 3000 }) : setTimeout(start, 1500));
+  if (document.readyState === "complete") whenIdle();
+  else window.addEventListener("load", whenIdle, { once: true });
 </script>
 
 <style is:global>
@@ -165,6 +177,7 @@ const {
     .hero-home_animation {
       width: 100%;
       max-width: 42rem;
+      position: relative;
       aspect-ratio: 880 / 769;
       margin-inline: auto;
       align-self: end;
@@ -180,7 +193,9 @@ const {
       }
     }
 
-    .hero-home_still > .image {
+    .hero-home_animation > .image {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: contain;

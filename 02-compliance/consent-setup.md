@@ -19,7 +19,7 @@
 
 ## New site status (2026-11-08)
 
-Termageddon / Usercentrics is installed in `site/src/components/compliance/ConsentManager.astro` on every page (D-042, D-048). Tested: the banner shows on a first visit; a saved choice suppresses it on return; the privacy button reopens it. Not yet tested: Global Privacy Control, consent-record export. Open items: OQ-08, OQ-36, OQ-37.
+Termageddon / Usercentrics is installed in `site/src/components/compliance/ConsentManager.astro` on every page (D-042, D-048). Tested: the banner shows on a first visit; a saved choice suppresses it on return; the privacy button reopens it. Not yet tested: Global Privacy Control, consent-record export. Open items: OQ-08, OQ-36, OQ-37. Trackers (D-050) are in the same component as inert `type="text/plain"` tags that Usercentrics runs after consent. Clarity, Leadfeeder and Apollo.io stay off until they are added to the Termageddon service list (OQ-41).
 
 ## Rules for the new site
 

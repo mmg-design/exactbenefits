@@ -5,7 +5,7 @@
 
 ## Source of truth
 
-`03-redirects/redirect-map.csv` is the only source. The site's Cloudflare redirect file (`site/public/_redirects`) is generated from it and never hand-edited. Every URL change needs a row (CLAUDE.md rule 4).
+`03-redirects/redirect-map.csv` is the only source. The site's Cloudflare redirect file (`site/public/_redirects`) is generated from it by `node 03-redirects/generate-redirects.mjs` (after `npm run build` in `site/`) and never hand-edited. Every URL change needs a row (CLAUDE.md rule 4).
 
 ## Rules
 

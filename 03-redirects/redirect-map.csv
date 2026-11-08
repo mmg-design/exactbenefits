@@ -1,0 +1,7 @@
+# REDIRECT MAP - every old URL that changes, and where it goes. Every URL change requires a row here (CLAUDE.md rule 4).
+# Owner: Web lead; Marketing approves any page removal/merge. URLs that stay identical do not need a row (they are tracked in 01-audit/url-inventory.csv).
+# TODO: Webflow hosting has its own 301 redirect list (Site settings > Publishing > 301 redirects) that is NOT in the export - copy every rule in here.
+# Columns: old_url | new_url | status_code (301 permanent unless noted) | reason | verified=date + who confirmed it on staging and on production
+# Lines starting with # are notes; skip them when importing into a spreadsheet.
+old_url,new_url,status_code,reason,verified
+https://exactbenefits.com/*,https://www.exactbenefits.com/:splat,301,Existing behavior: apex domain redirects to www (preserve on Cloudflare),

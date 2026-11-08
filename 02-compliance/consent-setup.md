@@ -14,6 +14,7 @@
 - **NOT gated (loads before consent):**
   - **Google Analytics 4 `G-9F1FS7LQG6`.** Added through Webflow's built-in GA setting, so it sits outside CookieFlow and fires on every page immediately. ⚠️ Gap.
   - Adobe Fonts (Typekit kit `ibo2hlj`) and the Go High Level form script. These may qualify as necessary; compliance to confirm (OQ-10).
+  - **YouTube video** (Webflow video embed via Embedly), bound to the Education "Event Recording Link" field on `/webinars` and the Education template. It sets YouTube cookies. ⚠️ Gap. New site: click-to-load placeholder using `youtube-nocookie.com`, loaded only after marketing consent or an explicit click.
 - **Broken link:** the banner links to `/legal/cookie-policy`, which returns 404. ⚠️ Gap (OQ-08).
 
 ## Rules for the new site

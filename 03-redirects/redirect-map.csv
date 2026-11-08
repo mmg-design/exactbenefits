@@ -1,7 +1,9 @@
 # REDIRECT MAP - every old URL that changes, and where it goes. Every URL change requires a row here (CLAUDE.md rule 4).
 # Owner: Web lead; Marketing approves any page removal/merge. URLs that stay identical do not need a row (they are tracked in 01-audit/url-inventory.csv).
-# TODO: Webflow hosting has its own 301 redirect list (Site settings > Publishing > 301 redirects) that is NOT in the export - copy every rule in here.
+# Webflow 301 list exported 2026-11-07 (00-source/exact-benefits-2026-11-08.csv): 2 rules, both carried over below.
 # Columns: old_url | new_url | status_code (301 permanent unless noted) | reason | verified=date + who confirmed it on staging and on production
 # Lines starting with # are notes; skip them when importing into a spreadsheet.
 old_url,new_url,status_code,reason,verified
 https://exactbenefits.com/*,https://www.exactbenefits.com/:splat,301,Existing behavior: apex domain redirects to www (preserve on Cloudflare),
+https://www.exactbenefits.com/blog/employer-medicare-penalties-what-triggers-retroactive-fees,https://www.exactbenefits.com/blog/medicare-late-enrollment-penalties-what-employers-need-to-know,301,"Existing Webflow 301 (exported 2026-11-07), carry over unchanged",Live Webflow 2026-11-07: single 301 -> 200. Staging: TBD
+https://www.exactbenefits.com/how-to-complete-form-cms-l564,https://www.exactbenefits.com/filling-out-the-l564-form,301,"Existing Webflow 301 (exported 2026-11-07), carry over unchanged",Live Webflow 2026-11-07: single 301 -> 200. Staging: TBD

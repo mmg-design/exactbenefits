@@ -25,6 +25,27 @@
 5. **CMS collections outside the sitemap** (Education Pieces, Employers, Partners, Blog Categories) have no public URLs in the sitemap. Confirm whether any of their items are indexed (Search Console → Pages).
 6. **The `/legal/cookie-policy` link returns 404** (linked from the cookie banner on every page).
 
+### From the Webflow CMS exports (2026-11-07)
+
+7. **34 broken internal links in blog posts.** Posts link to 5 `/webinars/{slug}` Education pages that all return 404, including the one item marked published in the CMS (OQ-24):
+
+   | Dead URL | Links |
+   |---|---|
+   | `/webinars/medicare-open-enrollment-2023` (+1 with a trailing period) | 12 |
+   | `/webinars/medicare-advantage-plans-explained` | 9 |
+   | `/webinars/navigating-medicare-options` | 7 |
+   | `/webinars/medicare-and-preventive-services` (+1 inside a malformed link) | 6 |
+
+8. **3 links to a redirected URL** (`/blog/employer-medicare-penalties-what-triggers-retroactive-fees`, which 301s). Update them to the final URL during import.
+9. **4 malformed links in blog bodies:**
+   - `do-employees-still-working-past-65-actually-need-medicare`: href is `https://Medicare Late Enrollment Penalties: What Employers Need to Know` (link text pasted as URL)
+   - `what-employers-need-to-know-when-employees-turn-65`: two URLs joined in one href
+   - `employer-medicare-20-employee-rule-ohio`: trailing period on `/webinars/medicare-open-enrollment-2023.`
+   - `medicare-coverage-vs-private-insurance-which-is-better-for-you` (draft): href `http://coverage`
+10. **CMS status doesn't match the live site:** `/blog/documentation-what-hr-should-keep-on-file` is **Draft** in Webflow but **live (200)** and in the sitemap (OQ-23).
+11. **Partners and Blog Categories have no public URLs** (tested `/partners/`, `/partner/`, `/blog-category/`, `/blog-categories/`, `/category/`, all 404), so there's nothing to preserve for them.
+12. **Webflow 301s:** 2 rules, both working (single hop → 200) and carried into `03-redirects/redirect-map.csv`.
+
 ## To capture before launch (TBD)
 
 - [ ] **Search Console, last 16 months:** export Performance (queries + pages), Pages indexing report, Links (top linked pages + linking sites).

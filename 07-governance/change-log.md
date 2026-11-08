@@ -5,6 +5,9 @@
 
 | Date | Change | Branch / PR | Environment | Requested by | Approved by |
 |---|---|---|---|---|---|
+| 2026-11-08 | Consent on every page, SMS disclosure under the consultation form, `/sitemap.xml` restored, `pages.dev` noindexed (D-048) | `content/cookie-policy` (no PR yet) | Local dev (not deployed) | Andy Milligan | Andy Milligan (project lead, on behalf of compliance; Compliance to confirm, OQ-02) |
+| 2026-11-08 | Privacy Policy: leftover drafting text removed and phone number corrected (D-047) | `content/cookie-policy` (no PR yet) | Local dev (not deployed) | Andy Milligan | Andy Milligan (project lead, approving on behalf of Legal/Compliance) |
+| 2026-11-08 | Cookie Policy page added and linked in footer; temporary redirect removed (D-046) | `content/cookie-policy` (no PR yet) | Local dev (not deployed) | Andy Milligan | Pending Legal review |
 | 2026-11-08 | Redirect map completed; `_redirects` now generated and validated from it (D-045) | `fix/redirect-map` → [PR #8](https://github.com/mmg-design/exactbenefits/pull/8) into `staging` | Staging preview | Andy Milligan | Andy Milligan (project lead; formal approvers TBD, OQ-02) |
 | 2026-11-08 | Blog listing categories in lime tags; Go High Level consultation and subscribe forms live (D-044) | `fix/blog-card-tags` → [PR #7](https://github.com/mmg-design/exactbenefits/pull/7) into `staging` | Staging preview | Andy Milligan | Andy Milligan (project lead; formal approvers TBD, OQ-02) |
 | 2026-11-08 | Carrier logo sizes restored; Adobe Fonts stylesheet exempted from consent blocker (D-043) | `feature/sanity-cms` → [PR #6](https://github.com/mmg-design/exactbenefits/pull/6) into `staging` | Staging preview | Andy Milligan | Andy Milligan (project lead; formal approvers TBD, OQ-02) |

@@ -5,6 +5,7 @@
 
 | Date | Change | Branch / PR | Environment | Requested by | Approved by |
 |---|---|---|---|---|---|
+| 2026-11-08 | Redirect map completed; `_redirects` now generated and validated from it (D-045) | `fix/redirect-map` → [PR #8](https://github.com/mmg-design/exactbenefits/pull/8) into `staging` | Staging preview | Andy Milligan | Andy Milligan (project lead; formal approvers TBD, OQ-02) |
 | 2026-11-08 | Blog listing categories in lime tags; Go High Level consultation and subscribe forms live (D-044) | `fix/blog-card-tags` → [PR #7](https://github.com/mmg-design/exactbenefits/pull/7) into `staging` | Staging preview | Andy Milligan | Andy Milligan (project lead; formal approvers TBD, OQ-02) |
 | 2026-11-08 | Carrier logo sizes restored; Adobe Fonts stylesheet exempted from consent blocker (D-043) | `feature/sanity-cms` → [PR #6](https://github.com/mmg-design/exactbenefits/pull/6) into `staging` | Staging preview | Andy Milligan | Andy Milligan (project lead; formal approvers TBD, OQ-02) |
 | 2026-11-08 | Termageddon / Usercentrics consent banner added to the homepage (D-042); three tools logged in the tag registry | `feature/sanity-cms` → [PR #6](https://github.com/mmg-design/exactbenefits/pull/6) into `staging` | Staging preview | Andy Milligan | Andy Milligan (project lead; formal approvers TBD, OQ-02) |

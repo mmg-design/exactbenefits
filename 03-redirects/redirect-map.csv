@@ -7,3 +7,18 @@ old_url,new_url,status_code,reason,verified
 https://exactbenefits.com/*,https://www.exactbenefits.com/:splat,301,Existing behavior: apex domain redirects to www (preserve on Cloudflare),
 https://www.exactbenefits.com/blog/employer-medicare-penalties-what-triggers-retroactive-fees,https://www.exactbenefits.com/blog/medicare-late-enrollment-penalties-what-employers-need-to-know,301,"Existing Webflow 301 (exported 2026-11-07), carry over unchanged",Live Webflow 2026-11-07: single 301 -> 200. Staging: TBD
 https://www.exactbenefits.com/how-to-complete-form-cms-l564,https://www.exactbenefits.com/filling-out-the-l564-form,301,"Existing Webflow 301 (exported 2026-11-07), carry over unchanged",Live Webflow 2026-11-07: single 301 -> 200. Staging: TBD
+https://www.exactbenefits.com/webinars/medicare-and-preventive-services,https://www.exactbenefits.com/education-pieces/medicare-and-preventive-services,301,"Never a real page; blog posts linked here by mistake. Closest page: the same resource at its real URL (D-013). Target is noindex, matching live",
+https://www.exactbenefits.com/webinars/medicare-advantage-plans-explained,https://www.exactbenefits.com/webinars,301,"Never a real page; blog posts linked here by mistake. Closest page: the Medicare Resource Library, because the matching item is an unpublished draft",
+https://www.exactbenefits.com/webinars/medicare-open-enrollment-2023,https://www.exactbenefits.com/webinars,301,"Never a real page; blog posts linked here by mistake. Closest page: the Medicare Resource Library, because the matching item is an unpublished draft",
+https://www.exactbenefits.com/webinars/medicare-open-enrollment-2023.,https://www.exactbenefits.com/webinars,301,"Malformed copy of the URL above with a trailing period (1 inlink in crawl)",
+https://www.exactbenefits.com/webinars/navigating-medicare-options,https://www.exactbenefits.com/webinars,301,"Never a real page; blog posts linked here by mistake. Closest page: the Medicare Resource Library, because the matching item is an unpublished draft",
+https://www.exactbenefits.com/webinars/medicare-webinar-2023,https://www.exactbenefits.com/webinars,301,"Never a real page; blog posts linked here by mistake. Closest page: the Medicare Resource Library, because the matching item is an unpublished draft",
+https://www.exactbenefits.com/blog/do-employees-still-working-past-65-actually-need-medicare%20/webinars/medicare-and-preventive-services,https://www.exactbenefits.com/blog/do-employees-still-working-past-65-actually-need-medicare,301,"Malformed URL from one CMS link holding two addresses (1 inlink in crawl). Sends to the valid page named first",
+https://www.exactbenefits.com/legal/cookie-policy,https://www.exactbenefits.com/privacy-policy,302,"TEMPORARY until the Cookie Policy is published (OQ-08), then delete this row. 302 so browsers do not cache it; 31 inlinks in crawl from the old banner",
+# NOT REDIRECTED (reviewed 2026-11-08). These never served public content, or must stay free for a future page. See OQ-39.
+# /401 - Webflow password page (200 today, no content). No equivalent page; a homepage redirect is not appropriate.
+# /style-guide - Webflow internal page, unpublished (404 today).
+# /blog/medicare-coverage-vs-private-insurance-which-is-better-for-you - unpublished draft (404 today). A redirect would block the URL when published.
+# /education-pieces/medicare-advantage-plans-explained, /education-pieces/medicare-open-enrollment-2023, /education-pieces/navigating-medicare-options, /education-pieces/medicare-webinar-2023 - unpublished drafts (404 today). Same reason.
+# /partners/* and /blog-category/* - no public pages exist (404 today).
+# Employers item URLs - unknown, no export received (OQ-22).

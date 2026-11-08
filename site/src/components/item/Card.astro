@@ -29,6 +29,8 @@ type Base = HTMLAttributes<"div"> & {
   text?: string;
   /** Button label. Omit to hide the button. */
   buttonLabel?: string;
+  /** Screen-reader-only words that say where a generic label like "Read More" goes. */
+  buttonContext?: string;
   /** Button destination. Omit for a `<button>`. */
   buttonHref?: string;
   /** Card layout. */
@@ -109,6 +111,7 @@ const {
   headingVariant = "h5",
   text,
   buttonLabel,
+  buttonContext,
   buttonHref,
   variant = "default",
   theme = "inherit",
@@ -212,6 +215,7 @@ if (import.meta.env.DEV && render) {
           {buttonHref ? (
             <Button element="link" href={buttonHref} {...buttonKind}>
               {buttonLabel}
+              {buttonContext && <span class="sr-only">{`: ${buttonContext}`}</span>}
             </Button>
           ) : (
             <Button {...buttonKind}>{buttonLabel}</Button>

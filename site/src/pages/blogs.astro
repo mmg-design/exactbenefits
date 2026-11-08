@@ -48,6 +48,7 @@ const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n   
           heading={post.data.title}
           text={formatDate(post.data.date)}
           buttonLabel="Read More"
+          buttonContext={post.data.title}
           buttonHref={`/blog/${post.id}`}
         />
       ))}

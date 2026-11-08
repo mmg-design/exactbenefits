@@ -1,0 +1,222 @@
+---
+import type { ComponentProps } from "astro/types";
+import Section from "@/components/wrapper/Section.astro";
+import Img from "@/components/media/Img.astro";
+import blurRight from "@/assets/images/home/home-hero-blur-right.webp";
+import blurLeft from "@/assets/images/home/home-hero-blur-left.webp";
+import poster from "@/assets/images/home/home-hero-advisor-poster.webp";
+import animation from "@/assets/animations/home-hero-benefits.json?url";
+
+type Props = Pick<
+  ComponentProps<typeof Section>,
+  "render" | "theme" | "paddingTop" | "paddingBottom"
+> &
+  Omit<ComponentProps<typeof Section>, "class" | "containerClass"> & {
+    /** Still image in place of the animation. */
+    image?: ImageMetadata;
+    /** Alt text for `image`. */
+    imageAlt?: string;
+  };
+
+const {
+  render = true,
+  theme = "inherit",
+  paddingTop = "small",
+  paddingBottom = "small",
+  image,
+  imageAlt,
+  ...rest
+} = Astro.props;
+---
+
+<Section
+  render={render}
+  theme={theme}
+  paddingTop={paddingTop}
+  paddingBottom={paddingBottom}
+  containerClass="hero-home_container"
+  {...rest}
+>
+  <div slot="background" class="hero-home_background" aria-hidden="true">
+    <div class="hero-home_blur-left">
+      <Img src={blurLeft} alt="" transparent loading="eager" />
+    </div>
+    <div class="hero-home_blur-right">
+      <Img src={blurRight} alt="" transparent loading="eager" fetchPriority="high" />
+    </div>
+    <div class="hero-home_fade" />
+  </div>
+  <div class="hero-home_wrap">
+    <div class="hero-home_content">
+      <slot />
+    </div>
+    {image ? (
+      <div class="hero-home_animation hero-home_still">
+        <Img src={image} alt={imageAlt} transparent loading="eager" fetchPriority="high" variant="constrained" sizes="50vw" />
+      </div>
+    ) : (
+      <div
+        class="hero-home_animation"
+        data-src={animation}
+        role="img"
+        aria-label="Smiling Exact Benefits advisor with four highlights: No HR Burden, dedicated account manager; Zero Cost, completely free service; Trusted Guidance, licensed Medicare experts; Savings, save over $7,000 per employee."
+      >
+        {/* Shows the settled frame at once; the animation takes over from that frame. */}
+        <Img src={poster} alt="" transparent loading="eager" fetchPriority="high" variant="constrained" sizes="(min-width: 62rem) 50vw, 100vw" />
+      </div>
+    )}
+  </div>
+</Section>
+
+<script>
+  const SETTLED_FRAME = 60;
+
+  async function start() {
+    const { default: lottie } = await import("lottie-web/build/player/lottie_svg");
+    for (const el of document.querySelectorAll<HTMLElement>(".hero-home_animation")) {
+      const path = el.dataset.src;
+      if (!path) continue;
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const player = lottie.loadAnimation({
+        container: el,
+        renderer: "svg",
+        loop: false,
+        autoplay: false,
+        path,
+        rendererSettings: { preserveAspectRatio: "xMidYMax meet" },
+      });
+      player.addEventListener("DOMLoaded", () => {
+        if (reduced) player.goToAndStop(player.totalFrames - 1, true);
+        else player.playSegments([SETTLED_FRAME, player.totalFrames], true);
+        el.querySelector(":scope > .image")?.remove();
+      });
+    }
+  }
+
+  /* The animation waits until the page is ready, so it can't hold up the first view. */
+  const whenIdle = () => ("requestIdleCallback" in window ? requestIdleCallback(start, { timeout: 3000 }) : setTimeout(start, 1500));
+  if (document.readyState === "complete") whenIdle();
+  else window.addEventListener("load", whenIdle, { once: true });
+</script>
+
+<style is:global>
+  @layer components {
+    .hero-home_background {
+      overflow: clip;
+    }
+
+    .hero-home_blur-left,
+    .hero-home_blur-right {
+      position: absolute;
+      & > * {
+        width: 100%;
+        height: 100%;
+        object-position: bottom center;
+      }
+    }
+
+    .hero-home_blur-left {
+      display: none;
+      top: -21%;
+      left: -9%;
+      width: min(42vw, 40rem);
+      height: auto;
+      aspect-ratio: 454 / 359;
+      opacity: 0.15;
+      @media (width >= 62rem) {
+        display: block;
+      }
+      & > * {
+        object-fit: contain;
+        object-position: top left;
+      }
+    }
+
+    .hero-home_blur-right {
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 45%;
+      opacity: 0.5;
+      @media (width >= 62rem) {
+        width: 48%;
+        height: 92%;
+        opacity: 1;
+      }
+    }
+
+    .hero-home_fade {
+      position: absolute;
+      inset: auto 0 0;
+      z-index: 1;
+      height: 11%;
+      background-image: linear-gradient(0deg, var(--background) 8%, transparent);
+    }
+
+    .hero-home_wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      align-items: center;
+      gap: var(--space-6);
+      width: 100%;
+      @media (width >= 62rem) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.75fr);
+        min-height: calc(min(85svh, 55rem) - var(--section-space-small) * 2);
+      }
+    }
+
+    /* The animation has to measure against the whole section. */
+    .hero-home_container {
+      @media (width >= 62rem) {
+        position: static;
+      }
+    }
+
+    /* From 62rem she fills the right half of the viewport, full section
+       height, independent of the text column. */
+    .hero-home_animation {
+      width: 100%;
+      max-width: 42rem;
+      position: relative;
+      aspect-ratio: 880 / 769;
+      margin-inline: auto;
+      align-self: end;
+      @media (width >= 62rem) {
+        position: absolute;
+        inset: 0 max(0rem, (100vw - 120rem) / 2) 0 auto;
+        width: min(50vw, 60rem);
+        height: 100%;
+        max-width: none;
+        aspect-ratio: auto;
+        margin: 0;
+        translate: -2% 0;
+      }
+    }
+
+    .hero-home_animation > .image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+
+    .hero-home_content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 41.25rem;
+      position: relative;
+      z-index: 1;
+      --h1-margin-bottom: var(--space-5);
+      & em {
+        background-image: linear-gradient(90deg, var(--teal-700), var(--teal-500));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        padding-inline-end: 0.08em;
+      }
+    }
+  }
+</style>

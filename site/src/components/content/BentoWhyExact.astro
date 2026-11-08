@@ -1,0 +1,194 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Img from "@/components/media/Img.astro";
+
+type Tone = "foam" | "aqua" | "brand" | "night";
+
+type Item = {
+  heading: string;
+  text: string;
+  image: ImageMetadata;
+  /** Alt text. Omit for decorative images. */
+  imageAlt?: string;
+  /** Card colour. */
+  tone: Tone;
+  /** Column span from 62rem: `small` is one of three, `large` is two. */
+  size: "small" | "large";
+  /** Which side of the card the image rests on. Defaults to `center`. */
+  imageSide?: "left" | "center" | "right";
+  /** Widest the image may grow, as a CSS length. Defaults to `100%`. */
+  imageWidth?: string;
+  /** Which side of a large card the text sits on. Defaults to `left`. */
+  textSide?: "left" | "right";
+};
+
+type Props = HTMLAttributes<"div"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Cards in reading order. Three rows, mixing small and large. */
+  items?: Item[];
+  /** Heading level for each card. */
+  headingTag?: "h3" | "h4";
+};
+
+const {
+  render = true,
+  items = [],
+  headingTag = "h3",
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+{render && items.length > 0 && (
+  <div class:list={["bento-why-exact_wrap", className]} {...rest}>
+    {items.map((item) => (
+      <article
+        class:list={[
+          "bento-why-exact_card",
+          item.tone,
+          item.size,
+          item.imageSide ?? "center",
+          item.textSide === "right" && "text-right",
+        ]}
+        style={item.imageWidth ? `--_image-width: ${item.imageWidth}` : undefined}
+      >
+        <div class="bento-why-exact_visual">
+          <Img src={item.image} alt={item.imageAlt} transparent variant="constrained" sizes="(width >= 62rem) 50vw, 100vw" />
+        </div>
+        <div class="bento-why-exact_content">
+          <Heading tag={headingTag} variant="h4">
+            {item.heading}
+          </Heading>
+          <Paragraph>{item.text}</Paragraph>
+        </div>
+      </article>
+    ))}
+  </div>
+)}
+
+<style is:global>
+  @layer components {
+    .bento-why-exact_wrap {
+      --_alignment: start;
+      display: grid;
+      text-align: start;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-3);
+      width: 100%;
+      @media (width >= 62rem) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-rows: 28.125rem;
+        grid-template-rows: 26.25rem 31.25rem 28.125rem;
+      }
+    }
+
+    /* Below 62rem the text sits above the image. From 62rem the image is a
+       backdrop anchored to the card's floor. Either way it is contained, so
+       nothing is ever cut off. */
+    .bento-why-exact_card {
+      --_card-background: var(--teal-200);
+      --_card-text: var(--teal-900);
+      --_image-width: 100%;
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+      min-height: 22rem;
+      background-color: var(--_card-background);
+      color: var(--_card-text);
+      border-radius: var(--radius-main);
+      overflow: clip;
+      @media (width >= 62rem) {
+        min-height: 0;
+        &.large {
+          grid-column: span 2;
+        }
+      }
+
+      &.aqua {
+        --_card-background: var(--teal-300);
+      }
+      &.brand {
+        --_card-background: var(--teal-600);
+        --_card-text: var(--light-100);
+      }
+      &.night {
+        --_card-background: var(--dark-800);
+        --_card-text: var(--teal-100);
+      }
+    }
+
+    .bento-why-exact_content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-5);
+      @media (width >= 62rem) {
+        .large > & {
+          max-width: 42%;
+        }
+        .text-right > & {
+          margin-inline-start: auto;
+        }
+      }
+    }
+
+    .bento-why-exact_visual {
+      order: 1;
+      position: relative;
+      display: flex;
+      flex: 1;
+      min-height: 14rem;
+      transform-origin: bottom center;
+      transition: scale calc(var(--hover-duration) * 2) var(--hover-ease);
+      .bento-why-exact_card:hover & {
+        scale: 1.02;
+      }
+      @media (width >= 62rem) {
+        order: 0;
+        position: absolute;
+        bottom: 0;
+        width: var(--_image-width);
+        height: 100%;
+        min-height: 0;
+        .left > & {
+          left: 0;
+          transform-origin: bottom left;
+        }
+        .center > & {
+          left: 50%;
+          translate: -50% 0;
+        }
+        .right > & {
+          right: 0;
+          transform-origin: bottom right;
+        }
+      }
+      & > .image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: bottom center;
+        @media (width >= 62rem) {
+          inset: auto 0 0;
+          height: auto;
+          max-width: none;
+        }
+      }
+    }
+
+    .bento-why-exact_card.left .bento-why-exact_visual > .image {
+      object-position: bottom left;
+    }
+
+    .bento-why-exact_card.right .bento-why-exact_visual > .image {
+      object-position: bottom right;
+    }
+  }
+</style>

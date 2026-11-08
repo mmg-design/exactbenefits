@@ -1,0 +1,46 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Img from "@/components/media/Img.astro";
+import NewsletterSection from "@/components/section/NewsletterSection.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+import img0 from "@/assets/images/strategy/ichra-strategy-feature-3.webp";
+import img1 from "@/assets/images/strategy/ichra-strategy-feature-4.webp";
+import img2 from "@/assets/images/strategy/ichra-strategy-feature-5.webp";
+
+const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"Organization\",\n      \"@id\": \"https://www.exactbenefits.com/#organization\",\n      \"name\": \"Exact Benefits Powered by Exact Medicare\",\n      \"url\": \"https://www.exactbenefits.com/\",\n      \"telephone\": \"+1-888-893-9553\"\n    }\n  ]\n}";
+---
+
+<Layout fullTitle={"The Employee Medicare Guide for Employers | Exact Benefits"} description={"Get expert Medicare, ICHRA, and compliance insights for employers. Subscribe to the Employee Medicare Guide for practical updates."}>
+  <Fragment slot="head"><script is:inline type="application/ld+json" set:html={schema} /></Fragment>
+  <NewsletterSection tag={"trusted by 600+ HR leaders"} heading={"The Employee Medicare Guide"} headingTag="h1" text={"From coordination of benefits and compliance risks to retiree coverage strategies, this newsletter helps HR leaders and business owners make confident decisions. Join hundreds of employers who rely on The Medicare Employer Guide for clear, practical insights."} />
+  <Section>
+    <ContentWrapper variant="columns" style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">What is it about?</Eyebrow>
+    <Heading tag="h2" variant="h3">What the Employee Medicare Newsletter Covers:</Heading>
+    <Paragraph variant="large">The Employee Medicare Newsletter is a free monthly resource for Ohio employers who want straight answers on Medicare, ICHRA, and the benefits decisions that show up on a CFO's desk. No fluff, no recycled press releases, no vendor pitches dressed up as advice. Just the updates, deadlines, and strategy notes that actually affect how you run your benefits program.</Paragraph>
+    <Img slot="column2" src={img0} alt={"Ohio employer reviewing ICHRA strategy with benefits advisor"} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper variant="columns" reverse style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">Who is it for?</Eyebrow>
+    <Heading tag="h2" variant="h3">Built for Employers Handling Medicare Decisions</Heading>
+    <Paragraph variant="large">Medicare Ohio rules change. Federal ICHRA guidance changes. Employer Medicare strategy is no longer optional for companies with aging workforces. The Employee Medicare Newsletter keeps you ahead of all three.You will get plain-language breakdowns of legislation like Ohio House Bill 133, which would give small employers a $400 per employee tax credit for offering an ICHRA. You will see how Medicare for employers fits inside an ICHRA strategy, when reimbursement makes sense, and what compliance traps to avoid. When a rule changes that affects your plan, your team, or your renewal math, you will hear about it from us first.</Paragraph>
+    <Img slot="column2" src={img1} alt={"Two individuals standing in the doorway of a business, smiling at the camera."} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper variant="columns" style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">Will you spam my inbox?</Eyebrow>
+    <Heading tag="h2" variant="h3">Subscribe to the Employee Medicare Newsletter</Heading>
+    <Paragraph variant="large">One email a month. No spam, no aggressive sales follow-up, no shared lists. Just clear writing on Medicare Ohio, employer Medicare, and the benefits topics your team is already trying to figure out.If you are an Ohio employer thinking about ICHRA, weighing Medicare for employers as part of your benefits mix, or just trying to stay ahead of the next compliance update, the Employee Medicare Newsletter is built for you.</Paragraph>
+    <Img slot="column2" src={img2} alt={"Four business colleagues collaborating around a laptop and tablet in a modern office setting."} />
+    </ContentWrapper>
+  </Section>
+  <ContactSection />
+</Layout>

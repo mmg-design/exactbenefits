@@ -1,0 +1,74 @@
+---
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import RichText from "@/components/typography/RichText.astro";
+import Img from "@/components/media/Img.astro";
+import socialProof from "@/assets/images/home/home-contact-social-proof.webp";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+}
+
+const { render = true } = Astro.props;
+---
+
+{/* #CONSULT and #call-anchor are the two targets links across the site use. */}
+<Section render={render} theme="dark" id="CONSULT" containerAttrs={{ id: "call-anchor" }}>
+  <ContentWrapper variant="columns">
+    <Img src={socialProof} alt="Three smiling Exact Benefits advisors" variant="densities" height={56} transparent />
+    <Heading tag="h2">Ready to transform your medicare?</Heading>
+    <Paragraph variant="large">
+      <strong>Speak to a trusted team of experts who will learn your situation and clearly lay out next steps.</strong>
+    </Paragraph>
+    <RichText>
+      <ul>
+        <li>Save $7,300+ per year per 65+ employee</li>
+        <li>Zero cost to your company</li>
+        <li>Set up in 2-4 weeks</li>
+      </ul>
+    </RichText>
+    <Paragraph variant="large"><strong>4.9/5</strong> on 5,026 reviews</Paragraph>
+    <div slot="column2" class="contact-section_form">
+      <iframe
+        src="https://link.exactbenefits.com/widget/form/HDTct8e534HGTNvIt3Dr"
+        style="width:100%;height:79.8125rem;border:none;border-radius:3px"
+        id="inline-HDTct8e534HGTNvIt3Dr"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="Consultation_Global_Form"
+        data-height="1277"
+        loading="lazy"
+        data-layout-iframe-id="inline-HDTct8e534HGTNvIt3Dr"
+        data-form-id="HDTct8e534HGTNvIt3Dr"
+        data-cookie-consent="true"
+        data-cookie-consent-provider="auto"
+        title="Consultation_Global_Form"
+      ></iframe>
+      <script is:inline src="https://link.exactbenefits.com/js/form_embed.js"></script>
+      <p class="contact-section_note text-style-small">By providing your phone number, you agree to receive messages from Exact Benefits. Message and data rates may apply. Text STOP to opt out or HELP for help. See our <a href="/sms-terms-of-service">SMS Terms of Service</a> and <a href="/privacy-policy">Privacy Policy</a>.</p>
+    </div>
+  </ContentWrapper>
+</Section>
+
+<style is:global>
+  @layer components {
+    .contact-section_form {
+      width: 100%;
+    }
+
+    .contact-section_note {
+      margin-top: var(--space-3);
+      & a {
+        text-decoration: underline;
+      }
+    }
+  }
+</style>

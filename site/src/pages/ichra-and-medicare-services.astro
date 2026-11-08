@@ -1,0 +1,99 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Grid from "@/components/wrapper/Grid.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Button from "@/components/Button.astro";
+import Card from "@/components/item/Card.astro";
+import Img from "@/components/media/Img.astro";
+import HeroHome from "@/components/section/HeroHome.astro";
+import CarrierLogos from "@/components/section/CarrierLogos.astro";
+import NewsletterSection from "@/components/section/NewsletterSection.astro";
+import PartnershipsSection from "@/components/section/PartnershipsSection.astro";
+import FaqSection from "@/components/section/FaqSection.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+import img0 from "@/assets/images/home/home-partnerships-insurtech.webp";
+import img1 from "@/assets/images/ichra/ichra-and-medicare-services-feature-3.webp";
+import img2 from "@/assets/images/home/home-savings-icon-premium.webp";
+import img3 from "@/assets/images/ichra/ichra-and-medicare-services-support.webp";
+
+const cards0 = [{"heading": "Administrators and platforms", "text": "Add a Medicare pathway that works alongside your existing administration, enrollment, and reimbursement experience.<a href=\"/ichra-administrators-platforms\"> Explore ICHRA support for administrators and platforms.</a>"}, {"heading": "Brokers and PEOs", "text": "Protect the client relationship while giving Medicare-eligible employees one reliable national resource.<a href=\"/ichra-for-brokers-and-peos\"> Explore ICHRA Medicare support for brokers and PEOs.</a>"}, {"heading": "Employers and HR", "text": "Give employees a clear referral path without asking HR to become the Medicare expert.<a href=\"/ichra-for-employers-and-employees\"> Explore ICHRA support for employers and employees.</a>"}, {"heading": "Employees", "text": "Get individual guidance shaped around coverage timing, providers, prescriptions, budget, and family needs.<a href=\"/ichra-for-employers-and-employees\"> See how ICHRA Medicare support works for employers and employees.</a>"}];
+const cards1 = [{"heading": "ICHRA education before Medicare eligibility", "text": "Help participants understand how an ICHRA works and when Medicare may become part of their coverage decision.<a href=\"/blog/do-employees-still-working-past-65-actually-need-medicare\"> Read what employees working past 65 need to know about Medicare.</a>"}, {"heading": "Individual Medicare consultation", "text": "Review coverage timing, doctors, prescriptions, budget, and household needs with a licensed specialist."}, {"heading": "Medicare enrollment support", "text": "Coordinate the participant's selected Medicare path and explain the information needed for ICHRA reimbursement.<a href=\"/medicare-part-a-and-b\"> See how to apply for Medicare Part A and B online.</a>"}, {"heading": "Ongoing participant service", "text": "Give employees a named resource for questions after enrollment while keeping partners informed at the appropriate level."}];
+const faqs2 = [{"q": "Can an ICHRA reimburse Medicare premiums?", "a": "Certain Medicare premiums may be eligible when the arrangement is properly designed and the participant meets applicable requirements. The plan administrator and current guidance control the final determination.<a href=\"https://www.cms.gov/CCIIO/Programs-and-Initiatives/Health-Insurance-Market-Reforms/Downloads/HRA-FAQs.pdf\"> Review the official CMS guidance on ICHRA eligibility and Medicare.</a>"}, {"q": "Does Exact administer the ICHRA?", "a": "No. Exact supplies the specialized Medicare education, consultation, and enrollment-support layer alongside the administrator or platform."}, {"q": "Does a participant have to use Exact?", "a": "No. Exact provides a voluntary education and support path while the participant remains in control of where they receive licensed guidance."}, {"q": "What can partners see after a referral?", "a": "Partners receive only the status information and workflow visibility approved by product, privacy, compliance, and contractual requirements."}];
+---
+
+<Layout fullTitle={"ICHRA and Medicare Services | Exact Benefits"} description={"Learn how ICHRA works with Medicare and give eligible participants a connected path to education, individual guidance, enrollment, and ongoing support."}>
+  <HeroHome image={img0} imageAlt={"Smiling elderly woman with short white hair, wearing small hoop earrings and a light-colored top with a subtle dotted pattern, against a white background."}>
+    <Eyebrow variant="tag">ICHRA AND MEDICARE SERVICES</Eyebrow>
+    <Heading tag="h1" variant="h2">How can you complete the Medicare side of your ICHRA experience?</Heading>
+    <Paragraph variant="large" maxWidth={34}><strong>ICHRA gives employees more control over coverage. Medicare eligibility introduces a different set of questions. Exact Benefits gives participants a connected path to education, individual guidance, enrollment support, and ongoing service.</strong></Paragraph>
+    <ButtonWrapper>
+      <Button element="link" size="large" href={"#call-anchor"}>schedule my onboarding call</Button>
+    </ButtonWrapper>
+  </HeroHome>
+  <CarrierLogos />
+  <Section>
+    <ContentWrapper variant="columns" reverse style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">WHAT IS ICHRA HEALTH INSURANCE?</Eyebrow>
+    <Heading tag="h2" variant="h3">What is ICHRA health insurance, and why does Medicare need a different path?</Heading>
+    <Paragraph variant="large">An Individual Coverage Health Reimbursement Arrangement allows an employer to reimburse eligible employees for qualifying individual coverage instead of offering one traditional group health plan.<br/><br/>Most ICHRA experiences are built around individual-market education, quoting, enrollment, and reimbursement. Medicare-eligible participants follow different rules and often need more personal support. Without a defined Medicare workflow, they can be sent to an unrelated call center with little continuity or visibility.<a href="https://www.irs.gov/newsroom/health-reimbursement-arrangements-hras"> Review the IRS overview of Health Reimbursement Arrangements.</a></Paragraph>
+    <Img slot="column2" src={img1} alt={"Smiling elderly woman with short white hair sitting on a couch talking on a smartphone in a bright living room."} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper centered>
+    <Eyebrow variant="tag">ICHRA SUPPORT BY ROLE</Eyebrow>
+      <Heading tag="h2" variant="h3">Which ICHRA support path fits your role?</Heading>
+    </ContentWrapper>
+    <Grid small={2} large={4}>
+      {cards0.map((c) => <Card raised headingVariant="h4" {...c} />)}
+    </Grid>
+  </Section>
+  <Section>
+    <ContentWrapper centered>
+    <Eyebrow variant="tag">ICHRA MEDICARE JOURNEY</Eyebrow>
+      <Heading tag="h2" variant="h3">What does a connected ICHRA Medicare journey look like?</Heading>
+    </ContentWrapper>
+    <Grid small={2} large={4}>
+      {cards1.map((c) => <Card raised headingVariant="h4" {...c} />)}
+    </Grid>
+  </Section>
+  <Section>
+    <ContentWrapper variant="columns" style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">NATIONWIDE MEDICARE SUPPORT</Eyebrow>
+    <Heading tag="h2" variant="h3">How do you support a distributed ICHRA population without regional referral gaps?</Heading>
+    <Paragraph variant="large">A distributed workforce should not require a patchwork of regional Medicare referrals. Exact provides one support model for Medicare-eligible participants across the country, subject to approved licensing and carrier language.</Paragraph>
+      <Grid xsmall={1} small={2} class="margin-top-6">
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Dedicated Medicare scheduling</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Phone and video consultations</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Named partner contacts</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Co-branded participant education</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Approved status reporting</Heading>
+        </ContentWrapper>
+      </Grid>
+      <Img slot="column2" src={img3} alt={"Elderly Asian couple sitting on a couch looking at a tablet while the man holds a prescription pill bottle."} />
+    </ContentWrapper>
+  </Section>
+  <FaqSection tag={"FAQs"} heading={"What should you know about ICHRA and Medicare?"} items={faqs2} />
+  <PartnershipsSection />
+  <NewsletterSection />
+  <ContactSection />
+</Layout>

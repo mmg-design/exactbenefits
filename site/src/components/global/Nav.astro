@@ -1,8 +1,11 @@
 ---
 import Icon from "@/components/media/Icon.astro";
 import NavLink from "@/components/global/NavLink.astro";
-import logo from "@/assets/logo/logo.svg";
-import { SITE_NAME } from "@/consts.ts";
+import NavMenu from "@/components/global/NavMenu.tsx";
+import Dropdown from "@/components/interactive/Dropdown.astro";
+import Button from "@/components/Button.astro";
+import logo from "@/assets/images/global/global-nav-logo.svg";
+import { SITE_NAME, SITE_PHONE } from "@/consts.ts";
 
 interface Props {
   /** Set to `false` to omit the component. */
@@ -12,6 +15,48 @@ interface Props {
 }
 
 const { render = true, overlap = false } = Astro.props;
+
+const resources = [
+  { href: "/blogs", label: "The Exact Blog + Newsletter" },
+  {
+    href: "/medicare-part-a-and-b",
+    label: "How to Enroll in Medicare: A Step-by-Step Instruction Guide",
+  },
+  { href: "/filling-out-the-l564-form", label: "CMS-L564 Form Guide" },
+  {
+    href: "/creating-a-social-security-account",
+    label: "Set Up Your Social Security Account",
+  },
+  { href: "/enrolling-in-part-d", label: "Medicare Part D Enrollment" },
+  { href: "/medicare-pricing-calculator", label: "Medicare Savings Calculator" },
+];
+
+const ichra = [
+  { href: "/ichra-strategy", label: "What is CHOICE/ICHRA?" },
+  { href: "/ichra-and-medicare-services", label: "CHOICE/ICHRA Medicare Support" },
+  {
+    href: "/ichra-administrators-platforms",
+    label: "CHOICE/ICHRA for Administrators & Platforms",
+  },
+  { href: "/ichra-for-brokers-and-peos", label: "CHOICE/ICHRA for Brokers & PEOs" },
+  {
+    href: "/ichra-for-employers-and-employees",
+    label: "CHOICE/ICHRA for Employers + Employees",
+  },
+];
+
+const dashboard =
+  "https://ichra-provider-dashboard-a6g2g7crfxb5czga.eastus-01.azurewebsites.net/";
+
+/* Every page ends in the contact section except the 404. */
+const callHref = Astro.url.pathname.replace(/\.html$/, "") === "/404" ? "/#call-anchor" : "#call-anchor";
+
+const desktopMenu = [
+  { label: "About", href: "/#about" },
+  { label: "Medicare Resource Center", links: resources },
+  { label: "CHOICE/ICHRA", links: ichra },
+  { label: "Dashboard Login", href: dashboard },
+];
 ---
 
 {render && (
@@ -31,10 +76,41 @@ const { render = true, overlap = false } = Astro.props;
       </button>
       <nav class="nav_menu" id="nav-menu" aria-label="Main">
         <div class="nav_menu_inner">
+          <NavMenu
+            client:media="(min-width: 80rem)"
+            items={desktopMenu}
+            currentPath={Astro.url.pathname.replace(/\.html$/, "")}
+          />
           <ul class="nav_links">
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/example-components">Example Components</NavLink>
+            <NavLink href="/#about">About</NavLink>
+            <li>
+              <Dropdown label="Medicare Resource Center" variant="responsive">
+                <ul class="nav_sublinks">
+                  {resources.map((link) => (
+                    <NavLink href={link.href}>{link.label}</NavLink>
+                  ))}
+                </ul>
+              </Dropdown>
+            </li>
+            <li>
+              <Dropdown label="CHOICE/ICHRA" variant="responsive">
+                <ul class="nav_sublinks">
+                  {ichra.map((link) => (
+                    <NavLink href={link.href}>{link.label}</NavLink>
+                  ))}
+                </ul>
+              </Dropdown>
+            </li>
+            <NavLink href={dashboard}>Dashboard Login</NavLink>
           </ul>
+          <div class="nav_buttons">
+            <Button element="link" href={SITE_PHONE.href} emphasis="accent">
+              {SITE_PHONE.label}
+            </Button>
+            <Button element="link" href={callHref}>
+              schedule my call
+            </Button>
+          </div>
         </div>
       </nav>
     </div>
@@ -53,6 +129,14 @@ const { render = true, overlap = false } = Astro.props;
     }
     .nav_menu_inner {
       opacity: 1;
+    }
+    @media (width >= 80rem) {
+      .nav-menu_wrap {
+        display: none;
+      }
+      .nav_links {
+        display: flex;
+      }
     }
   </style>
 </noscript>
@@ -89,7 +173,7 @@ const { render = true, overlap = false } = Astro.props;
     });
 
     window
-      .matchMedia("(width >= 48rem)")
+      .matchMedia("(width >= 80rem)")
       .addEventListener("change", (event) => {
         if (event.matches) setOpen(false);
       });
@@ -107,7 +191,6 @@ const { render = true, overlap = false } = Astro.props;
       padding-inline: var(--site-margin);
       background-color: var(--background);
       color: var(--text);
-      border-bottom: var(--border-width) solid var(--border);
 
       &.overlap {
         position: fixed;
@@ -121,7 +204,7 @@ const { render = true, overlap = false } = Astro.props;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0 var(--space-6);
+      gap: 0 var(--space-4);
     }
 
     /* Bar height */
@@ -133,7 +216,8 @@ const { render = true, overlap = false } = Astro.props;
     .nav_logo {
       display: flex;
       align-items: center;
-      width: 6.5rem;
+      width: 12rem;
+      max-width: 50vw;
       transition: opacity var(--hover-duration) var(--hover-ease);
       @media (hover: hover) {
         &:hover {
@@ -230,31 +314,187 @@ const { render = true, overlap = false } = Astro.props;
       flex-direction: column;
       padding: var(--space-2) var(--site-margin) var(--space-4);
       font-size: var(--text-main);
-      font-weight: var(--primary-medium);
       & > li + li {
         border-top: var(--border-width) solid var(--border);
       }
     }
 
+    .nav_sublinks {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
     .nav_link {
       display: block;
       padding-block: var(--space-3);
-      color: color-mix(in lab, currentcolor 60%, transparent);
+      color: var(--text);
       text-decoration: none;
-      text-underline-offset: 0.4em;
-      text-decoration-thickness: var(--border-width);
       transition: color var(--hover-duration) var(--hover-ease);
       &[aria-current="page"] {
-        color: var(--text);
+        color: var(--teal-700);
       }
       @media (hover: hover) {
         &:hover {
-          color: var(--text);
+          color: var(--teal-700);
         }
       }
     }
 
-    @media (width >= 48rem) {
+    /* Desktop menu (Radix). Hidden below the nav breakpoint, where the
+       hamburger list above takes over. */
+    .nav-menu_wrap {
+      display: none;
+      position: relative;
+      font-size: var(--text-main);
+      @media (width >= 80rem) {
+        display: block;
+      }
+    }
+
+    .nav-menu_list {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      white-space: nowrap;
+    }
+
+    .nav-menu_trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: var(--space-1) 0;
+      color: inherit;
+      cursor: pointer;
+      transition: color var(--hover-duration) var(--hover-ease);
+      &[data-state="open"] {
+        color: var(--teal-700);
+      }
+    }
+
+    .nav-menu_arrow {
+      flex: none;
+      width: 0.7em;
+      height: 0.7em;
+      rotate: 90deg;
+      stroke-width: var(--border-width);
+      transition: rotate var(--open-duration) var(--open-ease);
+      [data-state="open"] > & {
+        rotate: -90deg;
+      }
+    }
+
+    .nav-menu_position {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: var(--space-2);
+      transform: translateX(var(--_panel-x, 0));
+      [data-sliding] > & {
+        transition: transform calc(var(--open-duration) * 1.25) var(--open-ease);
+      }
+    }
+
+    .nav-menu_viewport {
+      position: relative;
+      overflow: clip;
+      width: var(--radix-navigation-menu-viewport-width);
+      height: var(--radix-navigation-menu-viewport-height);
+      background-color: var(--light-100);
+      color: var(--dark-900);
+      border: var(--border-width) solid var(--light-300);
+      border-radius: var(--radius-small);
+      box-shadow: 0 0.75rem 2rem var(--shadow-soft);
+      transform-origin: top left;
+      transition:
+        width calc(var(--open-duration) * 1.25) var(--open-ease),
+        height calc(var(--open-duration) * 1.25) var(--open-ease);
+      &[data-state="open"] {
+        animation: nav-menu-in var(--open-duration) var(--open-ease);
+      }
+      &[data-state="closed"] {
+        animation: nav-menu-out var(--open-duration) var(--open-ease);
+      }
+    }
+
+    .nav-menu_content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 22rem;
+      padding: var(--space-4) var(--space-5);
+      & .nav_sublinks {
+        white-space: normal;
+      }
+      & .nav_link {
+        padding-block: var(--space-1);
+        color: var(--dark-900);
+        @media (hover: hover) {
+          &:hover {
+            color: var(--teal-700);
+          }
+        }
+      }
+      &[data-motion="from-start"] {
+        animation: nav-menu-from-start calc(var(--open-duration) * 1.25) var(--open-ease);
+      }
+      &[data-motion="from-end"] {
+        animation: nav-menu-from-end calc(var(--open-duration) * 1.25) var(--open-ease);
+      }
+      &[data-motion="to-start"] {
+        animation: nav-menu-to-start calc(var(--open-duration) * 1.25) var(--open-ease);
+      }
+      &[data-motion="to-end"] {
+        animation: nav-menu-to-end calc(var(--open-duration) * 1.25) var(--open-ease);
+      }
+    }
+
+    @keyframes nav-menu-in {
+      from {
+        opacity: 0;
+        transform: translateY(-0.25rem) scale(0.98);
+      }
+    }
+    @keyframes nav-menu-out {
+      to {
+        opacity: 0;
+        transform: translateY(-0.25rem) scale(0.98);
+      }
+    }
+    @keyframes nav-menu-from-start {
+      from {
+        opacity: 0;
+        transform: translateX(-3rem);
+      }
+    }
+    @keyframes nav-menu-from-end {
+      from {
+        opacity: 0;
+        transform: translateX(3rem);
+      }
+    }
+    @keyframes nav-menu-to-start {
+      to {
+        opacity: 0;
+        transform: translateX(-3rem);
+      }
+    }
+    @keyframes nav-menu-to-end {
+      to {
+        opacity: 0;
+        transform: translateX(3rem);
+      }
+    }
+
+    .nav_buttons {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 0 var(--site-margin) var(--space-6);
+    }
+
+    @media (width >= 80rem) {
       .nav_toggle {
         display: none;
       }
@@ -263,32 +503,49 @@ const { render = true, overlap = false } = Astro.props;
         position: static;
         display: block;
         visibility: visible;
+        max-height: none;
+        overflow: visible;
         background-color: transparent;
         border-bottom: 0;
       }
 
       .nav_menu_inner {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
         overflow: visible;
         opacity: 1;
       }
 
       .nav_links {
+        display: none;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         align-items: center;
         padding: 0;
-        gap: var(--space-4);
-        font-size: var(--text-small);
+        gap: var(--space-2);
+        white-space: nowrap;
         & > li + li {
           border-top: 0;
         }
       }
 
+      .nav_sublinks {
+        white-space: normal;
+      }
+
+      .nav_sublinks .nav_link {
+        padding-block: var(--space-1);
+      }
+
       .nav_link {
         padding-block: 0;
-        &[aria-current="page"] {
-          text-decoration: underline;
-        }
+      }
+
+      .nav_buttons {
+        flex-wrap: nowrap;
+        padding: 0;
+        white-space: nowrap;
       }
     }
   }

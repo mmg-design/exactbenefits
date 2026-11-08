@@ -1,0 +1,175 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Img from "@/components/media/Img.astro";
+
+type Props = HTMLAttributes<"div"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Accessible table caption. Visually hidden. */
+  caption?: string;
+  /** Header for the row labels column. */
+  labelHeading?: string;
+  /** Header for the standard column. */
+  baseHeading?: string;
+  /** Header for the highlighted column. */
+  highlightHeading?: string;
+  /** One entry per row: the feature, the standard value, the highlighted value. */
+  rows?: { label?: string; base: string; highlight: string }[];
+  /** Texture behind the highlighted column. Decorative. */
+  highlightImage?: ImageMetadata;
+};
+
+const {
+  render = true,
+  caption,
+  labelHeading,
+  baseHeading,
+  highlightHeading,
+  rows = [],
+  highlightImage,
+  class: className,
+  ...rest
+} = Astro.props;
+const hasLabels = rows.some((row) => row.label);
+---
+
+{render && rows.length > 0 && baseHeading && highlightHeading && (
+  <div class:list={["table-comparison_wrap", !hasLabels && "no-labels", className]} {...rest}>
+    <div class="table-comparison_inner">
+      <div class="table-comparison_card" aria-hidden="true">
+        {highlightImage && <Img src={highlightImage} alt="" />}
+      </div>
+      <table class="table-comparison_table">
+        {caption && <caption class="sr-only">{caption}</caption>}
+        <colgroup>
+          {hasLabels && <col class="table-comparison_label-col" />}
+          <col />
+          <col />
+        </colgroup>
+        <thead>
+          <tr>
+            {hasLabels && <th scope="col" class="table-comparison_label">{labelHeading ?? "Feature"}</th>}
+            <th scope="col" class="table-comparison_base">{baseHeading}</th>
+            <th scope="col" class="table-comparison_highlight">
+              {highlightHeading}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr>
+              {hasLabels && <th scope="row" class="table-comparison_label">{row.label}</th>}
+              <td class="table-comparison_base">{row.base}</td>
+              <td class="table-comparison_highlight">{row.highlight}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+)}
+
+<style is:global>
+  @layer components {
+    .table-comparison_wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .table-comparison_inner {
+      --_label: 8.5rem;
+      position: relative;
+      min-width: 32.5rem;
+      @media (width >= 48rem) {
+        --_label: calc(100% / 3);
+        min-width: 40rem;
+      }
+    }
+
+    .table-comparison_wrap.no-labels .table-comparison_inner {
+      --_label: 0%;
+      min-width: 0;
+    }
+
+    .table-comparison_card {
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: calc((100% - var(--_label)) / 2);
+      overflow: clip;
+      background-color: var(--teal-600);
+      border: var(--border-width) solid color-mix(in srgb, black 12%, transparent);
+      border-radius: var(--radius-main);
+      & > .image {
+        width: 100%;
+        height: 100%;
+      }
+      /* The texture alone gives white text about 3.2:1. This lifts it past 4.5:1. */
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: color-mix(in srgb, var(--teal-900) 30%, transparent);
+      }
+    }
+
+    .table-comparison_table {
+      position: relative;
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+      text-align: center;
+      font-size: var(--text-medium);
+      line-height: 1.5;
+
+      & th,
+      & td {
+        padding: var(--space-3) var(--space-4);
+        border-bottom: var(--border-width) solid color-mix(in srgb, black 10%, transparent);
+        font-weight: var(--primary-regular);
+        vertical-align: middle;
+        text-wrap: balance;
+      }
+
+      & thead th {
+        font-family: var(--heading-family);
+        font-size: var(--h4);
+        line-height: 1;
+        letter-spacing: var(--letter-spacing-tight);
+      }
+    }
+
+    .table-comparison_label-col {
+      width: var(--_label);
+    }
+
+    .table-comparison_label {
+      text-align: start;
+      @media (width < 48rem) {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: var(--background);
+      }
+    }
+
+    .table-comparison_table .table-comparison_base {
+      background-color: var(--teal-50);
+    }
+
+    .table-comparison_table thead .table-comparison_base {
+      border-start-start-radius: 0.25rem;
+      border-start-end-radius: 0.25rem;
+    }
+
+    .table-comparison_table tbody tr:last-child .table-comparison_base {
+      border-end-start-radius: 0.25rem;
+      border-end-end-radius: 0.25rem;
+    }
+
+    .table-comparison_table .table-comparison_highlight {
+      color: var(--light-100);
+      border-bottom-color: color-mix(in srgb, var(--light-100) 10%, transparent);
+    }
+  }
+</style>

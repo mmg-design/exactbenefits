@@ -1,0 +1,35 @@
+---
+import Section from "@/components/wrapper/Section.astro";
+import Marquee from "@/components/interactive/Marquee.astro";
+import Img from "@/components/media/Img.astro";
+import { getCollection } from "astro:content";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+}
+
+const { render = true } = Astro.props;
+
+/* Remote images need both dimensions, or they keep their full original width. */
+const LOGO_HEIGHT = 44;
+
+const partners = (await getCollection("partners")).sort(
+  (a, b) => (a.data.sortOrder ?? 99) - (b.data.sortOrder ?? 99),
+);
+---
+
+<Section render={render} paddingTop="small" paddingBottom="small">
+  <Marquee label="Our Medicare carrier partners" controls={false}>
+    {partners.map((p) => (
+      <Img
+        src={p.data.logo}
+        alt={p.data.name}
+        variant="densities"
+        width={Math.round((LOGO_HEIGHT * p.data.logoWidth) / p.data.logoHeight)}
+        height={LOGO_HEIGHT}
+        transparent
+      />
+    ))}
+  </Marquee>
+</Section>

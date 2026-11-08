@@ -1,0 +1,58 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Button from "@/components/Button.astro";
+import Img from "@/components/media/Img.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+import CalculatorSavings from "@/components/content/CalculatorSavings.astro";
+import img0 from "@/assets/images/calculator/medicare-pricing-calculator-feature-2.webp";
+import img1 from "@/assets/images/calculator/medicare-pricing-calculator-feature-3.webp";
+import img2 from "@/assets/images/calculator/medicare-pricing-calculator-feature-4.webp";
+
+const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"Organization\",\n      \"@id\": \"https://www.exactbenefits.com/#organization\",\n      \"name\": \"Exact Benefits\",\n      \"url\": \"https://www.exactbenefits.com/\",\n      \"telephone\": \"+1-888-893-9553\",\n      \"aggregateRating\": {\n        \"@type\": \"AggregateRating\",\n        \"ratingValue\": \"4.9\",\n        \"bestRating\": \"5\",\n        \"reviewCount\": \"5026\"\n      }\n    },\n    {\n      \"@type\": \"WebPage\",\n      \"@id\": \"https://www.exactbenefits.com/medicare-pricing-calculator#webpage\",\n      \"url\": \"https://www.exactbenefits.com/medicare-pricing-calculator\",\n      \"name\": \"Medicare Pricing Calculator | See Your Employee Savings\",\n      \"description\": \"Calculate real Medicare savings for your workforce. Compare group plans vs Medicare options. See exact numbers before you switch. Free calculator.\",\n      \"inLanguage\": \"en\",\n      \"about\": {\n        \"@id\": \"https://www.exactbenefits.com/medicare-pricing-calculator#app\"\n      },\n      \"provider\": {\n        \"@id\": \"https://www.exactbenefits.com/#organization\"\n      },\n      \"mainEntity\": {\n        \"@id\": \"https://www.exactbenefits.com/medicare-pricing-calculator#faq\"\n      }\n    },\n    {\n      \"@type\": \"SoftwareApplication\",\n      \"@id\": \"https://www.exactbenefits.com/medicare-pricing-calculator#app\",\n      \"name\": \"Medicare Cost Calculator\",\n      \"applicationCategory\": \"FinanceApplication\",\n      \"operatingSystem\": \"Web\",\n      \"url\": \"https://www.exactbenefits.com/medicare-pricing-calculator\",\n      \"description\": \"Calculator tool that compares employer Medicare costs against current group plans to show potential savings for employers with Medicare-eligible employees.\",\n      \"provider\": {\n        \"@id\": \"https://www.exactbenefits.com/#organization\"\n      },\n      \"offers\": {\n        \"@type\": \"Offer\",\n        \"price\": \"0\",\n        \"priceCurrency\": \"USD\",\n        \"availability\": \"https://schema.org/InStock\"\n      },\n      \"featureList\": [\n        \"Compare group plan costs to Medicare-based options\",\n        \"Calculate employer Medicare costs\",\n        \"Employee Medicare coverage comparison\",\n        \"Real-time savings calculations\"\n      ]\n    },\n    {\n      \"@type\": \"FAQPage\",\n      \"@id\": \"https://www.exactbenefits.com/medicare-pricing-calculator#faq\",\n      \"mainEntity\": [\n        {\n          \"@type\": \"Question\",\n          \"name\": \"How much could employers save with Medicare-based options?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Employers can save $7,300+ per year per employee aged 65 and older by switching to Medicare-coordinated benefits through Exact Benefits.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"What does the Medicare Cost Calculator compare?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"The calculator compares your current group plan costs against Medicare-based options, showing employer Medicare costs and employee coverage side by side in plain dollars.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"How long does it take to set up Medicare benefits for employees?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Setup takes 2-4 weeks with zero cost to your company when switching to Exact Benefits Medicare solutions.\"\n          }\n        }\n      ]\n    }\n  ]\n}";
+---
+
+<Layout fullTitle={"Medicare Pricing Calculator | See Your Employee Savings"} description={"Calculate real Medicare savings for your workforce. Compare group plans vs Medicare options. See exact numbers before you switch. Free calculator."}>
+  <Fragment slot="head"><script is:inline type="application/ld+json" set:html={schema} /></Fragment>
+  <Section align="center">
+    <ContentWrapper centered>
+    <Eyebrow variant="tag">How much Could you be saving?</Eyebrow>
+      <Heading tag="h1" variant="h2">Medicare Cost Calculator</Heading>
+      <Paragraph variant="large" maxWidth={60}><strong>See real numbers before you decide.</strong> See exactly what your team's coverage costs today and what it could cost on a Medicare-based plan, side by side and in real dollars.</Paragraph>
+    <ButtonWrapper>
+      <Button element="link" size="large" href={"#call-anchor"}>talk to us</Button>
+    </ButtonWrapper>
+    </ContentWrapper>
+    <CalculatorSavings variant="compare" disclaimer={"Estimates compare your current per-employee premium against an average Medicare-based cost of $4,200 per employee per year. Actual savings vary by plan type, location, and employee health needs."} />
+  </Section>
+  <Section>
+    <ContentWrapper variant="columns" style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">EMPLOYER MEDICARE, MADE CLEAR</Eyebrow>
+    <Heading tag="h2" variant="h3">Stop guessing what the switch actually costs.</Heading>
+    <Paragraph variant="large">Moving part of your workforce to Medicare changes your numbers in ways a spreadsheet won't show you cleanly. This calculator lays out your employer Medicare costs against your current group plan so you can see the gap in plain dollars. Nothing you can't defend in a leadership meeting.</Paragraph>
+    <Img slot="column2" src={img0} alt={"Ohio employer reviewing ICHRA strategy with benefits advisor"} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper variant="columns" reverse style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">GROUP MEDICARE PLANS</Eyebrow>
+    <Heading tag="h2" variant="h3">Compare your group plan to a Medicare-based option</Heading>
+    <Paragraph variant="large">Group Medicare plans can carry real savings, but only when the math holds up for your specific census. Enter your numbers and see how a Medicare-coordinated approach stacks up against what you pay now, premium for premium.</Paragraph>
+    <Img slot="column2" src={img1} alt={"Estimated breakdown showing current cost per employee as $11,500, Medicare cost per employee as $4,200, savings per employee as $7,300, with 10 employees aged 65 or older, resulting in total annual savings of $73,000."} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper variant="columns" style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">BUILT FOR YOUR TEAM</Eyebrow>
+    <Heading tag="h2" variant="h3">What it means for employee Medicare coverage</Heading>
+    <Paragraph variant="large">A lower cost only matters if your people stay covered. The calculator shows employee Medicare coverage side by side with current benefits, so you can make a call that protects your team and your budget at the same time.</Paragraph>
+    <Img slot="column2" src={img2} alt={"Savings Calculator interface showing potential annual savings for employees age 65 and older with an annual premium of $11,500 per employee. The slider is set to 10 employees. The estimated breakdown shows current cost per employee $11,500, Medicare cost per employee $4,200, savings per employee $7,300, and total annual savings $73,000. A note explains savings estimates are based on average Medicare costs and vary by plan, location, and employee health needs."} />
+    </ContentWrapper>
+  </Section>
+  <ContactSection />
+</Layout>

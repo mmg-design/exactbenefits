@@ -1,0 +1,65 @@
+# CONTENT INVENTORY - every piece of content to move into Sanity, with its source and status.
+# Owner: Marketing (TBD). Source: Webflow export + live sitemap, 2026-11-07. CMS rows from Webflow CSV exports received 2026-11-07 (Blogs, Blog Categories, Educations, Partners; Employers missing).
+# Columns: slug=URL path | title | content_type | source=where it lives today | sanity_type=planned Sanity document type (see 04-content/sanity-schema-plan.md) |
+#   owner=content approver | migration_status=not started/in progress/in Sanity/approved | notes
+# Lines starting with # are notes; skip them when importing into a spreadsheet.
+slug,title,content_type,source,sanity_type,owner,migration_status,notes
+/,Employer Medicare Benefits & Transition Support | Exact Benefits,home,Webflow static page,page,Marketing (TBD),not started,
+webinars,Medicare Webinars | Live & On-Demand Expert Sessions,listing,Webflow static page,page (listing),Marketing (TBD),not started,
+privacy-policy,Privacy Policy | Exact Benefits Group,legal,Webflow static page,legalPage,Marketing (TBD),not started,
+thank-you-consultation,Consultation Thank-You | Exact Benefits,thank-you,Webflow static page,page,Marketing (TBD),not started,
+thank-you-webinar,Webinar Registration | Exact Benefits,thank-you,Webflow static page,page,Marketing (TBD),not started,
+global-thank-you-page,Thanks for Booking a Call! | Exact Benefits Group,thank-you,Webflow static page,page,Marketing (TBD),not started,
+blogs,Medicare Insights for Employers & HR Teams | Exact Benefits Blog,listing,Webflow static page,page (listing),Marketing (TBD),not started,
+sms-terms-of-service,SMS Terms of Service | Exact Benefits,legal,Webflow static page,legalPage,Marketing (TBD),not started,
+ichra-strategy,ICHRA Strategy for Employers | Exact Benefits,service,Webflow static page,page,Marketing (TBD),not started,
+the-employee-medicare-guide,The Employee Medicare Guide for Employers | Exact Benefits,resource,Webflow static page,page,Marketing (TBD),not started,
+medicare-pricing-calculator,Medicare Pricing Calculator | See Your Employee Savings,tool,Webflow static page,page,Marketing (TBD),not started,
+ichra-and-medicare-services,ICHRA and Medicare Services | Exact Benefits,service,Webflow static page,page,Marketing (TBD),not started,
+ichra-administrators-platforms,ICHRA Administration and Medicare Support | Exact Benefits,service,Webflow static page,page,Marketing (TBD),not started,
+ichra-for-brokers-and-peos,ICHRA Medicare Support for Brokers and PEOs | Exact Benefits,service,Webflow static page,page,Marketing (TBD),not started,
+ichra-for-employers-and-employees,ICHRA for Medicare-Eligible Employees | Exact Benefits,service,Webflow static page,page,Marketing (TBD),not started,
+medicare-part-a-and-b,Apply for Medicare Part A and B Online: Step-by-Step Guide,guide,Webflow static page,page,Marketing (TBD),not started,
+filling-out-the-l564-form,CMS-L564 Form: How to Fill Out the L564 Step by Step,guide,Webflow static page,page,Marketing (TBD),not started,
+creating-a-social-security-account,How to Set Up Your my Social Security Account Online,guide,Webflow static page,page,Marketing (TBD),not started,
+enrolling-in-part-d,Medicare Part D Enrollment: How to Enroll Step by Step,guide,Webflow static page,page,Marketing (TBD),not started,
+legal/cookie-policy,(page missing),legal,Webflow static page,legalPage,Marketing (TBD),not started,
+blog/do-employees-still-working-past-65-actually-need-medicare,Do Employees Still Working Past 65 Actually Need Medicare?,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 69bea0b967dc0142529e7fd3; live 200
+blog/medicare-part-a-hsa-conflicts-what-employers-overlook,Medicare Part A and HSA Conflicts: What Employers Need to Know,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 69b848f03076f774a863ba53; live 200
+blog/medicare-part-b-penalties-explained-for-hr-teams,Medicare Part B Late Enrollment Penalty: What HR Teams Need to Know,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 69c1fa567dc072bd1a7a283c; live 200
+blog/what-employers-need-to-know-when-employees-turn-65,What Employers Need to Know When Employees Turn 65,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 69be9cd0cf7de4df05dbf530; live 200
+blog/medicare-for-employers-when-medicare-should-have-been-primary,When Medicare Should Have Been Primary for Employers,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 69af17a1745fccaedd7dc346; live 200
+blog/employer-medicare-20-employee-rule-ohio,The 20-Employee Rule: What Ohio Medicare Compliance Means for Employers,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 69a86529c3b332e3bd174c10; live 200
+blog/coordination-of-benefits-how-employer-plans-and-medicare-decide-who-pays-first,Coordination of Benefits: How Employer Plans and Medicare Decide Who Pays First,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 69e246baee3248624b477873; live 200
+blog/common-medicare-mistakes-employers-make,The Most Common Medicare Mistakes Employers Make,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 69e247883224ffef05f47edc; live 200
+blog/how-employer-size-misclassification-creates-liability,How Employer Size Misclassification Creates Liability,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 6a1097467f6192aa27fd5af3; live 200
+blog/cobra-vs-medicare,COBRA vs Medicare: What Every Employer Needs to Know,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 6a22e250b987c3ac55da12ab; live 200
+blog/do-you-need-medicare-if-you-still-have-employer-coverage,Do You Need Medicare If You Still Have Employer Coverage?,blog-post,Webflow CMS: Blogs (category: Medicare),post,Marketing (TBD),not started,Webflow item 6a3ce13bcf39502274ed5abe; live 200
+blog/medicare-late-enrollment-penalties-what-employers-need-to-know,Medicare Late Enrollment Penalties: What Employers Need to Know,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 6a3ce712111b3334d255f598; live 200
+blog/medicare-coverage-vs-private-insurance-which-is-better-for-you,Medicare Coverage vs Private Insurance: Which Is Better for You?,blog-post,Webflow CMS: Blogs (category: Medicare),post,Marketing (TBD),hold (draft),"Webflow item 6a47abee880af23732eb7687; draft, not live (404) - migrate as unpublished draft"
+blog/when-a-spouse-under-65-complicates-the-decision,When a Spouse Under 65 Complicates the Decision,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 6a4f613dea170cc1ed554f46; live 200
+blog/medicare-insurance-coverage-explained-whats-covered-and-whats-not,Medicare Insurance Coverage Explained: What’s Covered and What’s Not ,blog-post,Webflow CMS: Blogs (category: Medicare),post,Marketing (TBD),not started,Webflow item 6a5608fa0f960b67fa3ac27a; live 200
+blog/medicare-and-aca-transitions-for-under-65-spouses,Medicare and ACA Transitions For Under-65 Spouses,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 6a6b2440f87b93aebe050e22; live 200
+blog/documentation-what-hr-should-keep-on-file,Documentation: What HR Should Keep on File,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 6a8833f2914909804f08b10b; DRAFT in Webflow CMS but LIVE (200) today - keep live unless Marketing decides otherwise (OQ-23)
+blog/when-we-didnt-know-doesnt-fix-the-problem,When “We Didn’t Know” Doesn’t Fix the Problem,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 6a8eecc4f29df071d004830a; live 200
+blog/irmaa-how-income-impacts-medicare-premiums,IRMAA: How Income Impacts Medicare Premiums,blog-post,Webflow CMS: Blogs (category: employer medicare guide),post,Marketing (TBD),not started,Webflow item 6ac8e733615685b2f1683063; live 200
+fitness-and-wellness,Fitness and Wellness,blog-category,Webflow CMS: Blog Categories,blogCategory,Marketing (TBD),hold (unused),"used by 0 posts; no public URL today - looks like template leftover, migrate? (OQ-25)"
+healthcare-tips,Healthcare Tips,blog-category,Webflow CMS: Blog Categories,blogCategory,Marketing (TBD),hold (unused),"used by 0 posts; no public URL today - looks like template leftover, migrate? (OQ-25)"
+medicare,Medicare,blog-category,Webflow CMS: Blog Categories,blogCategory,Marketing (TBD),not started,used by 3 posts; no public URL today
+mental-health-awareness,Mental Health Awareness,blog-category,Webflow CMS: Blog Categories,blogCategory,Marketing (TBD),hold (unused),"used by 0 posts; no public URL today - looks like template leftover, migrate? (OQ-25)"
+nutrition-guidelines,Nutrition Guidelines,blog-category,Webflow CMS: Blog Categories,blogCategory,Marketing (TBD),hold (unused),"used by 0 posts; no public URL today - looks like template leftover, migrate? (OQ-25)"
+employee-medicare-guide,employer medicare guide,blog-category,Webflow CMS: Blog Categories,blogCategory,Marketing (TBD),not started,used by 16 posts; no public URL today
+education-pieces/medicare-advantage-plans-explained,Medicare Advantage Plans Explained,education (webinar),Webflow CMS: Educations,educationPiece,Marketing (TBD),hold (draft),"start Sun Dec 10 2023; draft, not live; RSVP link is placeholder example.com (OQ-24)"
+education-pieces/medicare-open-enrollment-2023,Medicare Open Enrollment 2023,education (webinar),Webflow CMS: Educations,educationPiece,Marketing (TBD),hold (draft),"start Sun Oct 15 2023; draft, not live; RSVP link is placeholder example.com (OQ-24)"
+education-pieces/medicare-and-preventive-services,How to Complete Medicare Form CMS 40B,education (webinar),Webflow CMS: Educations,educationPiece,Marketing (TBD),not started,"start Sun Aug 09 2026; published, LIVE (200) at /education-pieces/ - blog links use wrong /webinars/ path; RSVP link is placeholder example.com (OQ-24)"
+education-pieces/navigating-medicare-options,Navigating Medicare Options,education (webinar),Webflow CMS: Educations,educationPiece,Marketing (TBD),hold (draft),"start Fri Dec 01 2023; draft, not live; RSVP link is placeholder example.com (OQ-24)"
+education-pieces/medicare-webinar-2023,Understanding Medicare Benefits,education (webinar),Webflow CMS: Educations,educationPiece,Marketing (TBD),hold (draft),"start Wed Nov 15 2023; draft, not live; RSVP link is placeholder example.com (OQ-24)"
+aetna,Aetna,partner (carrier logo),Webflow CMS: Partners,partner,Marketing (TBD),not started,"logo only, no public URL; carrier trademark use needs confirmation (OQ-26)"
+anthem,Anthem,partner (carrier logo),Webflow CMS: Partners,partner,Marketing (TBD),not started,"logo only, no public URL; carrier trademark use needs confirmation (OQ-26)"
+cigna,Cigna,partner (carrier logo),Webflow CMS: Partners,partner,Marketing (TBD),not started,"logo only, no public URL; carrier trademark use needs confirmation (OQ-26)"
+devoted,Devoted,partner (carrier logo),Webflow CMS: Partners,partner,Marketing (TBD),not started,"logo only, no public URL; carrier trademark use needs confirmation (OQ-26)"
+heartland-national,Heartland National,partner (carrier logo),Webflow CMS: Partners,partner,Marketing (TBD),not started,"logo only, no public URL; carrier trademark use needs confirmation (OQ-26)"
+humana,Humana,partner (carrier logo),Webflow CMS: Partners,partner,Marketing (TBD),not started,"logo only, no public URL; carrier trademark use needs confirmation (OQ-26)"
+united-healthcare,United Healthcare,partner (carrier logo),Webflow CMS: Partners,partner,Marketing (TBD),hold (draft),"logo only, no public URL; carrier trademark use needs confirmation (OQ-26)"
+wellcare,WellCare,partner (carrier logo),Webflow CMS: Partners,partner,Marketing (TBD),not started,"logo only, no public URL; carrier trademark use needs confirmation (OQ-26)"
+TBD,CMS collection: Employers,cms-collection,Webflow CMS: Employers,employer,Marketing (TBD),blocked: no CSV received,template detail_employers exists; CSV not in 00-source (OQ-22)

@@ -1,0 +1,93 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Grid from "@/components/wrapper/Grid.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Button from "@/components/Button.astro";
+import Card from "@/components/item/Card.astro";
+import Img from "@/components/media/Img.astro";
+import HeroHome from "@/components/section/HeroHome.astro";
+import CarrierLogos from "@/components/section/CarrierLogos.astro";
+import NewsletterSection from "@/components/section/NewsletterSection.astro";
+import PartnershipsSection from "@/components/section/PartnershipsSection.astro";
+import FaqSection from "@/components/section/FaqSection.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+import img0 from "@/assets/images/home/home-partnerships-administrators.webp";
+import img1 from "@/assets/images/ichra/ichra-administrators-platforms-feature-3.webp";
+import img2 from "@/assets/images/home/home-savings-icon-premium.webp";
+
+const cards0 = [{"heading": "Eligibility moment", "text": "The participant reaches the Medicare branch of the journey.<a href=\"/creating-a-social-security-account\"> Share our guide to setting up a my Social Security account.</a>"}, {"heading": "Embedded scheduling", "text": "A dedicated link creates the next step."}, {"heading": "Consultation", "text": "A specialist reviews the participant's situation."}, {"heading": "Enrollment support", "text": "Timing and next actions are coordinated.<a href=\"/enrolling-in-part-d\"> See our step-by-step Medicare Part D enrollment guide.</a>"}];
+const cards1 = [{"heading": "Dedicated booking path", "text": "Move participants directly into the right consultation rather than asking them to restart elsewhere."}, {"heading": "Co-branded education", "text": "Prepare participants before Medicare eligibility becomes an urgent deadline.<a href=\"https://www.dol.gov/agencies/ebsa/laws-and-regulations/rules-and-regulations/completed-rulemaking/1210-ab87/individual-coverage-model-notice\"> See the Department of Labor's Individual Coverage HRA model notice.</a>"}, {"heading": "Phone and video support", "text": "Serve participants who need more than a self-service workflow.<a href=\"/ichra-for-employers-and-employees\"> See how employers can support Medicare-eligible employees through an ICHRA.</a>"}, {"heading": "Named escalation contacts", "text": "Give operations teams a clear path when a participant needs extra help."}, {"heading": "Approved outcome reporting", "text": "Close the loop without exposing information that should remain private."}, {"heading": "National consistency", "text": "Replace scattered regional referrals with one Medicare support model."}];
+const faqs2 = [{"q": "Does Exact compete with our ICHRA platform?", "a": "No. Exact supports the Medicare portion while your platform retains the administration, enrollment, and reimbursement relationship."}, {"q": "Can the booking experience use our brand?", "a": "Custom links, co-branded resources, and other approved formats can be aligned to the partnership model."}, {"q": "Can data flow back to our platform?", "a": "A feedback loop can be included. Exact data fields, methods, frequency, and permissions require technical, privacy, and contractual approval."}, {"q": "How are escalations handled?", "a": "Each partner should have a named account and escalation contact rather than relying on a general queue."}];
+---
+
+<Layout fullTitle={"ICHRA Administration and Medicare Support | Exact Benefits"} description={"Add a nationwide Medicare support layer to your ICHRA administration platform with participant education, warm handoffs, and enrollment guidance."}>
+  <HeroHome image={img0} imageAlt={"Smiling middle-aged man with gray hair and beard wearing a dark button-up shirt over a white t-shirt on a transparent white background."}>
+    <Eyebrow variant="tag">ICHRA ADMINISTRATION AND MEDICARE SUPPORT</Eyebrow>
+    <Heading tag="h1" variant="h2">How can ICHRA administrators <br/>add Medicare support?</Heading>
+    <Paragraph variant="large" maxWidth={34}><strong>Replace the disconnected Medicare referral with a nationwide, one-to-one participant experience that can work alongside your platform, brand, and service model.</strong></Paragraph>
+    <ButtonWrapper>
+      <Button element="link" size="large" href={"#call-anchor"}>schedule my onboarding call</Button>
+    </ButtonWrapper>
+  </HeroHome>
+  <CarrierLogos />
+  <Section>
+    <ContentWrapper variant="columns" reverse style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">ICHRA ADMINISTRATOR SUPPORT</Eyebrow>
+    <Heading tag="h2" variant="h3">Why is the Medicare handoff part of your ICHRA product experience?</Heading>
+    <Paragraph variant="large">When a participant enters a birth date and the standard quoting journey stops, the next step still reflects on your platform. A generic phone number or outside call-center transfer creates friction at the moment the participant needs more confidence.<br/><br/>Exact gives your organization a defined Medicare support layer. The administrator remains at the center of the ICHRA experience while licensed Medicare specialists handle the conversations that require individual guidance.<a href="/ichra-and-medicare-services"> Learn more about ICHRA and Medicare services.</a> <a href="https://www.irs.gov/newsroom/health-reimbursement-arrangements-hras"> Review the IRS overview of Health Reimbursement Arrangements.</a></Paragraph>
+    <Img slot="column2" src={img1} alt={"A female doctor with a stethoscope around her neck is holding a tablet and talking to an older male patient who is seated on an exam table in a medical office."} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper centered>
+    <Eyebrow variant="tag">MEDICARE WORKFLOW</Eyebrow>
+      <Heading tag="h2" variant="h3">How do you replace a Medicare referral dead end with a warm handoff?</Heading>
+    </ContentWrapper>
+    <Grid small={2} large={4}>
+      {cards0.map((c) => <Card raised headingVariant="h4" {...c} />)}
+    </Grid>
+  </Section>
+  <Section>
+    <ContentWrapper centered>
+    <Eyebrow variant="tag">ICHRA BENEFITS</Eyebrow>
+      <Heading tag="h2" variant="h3">What can a Medicare support layer add to an ICHRA platform?</Heading>
+    </ContentWrapper>
+    <Grid small={2} large={3}>
+      {cards1.map((c) => <Card raised headingVariant="h4" {...c} />)}
+    </Grid>
+  </Section>
+  <Section>
+    <ContentWrapper centered>
+    <Eyebrow variant="tag">PLATFORM INTEGRATION</Eyebrow>
+    <Heading tag="h2" variant="h3">How can the partnership deepen as volume grows?</Heading>
+    <Paragraph variant="large" maxWidth={60}>Start with the smallest useful workflow. Add more integration when the relationship, participant needs, and volume justify it.</Paragraph>
+    </ContentWrapper>
+    <Grid small={2} large={4}>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Referral pathway</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Co-branded experience</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Embedded scheduling and reporting</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Approved white-label or technical integration</Heading>
+        </ContentWrapper>
+    </Grid>
+  </Section>
+  <FaqSection tag={"FAQs"} heading={"What do ICHRA administrators ask before choosing a Medicare partner?"} items={faqs2} />
+  <PartnershipsSection />
+  <NewsletterSection />
+  <ContactSection />
+</Layout>

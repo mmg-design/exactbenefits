@@ -1,5 +1,6 @@
 ---
 import { Font } from "astro:assets";
+import ConsentManager from "@/components/compliance/ConsentManager.astro";
 import { SITE_NAME, SITE_DESCRIPTION } from "@/consts.ts";
 import { isNoindexRoute } from "@/utils/seo.ts";
 import type { SeoProps } from "@/types.ts";
@@ -8,16 +9,19 @@ type Props = SeoProps;
 
 const {
   title,
+  fullTitle,
   description = SITE_DESCRIPTION,
   image = "/og-image.jpg",
   type = "website",
   noindex,
 } = Astro.props;
 
-const isNoindex = noindex ?? isNoindexRoute(Astro.url.pathname);
+/* Files build as /page.html; the URL people and search engines use is /page. */
+const pathname = Astro.url.pathname.replace(/(index)?\.html$/, "");
+const isNoindex = noindex ?? isNoindexRoute(pathname);
 
-const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const pageTitle = fullTitle ?? (title ? `${title} | ${SITE_NAME}` : SITE_NAME);
+const canonical = new URL(pathname, Astro.site);
 const socialImage = new URL(image, Astro.site);
 ---
 
@@ -26,7 +30,11 @@ const socialImage = new URL(image, Astro.site);
   @layer base, patterns, components, utilities;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<Font cssVariable="--font-inter" preload />
+<ConsentManager />
+<Font cssVariable="--font-lato" preload />
+{/* Adobe Fonts (IvyPresto Headline). Approved in 02-compliance/tag-registry.csv as necessary. */}
+<link rel="preconnect" href="https://use.typekit.net" crossorigin />
+<link rel="stylesheet" href="https://use.typekit.net/ibo2hlj.css" />
 <title>{pageTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
@@ -44,6 +52,6 @@ const socialImage = new URL(image, Astro.site);
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={socialImage} />
 
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <meta name="generator" content={Astro.generator} />

@@ -8,3 +8,6 @@
 
 # local agent settings
 .claude/settings.local.json
+
+# Webflow export and other source material (kept locally, not committed: large binaries)
+00-source/

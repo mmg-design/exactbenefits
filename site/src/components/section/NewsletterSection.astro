@@ -1,0 +1,89 @@
+---
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Img from "@/components/media/Img.astro";
+import guideBook from "@/assets/images/home/home-newsletter-guide-book.webp";
+import background from "@/assets/images/home/home-newsletter-background.webp";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Pill above the heading. Empty hides it. */
+  tag?: string;
+  /** Section heading. */
+  heading?: string;
+  /** Heading level. Use `h1` when this opens the page. */
+  headingTag?: "h1" | "h2";
+  /** Body text. */
+  text?: string;
+  /** Show the guide cover. */
+  book?: boolean;
+}
+
+const {
+  render = true,
+  tag = "The Medicare Employer Guide",
+  heading = "The most trusted newsletter in Medicare.",
+  headingTag = "h2",
+  text = "From coordination of benefits and compliance risks to retiree coverage strategies, this newsletter helps HR leaders and business owners make confident decisions. Join hundreds of employers who rely on The Medicare Employer Guide for clear, practical insights.",
+  book = true,
+} = Astro.props;
+---
+
+<Section render={render}>
+  <ContentWrapper variant="card" mediaOpacity={100}>
+    <ContentWrapper variant="columns">
+      <Eyebrow variant="tag-outline" render={!!tag}>{tag}</Eyebrow>
+      <Heading tag={headingTag} variant="h3">{heading}</Heading>
+      <Paragraph>{text}</Paragraph>
+      <div class="newsletter-section_form">
+        <iframe
+          src="https://link.exactbenefits.com/widget/form/jk6Hbc5dl6kF3wqmy8pX"
+          style="width:100%;height:27.5rem;border:none;border-radius:0px"
+          id="inline-jk6Hbc5dl6kF3wqmy8pX"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Subscribe_Form"
+          data-height="440"
+          loading="lazy"
+          data-layout-iframe-id="inline-jk6Hbc5dl6kF3wqmy8pX"
+          data-form-id="jk6Hbc5dl6kF3wqmy8pX"
+          data-cookie-consent="true"
+          data-cookie-consent-provider="auto"
+          title="Subscribe_Form"
+        ></iframe>
+        <script is:inline src="https://link.exactbenefits.com/js/form_embed.js"></script>
+      </div>
+      <Img
+        slot="column2"
+        render={book}
+        src={guideBook}
+        alt="Cover of The Employer Medicare Guide"
+        transparent
+        variant="constrained"
+        sizes="(width >= 62rem) 30vw, 90vw"
+      />
+    </ContentWrapper>
+    <Img slot="column2" src={background} alt="" />
+  </ContentWrapper>
+</Section>
+
+<style is:global>
+  @layer components {
+    /* The card is dark themed. A frame in a different color scheme from its
+       page gets an opaque white backdrop, so this keeps the form see-through. */
+    .newsletter-section_form {
+      width: 100%;
+      margin-top: var(--space-5);
+      color-scheme: light;
+    }
+  }
+</style>

@@ -1,7 +1,15 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import Button from "@/components/Button.astro";
+import Img from "@/components/media/Img.astro";
 import { slotContent } from "@/utils/slots.ts";
+
+type ShowcaseItem = {
+  /** `logo` sits on a white tile, `person` is a headshot beside it. */
+  kind: "logo" | "person";
+  src: ImageMetadata;
+  alt: string;
+};
 
 type Props = HTMLAttributes<"div"> & {
   /** Set to `false` to omit the component. */
@@ -10,12 +18,18 @@ type Props = HTMLAttributes<"div"> & {
   label?: string;
   /** Travel direction. */
   direction?: "forwards" | "backwards";
+  /** Show the pause button. Without it the strip pauses on hover or keyboard focus. */
+  controls?: boolean;
+  /** Tiled logos and headshots, in a tall row. Replaces the slot. */
+  showcase?: ShowcaseItem[];
 };
 
 const {
   render = true,
   label = "Marquee",
   direction = "forwards",
+  controls = true,
+  showcase,
   class: className,
   ...rest
 } = Astro.props;
@@ -61,40 +75,52 @@ const countItems = (html: string) => {
   return count;
 };
 
-const count = countItems(items);
+const count = showcase ? showcase.length : countItems(items);
 
 /* The one thing the stylesheet cannot work out for itself. The pace it is
    multiplied by is set there, beside the rest of the animation. */
 const locals = `--_count: ${count}`;
 ---
 
-{render && items && (
+{render && (items || showcase) && (
   <div
     class:list={[
       "marquee_wrap",
       direction !== "forwards" && direction,
+      showcase && "showcase",
+      !controls && "no-controls",
       className,
     ]}
     style={locals}
     role="group"
     aria-label={label}
+    tabindex={controls ? undefined : "0"}
     {...rest}
   >
     <div class="marquee_viewport">
       <div class="marquee_track">
         <div class="marquee_panel">
-          <Fragment set:html={items} />
+          {showcase ? showcase.map((item) => (
+            <div class={item.kind === "logo" ? "marquee_logo" : "marquee_person"}>
+              <Img src={item.src} alt={item.alt} transparent variant="constrained" sizes="10rem" />
+            </div>
+          )) : <Fragment set:html={items} />}
         </div>
         {/* The copy that carries the loop. Astro renders it, so the strip is
             whole before any script runs, and it is held out of the accessibility
             tree and the tab order so nothing here is met twice. */}
         <div class="marquee_panel" aria-hidden="true" inert>
-          <Fragment set:html={items} />
+          {showcase ? showcase.map((item) => (
+            <div class={item.kind === "logo" ? "marquee_logo" : "marquee_person"}>
+              <Img src={item.src} alt="" transparent variant="constrained" sizes="10rem" />
+            </div>
+          )) : <Fragment set:html={items} />}
         </div>
       </div>
     </div>
 
     <Button
+      render={controls}
       variant="play"
       emphasis="secondary"
       pressed={true}
@@ -183,7 +209,8 @@ const locals = `--_count: ${count}`;
       /* Held while something inside has focus, so a link can't travel out from
          under the person reading it. The toggle sits outside the track. */
       &:focus-within,
-      .marquee_wrap[data-state="paused"] & {
+      .marquee_wrap[data-state="paused"] &,
+      .marquee_wrap.no-controls:is(:hover, :focus-visible) & {
         animation-play-state: paused;
       }
     }
@@ -219,6 +246,67 @@ const locals = `--_count: ${count}`;
 
     .marquee_toggle {
       flex: none;
+    }
+
+    .marquee_wrap.showcase {
+      --_gap-size: 0rem;
+      --_duration: 40s;
+      --_row-height: 8.125rem;
+      --_tile-width: 12.5rem;
+      --_tile-height: 6.25rem;
+      @media (width >= 30rem) {
+        --_row-height: 12.5rem;
+        --_tile-width: 15.625rem;
+        --_tile-height: 7.5rem;
+      }
+
+      & .marquee_viewport {
+        display: flex;
+        align-items: center;
+        height: var(--_row-height);
+        mask-image: linear-gradient(
+          to right,
+          transparent,
+          black 30%,
+          black 70%,
+          transparent
+        );
+      }
+      & .marquee_panel {
+        justify-content: flex-start;
+      }
+    }
+
+    .marquee_logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: var(--_tile-width);
+      height: var(--_tile-height);
+      padding-inline: 1.875rem;
+      background-color: var(--light-100);
+      border-radius: var(--radius-small);
+      box-shadow: 0 0.4375rem 0.9375rem 0.1875rem
+        color-mix(in srgb, var(--dark-700) 15%, transparent);
+      & > .image {
+        width: 65%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .marquee_person {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 5rem;
+      height: 5rem;
+      margin-inline: 1rem;
+      & > .image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
 
     @keyframes marquee {

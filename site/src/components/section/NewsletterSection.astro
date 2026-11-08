@@ -4,7 +4,6 @@ import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
 import Eyebrow from "@/components/typography/Eyebrow.astro";
 import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
-import Card from "@/components/item/Card.astro";
 import Img from "@/components/media/Img.astro";
 import guideBook from "@/assets/images/home/home-newsletter-guide-book.webp";
 import background from "@/assets/images/home/home-newsletter-background.webp";
@@ -40,12 +39,28 @@ const {
       <Eyebrow variant="tag-outline" render={!!tag}>{tag}</Eyebrow>
       <Heading tag={headingTag} variant="h3">{heading}</Heading>
       <Paragraph>{text}</Paragraph>
-      <Card
-        class="margin-top-6"
-        eyebrow="Form placeholder"
-        heading="Subscribe form (Go High Level)"
-        text="The live Go High Level embed goes here once it is approved in 02-compliance/tag-registry.csv."
-      />
+      <div class="newsletter-section_form">
+        <iframe
+          src="https://link.exactbenefits.com/widget/form/jk6Hbc5dl6kF3wqmy8pX"
+          style="width:100%;height:27.5rem;border:none;border-radius:0px"
+          id="inline-jk6Hbc5dl6kF3wqmy8pX"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Subscribe_Form"
+          data-height="440"
+          data-layout-iframe-id="inline-jk6Hbc5dl6kF3wqmy8pX"
+          data-form-id="jk6Hbc5dl6kF3wqmy8pX"
+          data-cookie-consent="true"
+          data-cookie-consent-provider="auto"
+          title="Subscribe_Form"
+        ></iframe>
+        <script is:inline src="https://link.exactbenefits.com/js/form_embed.js"></script>
+      </div>
       <Img
         slot="column2"
         render={book}
@@ -59,3 +74,15 @@ const {
     <Img slot="column2" src={background} alt="" />
   </ContentWrapper>
 </Section>
+
+<style is:global>
+  @layer components {
+    /* The card is dark themed. A frame in a different color scheme from its
+       page gets an opaque white backdrop, so this keeps the form see-through. */
+    .newsletter-section_form {
+      width: 100%;
+      margin-top: var(--space-5);
+      color-scheme: light;
+    }
+  }
+</style>

@@ -28,3 +28,4 @@ A page or form goes here, and loses all non-necessary tags, if it collects or re
 - The Medicare guides (Part A/B, Part D, L564, Social Security account) are educational. They're **not** PHI, but session recording (Clarity) on them should mask all form inputs.
 - GHL forms are cross-origin iframes. Tracking scripts on the parent page can't read inside them, but GHL's own tracking inside the iframe needs GHL-side review.
 - If a GHL form ever adds a health question, update this file **before** the form goes live.
+- **Consultation form free-text field (seen 2026-11-08).** The Go High Level form has an open "Additional information" box. It doesn't ask for health data, but a visitor could type some. Compliance to decide whether to keep it, add guidance, or treat the form as inside the PHI boundary (OQ-38).

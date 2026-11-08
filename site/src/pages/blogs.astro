@@ -43,8 +43,10 @@ const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n   
           variant="stacked"
           image={post.data.mainImage}
           imageAlt={post.data.mainImageAlt ?? post.data.title}
-          eyebrow={`${post.data.category} · ${formatDate(post.data.date)}`}
+          eyebrow={post.data.category}
+          eyebrowVariant="tag"
           heading={post.data.title}
+          text={formatDate(post.data.date)}
           buttonLabel="Read More"
           buttonHref={`/blog/${post.id}`}
         />

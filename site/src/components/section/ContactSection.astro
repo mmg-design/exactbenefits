@@ -52,6 +52,7 @@ const { render = true } = Astro.props;
         title="Consultation_Global_Form"
       ></iframe>
       <script is:inline src="https://link.exactbenefits.com/js/form_embed.js"></script>
+      <p class="contact-section_note text-style-small">By providing your phone number, you agree to receive messages from Exact Benefits. Message and data rates may apply. Text STOP to opt out or HELP for help. See our <a href="/sms-terms-of-service">SMS Terms of Service</a> and <a href="/privacy-policy">Privacy Policy</a>.</p>
     </div>
   </ContentWrapper>
 </Section>
@@ -60,6 +61,13 @@ const { render = true } = Astro.props;
   @layer components {
     .contact-section_form {
       width: 100%;
+    }
+
+    .contact-section_note {
+      margin-top: var(--space-3);
+      & a {
+        text-decoration: underline;
+      }
     }
   }
 </style>

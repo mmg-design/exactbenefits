@@ -14,7 +14,6 @@ https://www.exactbenefits.com/webinars/medicare-open-enrollment-2023.,https://ww
 https://www.exactbenefits.com/webinars/navigating-medicare-options,https://www.exactbenefits.com/webinars,301,"Never a real page; blog posts linked here by mistake. Closest page: the Medicare Resource Library, because the matching item is an unpublished draft",
 https://www.exactbenefits.com/webinars/medicare-webinar-2023,https://www.exactbenefits.com/webinars,301,"Never a real page; blog posts linked here by mistake. Closest page: the Medicare Resource Library, because the matching item is an unpublished draft",
 https://www.exactbenefits.com/blog/do-employees-still-working-past-65-actually-need-medicare%20/webinars/medicare-and-preventive-services,https://www.exactbenefits.com/blog/do-employees-still-working-past-65-actually-need-medicare,301,"Malformed URL from one CMS link holding two addresses (1 inlink in crawl). Sends to the valid page named first",
-https://www.exactbenefits.com/legal/cookie-policy,https://www.exactbenefits.com/privacy-policy,302,"TEMPORARY until the Cookie Policy is published (OQ-08), then delete this row. 302 so browsers do not cache it; 31 inlinks in crawl from the old banner",
 # NOT REDIRECTED (reviewed 2026-11-08). These never served public content, or must stay free for a future page. See OQ-39.
 # /401 - Webflow password page (200 today, no content). No equivalent page; a homepage redirect is not appropriate.
 # /style-guide - Webflow internal page, unpublished (404 today).

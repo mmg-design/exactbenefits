@@ -19,7 +19,7 @@
 
 ## New site status (2026-11-08)
 
-Termageddon / Usercentrics is installed in `site/src/components/compliance/ConsentManager.astro` on the homepage only (D-042). Tested: the banner shows on a first visit; a saved choice suppresses it on return; the privacy button reopens it. Not yet tested: Global Privacy Control, consent-record export. Open items: OQ-08, OQ-36, OQ-37.
+Termageddon / Usercentrics is installed in `site/src/components/compliance/ConsentManager.astro` on every page (D-042, D-048). Tested: the banner shows on a first visit; a saved choice suppresses it on return; the privacy button reopens it. Not yet tested: Global Privacy Control, consent-record export. Open items: OQ-08, OQ-36, OQ-37.
 
 ## Rules for the new site
 

@@ -7,7 +7,7 @@
 |---|---|---|---|---|---|
 | Privacy Policy | `/privacy-policy` | Live (200) | Migrate verbatim, same URL | Legal | TBD |
 | SMS Terms of Service | `/sms-terms-of-service` | Live (200) | Migrate verbatim, same URL. GHL forms likely collect SMS opt-in, so this must stay linked next to those forms. | Legal | TBD |
-| Cookie Policy | `/legal/cookie-policy` | **404: linked from cookie banner but missing** | Must be written and published before launch (OQ-08) | Legal | — |
+| Cookie Policy | `/legal/cookie-policy` | Drafted 2026-11-08 from `tag-registry.csv` and observed site behavior. **Legal review required before launch** (OQ-08) | Published at this URL on the new site | Legal | Not yet reviewed |
 | Terms of Use | none | Doesn't exist | Decide if required (OQ-20) | Legal | — |
 | Accessibility Statement | none | Doesn't exist | Recommended (WCAG 2.2 AA target, contact for accessibility issues) | Legal + Marketing | — |
 | "Your Privacy Choices" / Do Not Sell or Share | Banner zone only | Partial (CookieFlow US zone) | Footer link opens consent preferences (see `consent-setup.md`) | Legal | — |

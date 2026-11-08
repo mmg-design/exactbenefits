@@ -42,7 +42,7 @@ const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n   
         <Card
           variant="stacked"
           image={post.data.mainImage}
-          imageAlt={post.data.title}
+          imageAlt={post.data.mainImageAlt ?? post.data.title}
           eyebrow={`${post.data.category} · ${formatDate(post.data.date)}`}
           heading={post.data.title}
           buttonLabel="Read More"

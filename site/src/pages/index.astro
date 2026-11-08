@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "@/layouts/BaseLayout.astro";
 import Section from "@/components/wrapper/Section.astro";
 import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
@@ -45,9 +46,6 @@ import tickerWellcare from "@/assets/images/home/home-ticker-wellcare-logo.webp"
 import tickerDevoted from "@/assets/images/home/home-ticker-devoted-logo.webp";
 import tickerAnthem from "@/assets/images/home/home-ticker-anthem-logo.webp";
 import tickerHeartland from "@/assets/images/home/home-ticker-heartland-logo.webp";
-import articleIrmaa from "@/assets/images/blog/blog-irmaa-how-income-impacts-medicare-premiums-main.webp";
-import articleDidntKnow from "@/assets/images/blog/blog-when-we-didnt-know-doesnt-fix-the-problem-main.webp";
-import articleDocumentation from "@/assets/images/blog/blog-documentation-what-hr-should-keep-on-file-main.webp";
 
 const comparison = [
   { label: "Monthly Premium", base: "$200 – $600+/month", highlight: "As low as $0/month—plans vary by location and carrier" },
@@ -82,11 +80,10 @@ const savings = [
   { icon: iconBenefits, heading: "Better Benefits", text: "Employees often receive superior coverage on Medicare with lower out-of-pocket costs, prescription savings, and additional perks like dental and vision." },
 ];
 
-const articles = [
-  { image: articleIrmaa, title: "IRMAA: How Income Impacts Medicare Premiums", slug: "irmaa-how-income-impacts-medicare-premiums" },
-  { image: articleDidntKnow, title: "When “We Didn’t Know” Doesn’t Fix the Problem", slug: "when-we-didnt-know-doesnt-fix-the-problem" },
-  { image: articleDocumentation, title: "Documentation: What HR Should Keep on File", slug: "documentation-what-hr-should-keep-on-file" },
-];
+const articles = (await getCollection("blog"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3)
+  .map((post) => ({ image: post.data.mainImage, title: post.data.title, slug: post.id }));
 
 const logo = (src: ImageMetadata, alt: string) => ({ kind: "logo" as const, src, alt });
 const person = (src: ImageMetadata, alt: string) => ({ kind: "person" as const, src, alt });

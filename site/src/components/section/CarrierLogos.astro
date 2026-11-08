@@ -2,13 +2,7 @@
 import Section from "@/components/wrapper/Section.astro";
 import Marquee from "@/components/interactive/Marquee.astro";
 import Img from "@/components/media/Img.astro";
-import cigna from "@/assets/images/partners/global-partner-cigna.webp";
-import aetna from "@/assets/images/partners/global-partner-aetna.webp";
-import heartland from "@/assets/images/partners/global-partner-heartland-national.webp";
-import devoted from "@/assets/images/partners/global-partner-devoted.webp";
-import humana from "@/assets/images/partners/global-partner-humana.webp";
-import wellcare from "@/assets/images/partners/global-partner-wellcare.webp";
-import anthem from "@/assets/images/partners/global-partner-anthem.webp";
+import { getCollection } from "astro:content";
 
 interface Props {
   /** Set to `false` to omit the component. */
@@ -17,21 +11,25 @@ interface Props {
 
 const { render = true } = Astro.props;
 
-const partners = [
-  { src: cigna, name: "Cigna" },
-  { src: aetna, name: "Aetna" },
-  { src: heartland, name: "Heartland National" },
-  { src: devoted, name: "Devoted Health" },
-  { src: humana, name: "Humana" },
-  { src: wellcare, name: "WellCare" },
-  { src: anthem, name: "Anthem" },
-];
+/* Remote images need both dimensions, or they keep their full original width. */
+const LOGO_HEIGHT = 44;
+
+const partners = (await getCollection("partners")).sort(
+  (a, b) => (a.data.sortOrder ?? 99) - (b.data.sortOrder ?? 99),
+);
 ---
 
 <Section render={render} paddingTop="small" paddingBottom="small">
   <Marquee label="Our Medicare carrier partners" controls={false}>
     {partners.map((p) => (
-      <Img src={p.src} alt={p.name} variant="densities" height={44} transparent />
+      <Img
+        src={p.data.logo}
+        alt={p.data.name}
+        variant="densities"
+        width={Math.round((LOGO_HEIGHT * p.data.logoWidth) / p.data.logoHeight)}
+        height={LOGO_HEIGHT}
+        transparent
+      />
     ))}
   </Marquee>
 </Section>

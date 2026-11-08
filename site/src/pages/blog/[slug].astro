@@ -18,7 +18,7 @@ const { Content, headings } = await render(post);
     tag={post.data.category}
     heading={post.data.title}
     image={post.data.mainImage}
-    imageAlt={post.data.title}
+    imageAlt={post.data.mainImageAlt ?? post.data.title}
     headings={headings}
     sideText={"Schedule a call with a licensed Medicare professional to discuss your needs and how we can transform your employee benefits."}
   >

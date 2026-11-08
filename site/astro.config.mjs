@@ -9,6 +9,7 @@ export default defineConfig({
   site: SITE_URL,
   trailingSlash: "never",
   build: { format: "file" },
+  image: { domains: ["cdn.sanity.io"] },
   integrations: [
     react(),
     sitemap({

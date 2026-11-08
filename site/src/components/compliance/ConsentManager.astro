@@ -1,0 +1,31 @@
+---
+/*
+ * LOCKED (CLAUDE.md rule 2). All consent logic lives here and nowhere else.
+ * Do not edit without compliance approval. Tools: 02-compliance/tag-registry.csv.
+ *
+ * Termageddon / Usercentrics. The blocker must stay above every other
+ * third-party resource, and the snippet is kept exactly as Termageddon issued it.
+ */
+
+interface Props {
+  /** Path of the current page, without `.html`. */
+  pathname: string;
+}
+
+const { pathname } = Astro.props;
+
+/* Homepage only for now. Removing this condition turns it on site-wide. */
+const enabled = pathname === "/";
+---
+
+{enabled && (
+  <Fragment>
+    <link rel="preconnect" href="//privacy-proxy.usercentrics.eu" />
+    <link rel="preload" href="//privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js" as="script" />
+    <script is:inline type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>
+    <script is:inline id="usercentrics-cmp" src="https://app.usercentrics.eu/browser-ui/latest/loader.js" data-settings-id="J9SFEAPwLRN6NI" async></script>
+    <script is:inline>uc.setCustomTranslations("https://termageddon.ams3.cdn.digitaloceanspaces.com/translations/");</script>
+    {/* Adobe Fonts is approved as necessary (D-014, D-043). The blocker files use.typekit.net under "Adobe WebFonts" (HJy4c4s_jbX), not the banner's "Adobe Fonts" (gMYO_vhh). Without this exemption it strips the stylesheet and headings fall back to Georgia. */}
+    <script is:inline>uc.deactivateBlocking(["HJy4c4s_jbX"]);</script>
+  </Fragment>
+)}

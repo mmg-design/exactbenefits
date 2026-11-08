@@ -17,6 +17,10 @@
   - **YouTube video** (Webflow video embed via Embedly), bound to the Education "Event Recording Link" field on `/webinars` and the Education template. It sets YouTube cookies. ⚠️ Gap. New site: click-to-load placeholder using `youtube-nocookie.com`, loaded only after marketing consent or an explicit click.
 - **Broken link:** the banner links to `/legal/cookie-policy`, which returns 404. ⚠️ Gap (OQ-08).
 
+## New site status (2026-11-08)
+
+Termageddon / Usercentrics is installed in `site/src/components/compliance/ConsentManager.astro` on the homepage only (D-042). Tested: the banner shows on a first visit; a saved choice suppresses it on return; the privacy button reopens it. Not yet tested: Global Privacy Control, consent-record export. Open items: OQ-08, OQ-36, OQ-37.
+
 ## Rules for the new site
 
 1. **One locked component.** All consent logic lives in a single component rendered once by `BaseLayout.astro`. Proposed path: `site/src/components/compliance/ConsentManager.astro`. *Creating it is a new component, which needs approval.* No page, component or Sanity field may add a script that bypasses it.

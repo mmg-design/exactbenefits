@@ -5,6 +5,7 @@
 
 | Date | Change | Branch / PR | Environment | Requested by | Approved by |
 |---|---|---|---|---|---|
+| 2026-11-08 | Trackers migrated behind consent (GA4 live on consent; Clarity, Leadfeeder, Apollo waiting on the Termageddon list), Cookie Policy updated (D-050); homepage hero speed fix, lazy form iframes (D-051) | `fix/homepage-speed-tracking` → [PR #10](https://github.com/mmg-design/exactbenefits/pull/10) into `staging` | Staging preview | Andy Milligan | Andy Milligan (on behalf of Legal/Compliance for the policy wording; Compliance to confirm, OQ-02) |
 | 2026-11-08 | Consent on every page, SMS disclosure under the consultation form, `/sitemap.xml` restored, `pages.dev` noindexed (D-048) | `content/cookie-policy` → [PR #9](https://github.com/mmg-design/exactbenefits/pull/9) into `staging` | Staging preview | Andy Milligan | Andy Milligan (project lead, on behalf of compliance; Compliance to confirm, OQ-02) |
 | 2026-11-08 | Privacy Policy: leftover drafting text removed and phone number corrected (D-047) | `content/cookie-policy` → [PR #9](https://github.com/mmg-design/exactbenefits/pull/9) into `staging` | Staging preview | Andy Milligan | Andy Milligan (project lead, approving on behalf of Legal/Compliance) |
 | 2026-11-08 | Cookie Policy page added and linked in footer; temporary redirect removed (D-046) | `content/cookie-policy` → [PR #9](https://github.com/mmg-design/exactbenefits/pull/9) into `staging` | Staging preview | Andy Milligan | Pending Legal review |

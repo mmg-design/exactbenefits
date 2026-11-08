@@ -1,0 +1,147 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Img from "@/components/media/Img.astro";
+
+type Props = HTMLAttributes<"div"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Accessible table caption. Visually hidden. */
+  caption?: string;
+  /** Header for the row labels column. */
+  labelHeading?: string;
+  /** Header for the standard column. */
+  baseHeading?: string;
+  /** Header for the highlighted column. */
+  highlightHeading?: string;
+  /** One entry per row: the feature, the standard value, the highlighted value. */
+  rows?: { label: string; base: string; highlight: string }[];
+  /** Texture behind the highlighted column. Decorative. */
+  highlightImage?: ImageMetadata;
+};
+
+const {
+  render = true,
+  caption,
+  labelHeading = "Feature",
+  baseHeading,
+  highlightHeading,
+  rows = [],
+  highlightImage,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+{render && rows.length > 0 && baseHeading && highlightHeading && (
+  <div class:list={["table-comparison_wrap", className]} {...rest}>
+    {highlightImage && (
+      <div class="table-comparison_texture" aria-hidden="true">
+        <Img src={highlightImage} alt="" />
+      </div>
+    )}
+    <table class="table-comparison_table">
+      {caption && <caption class="sr-only">{caption}</caption>}
+      <thead>
+        <tr>
+          <th scope="col" class="table-comparison_label">{labelHeading}</th>
+          <th scope="col">{baseHeading}</th>
+          <th scope="col" class="table-comparison_highlight">
+            {highlightHeading}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr>
+            <th scope="row" class="table-comparison_label">{row.label}</th>
+            <td>{row.base}</td>
+            <td class="table-comparison_highlight">{row.highlight}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+
+<style is:global>
+  @layer components {
+    .table-comparison_wrap {
+      --_highlight-width: calc(100% / 3);
+      position: relative;
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--radius-main);
+      border: var(--border-width) solid var(--border);
+      background-color: var(--background);
+    }
+
+    .table-comparison_texture {
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: var(--_highlight-width);
+      min-width: 12rem;
+      border-radius: var(--radius-main);
+      overflow: clip;
+      pointer-events: none;
+      & > * {
+        width: 100%;
+        height: 100%;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: color-mix(in srgb, var(--teal-900) 45%, transparent);
+      }
+    }
+
+    .table-comparison_table {
+      position: relative;
+      width: 100%;
+      min-width: 36rem;
+      border-collapse: collapse;
+      table-layout: fixed;
+      text-align: center;
+      font-size: var(--text-small);
+      @media (width >= 48rem) {
+        font-size: var(--text-main);
+      }
+
+      & th,
+      & td {
+        padding: var(--space-3) var(--space-2);
+        border-bottom: var(--border-width) solid var(--border);
+        text-wrap: balance;
+      }
+
+      & thead th {
+        font-family: var(--heading-family);
+        font-size: var(--h5);
+        font-weight: var(--primary-regular);
+        line-height: var(--line-height-small);
+      }
+
+      & tbody tr:last-child > * {
+        border-bottom: 0;
+      }
+    }
+
+    .table-comparison_label {
+      text-align: start;
+      font-weight: var(--primary-bold);
+    }
+
+    .table-comparison_highlight {
+      color: var(--light-100);
+      font-weight: var(--primary-bold);
+    }
+
+    .table-comparison_table .table-comparison_highlight {
+      border-bottom-color: color-mix(in srgb, var(--light-100) 20%, transparent);
+    }
+
+    .table-comparison_wrap:not(:has(.table-comparison_texture)) .table-comparison_highlight {
+      background-color: var(--teal-700);
+    }
+  }
+</style>

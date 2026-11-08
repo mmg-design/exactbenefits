@@ -45,10 +45,14 @@ const content = await slotContent(Astro.slots);
       gap: var(--space-2);
 
       &.tag {
-        background-color: var(--text);
-        color: var(--background);
-        padding: var(--space-1) var(--space-2);
-        border-radius: var(--radius-small);
+        background-color: var(--lime-500);
+        color: var(--dark-900);
+        border: var(--border-width) solid var(--lime-600);
+        padding: 0.2em 0.6em;
+        border-radius: var(--radius-round);
+        font-size: var(--text-small);
+        font-weight: var(--primary-bold);
+        text-transform: uppercase;
       }
       .eyebrow_marker {
         flex: none;

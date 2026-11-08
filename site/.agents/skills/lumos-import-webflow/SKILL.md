@@ -19,22 +19,22 @@ it is answered, not at the end** — the end is exactly when the Webflow site
 gets unpublished and the answers stop being checkable.
 
 ```markdown
-- **Live URL** — what every page is compared against, until cutover
-- **Provenance** — Lumos for Webflow, or hand-built
-- **Code export** — path to the unzipped folder
-- **Collection CSVs** — path
-- **301 redirects** — path to the CSV from Site Settings → Publishing
-- **Webflow site ID** — `data-wf-site`, how every MCP call addresses the site
-- **CMS** — content collections, a headless CMS, or Webflow headless; and why
-- **Forms** — provider, and where submissions go
-- **Search** — what replaced Webflow's, or that the site has none
-- **Hosting** — where it deploys, and the domain cutover plan
-- **Breakpoints** — the site's own, in rem, replacing the framework's
-- **Collections** — each one, and the route or component it landed in
-- **List filters and sorts** — per list, since nothing but the Designer records them
-- **Out of scope** — Ecommerce, Memberships, Logic, and what was agreed instead
-- **Decisions** — anything the site's owner chose that the code cannot explain
-- **Still open** — questions waiting on an answer
+- **Live URL** — https://www.exactbenefits.com (production). NOTE: the build source is the *staging* export, which is newer than live (D-020 in 07-governance/decisions-log.md).
+- **Provenance** — hand-built (Relume-based Webflow classes, no `u-*` utilities); no automatic class mapping.
+- **Code export** — migration-project/00-source/exact-benefits-staging.webflow (local only, git-ignored)
+- **Collection CSVs** — migration-project/00-source/Exact Benefits - {Blogs, Blog Categories, Educations, Partners} - <id>.csv (Employers CSV missing, OQ-22)
+- **301 redirects** — migration-project/00-source/exact-benefits-2026-11-08.csv (2 rules → 03-redirects/redirect-map.csv)
+- **Webflow site ID** — 692604863b4c4206cf177bae
+- **CMS** — Sanity (project brief). Interim: homepage lists use local data from the CSVs. Schema plan: 04-content/sanity-schema-plan.md
+- **Forms** — Go High Level embeds (3 forms, IDs in 01-audit/forms-and-integrations.csv). Placeholders until the GHL embed is approved in 02-compliance/tag-registry.csv (D-016)
+- **Search** — none on the site
+- **Hosting** — Cloudflare (Pages or Workers TBD, OQ-15); Webflow stays published until launch sign-off
+- **Breakpoints** — 30rem / 48rem / 62rem (Webflow 479/767/991px); nav collapses below 80rem (D-021)
+- **Collections** — Blogs → /blog/[slug]; Educations → /education-pieces/[slug] (only 1 published); Blog Categories, Partners → no public URLs (data only); Employers → TBD
+- **List filters and sorts** — homepage "Featured Articles": 3 newest blog posts by date (live shows IRMAA, When "We Didn't Know", Documentation); homepage partner strip: published Partners
+- **Out of scope** — Ecommerce/Memberships/Logic: none on this site. Webflow password page (/401) not migrated
+- **Decisions** — see 07-governance/decisions-log.md (D-013 to D-023 cover this build); project rules in migration-project/CLAUDE.md override this skill (no unapproved third-party scripts, so pass 1 was done straight into Lumos components, D-018)
+- **Still open** — 07-governance/open-questions.md (OQ-22 Employers CSV, OQ-24 webinar links, OQ-27/28 copy and link fixes, nav breakpoint review)
 ```
 
 **This section belongs to the project, not to the framework.** In a fresh

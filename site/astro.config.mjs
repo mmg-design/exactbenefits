@@ -13,15 +13,20 @@ export default defineConfig({
   ],
   fonts: [
     {
-      name: "Inter",
-      cssVariable: "--font-inter",
+      name: "Lato",
+      cssVariable: "--font-lato",
       provider: fontProviders.local(),
       options: {
         variants: [
           {
             weight: 400,
             style: "normal",
-            src: ["./src/assets/fonts/inter-regular.woff2"],
+            src: ["./src/assets/fonts/lato-regular.woff2"],
+          },
+          {
+            weight: 700,
+            style: "normal",
+            src: ["./src/assets/fonts/lato-bold.woff2"],
           },
         ],
       },

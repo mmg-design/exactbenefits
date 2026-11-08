@@ -8,16 +8,19 @@ type Props = SeoProps;
 
 const {
   title,
+  fullTitle,
   description = SITE_DESCRIPTION,
   image = "/og-image.jpg",
   type = "website",
   noindex,
 } = Astro.props;
 
-const isNoindex = noindex ?? isNoindexRoute(Astro.url.pathname);
+/* Files build as /page.html; the URL people and search engines use is /page. */
+const pathname = Astro.url.pathname.replace(/(index)?\.html$/, "");
+const isNoindex = noindex ?? isNoindexRoute(pathname);
 
-const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const pageTitle = fullTitle ?? (title ? `${title} | ${SITE_NAME}` : SITE_NAME);
+const canonical = new URL(pathname, Astro.site);
 const socialImage = new URL(image, Astro.site);
 ---
 

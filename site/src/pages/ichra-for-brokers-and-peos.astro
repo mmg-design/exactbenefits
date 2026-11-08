@@ -1,0 +1,105 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Grid from "@/components/wrapper/Grid.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Button from "@/components/Button.astro";
+import Card from "@/components/item/Card.astro";
+import Img from "@/components/media/Img.astro";
+import HeroHome from "@/components/section/HeroHome.astro";
+import CarrierLogos from "@/components/section/CarrierLogos.astro";
+import NewsletterSection from "@/components/section/NewsletterSection.astro";
+import PartnershipsSection from "@/components/section/PartnershipsSection.astro";
+import FaqSection from "@/components/section/FaqSection.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+import TableComparison from "@/components/content/TableComparison.astro";
+import comparisonTexture from "@/assets/images/home/home-comparison-card-background.webp";
+import img0 from "@/assets/images/home/home-partnerships-peos.webp";
+import img1 from "@/assets/images/ichra/ichra-for-brokers-and-peos-feature-3.webp";
+import img2 from "@/assets/images/home/home-savings-icon-premium.webp";
+import img3 from "@/assets/images/ichra/ichra-for-brokers-and-peos-support.webp";
+
+const cards0 = [{"heading": "Personal coverage conversations", "text": "Discuss doctors, prescriptions, family needs, budget, and available coverage rather than sending people to a quote page.<a href=\"/ichra-for-employers-and-employees\"> See how employers and employees use ICHRA Medicare support.</a>"}, {"heading": "A stronger employee experience", "text": "Offer a direct booking path, named support, educational resources, and follow-through for complex situations.<a href=\"/medicare-part-a-and-b\"> Share our step-by-step guide to applying for Medicare Part A and B online.</a>"}, {"heading": "Support that grows with the case", "text": "Begin with referrals, then add co-branded education, employer pages, and structured workflows as volume grows.<a href=\"/ichra-administrators-platforms\"> See how ICHRA administrators and platforms can build the workflow.</a>"}];
+const rows1 = [{"base": "Outside phone number", "highlight": "Defined warm handoff"}, {"base": "Unknown follow-up", "highlight": "Approved status visibility"}, {"base": "Regional limitations", "highlight": "Nationwide support model"}, {"base": "Relationship uncertainty", "highlight": "Your team remains central"}];
+const faqs2 = [{"q": "Will Exact take over our client relationship?", "a": "No. Exact supports the Medicare portion while the broker or PEO retains the broader benefits relationship.<strong></strong>"}, {"q": "Can Exact support one employee before we formalize a larger program?", "a": "The model can begin with a smaller referral relationship. Minimum onboarding and contracting requirements should be confirmed for each opportunity."}, {"q": "Can we use Exact across multiple states?", "a": "The proposed differentiator is one national Medicare relationship, subject to approved licensing and carrier language."}, {"q": "Can we co-brand employee communications?", "a": "Co-branded resources, employer pages, and scheduling experiences can be included when approved for the partnership."}];
+---
+
+<Layout fullTitle={"ICHRA Medicare Support for Brokers and PEOs | Exact Benefits"} description={"Give ICHRA clients nationwide Medicare support while protecting the broker or PEO relationship with clear referrals, education, and enrollment help."}>
+  <HeroHome image={img0} imageAlt={"Smiling older woman with long gray hair wearing a light green turtleneck shirt."}>
+    <Eyebrow variant="tag">ICHRA FOR BROKERS AND PEOS</Eyebrow>
+    <Heading tag="h1" variant="h2">How can brokers and PEOs add ICHRA Medicare support?</Heading>
+    <Paragraph variant="large" maxWidth={34}><strong>Give Medicare-eligible employees a consistent, nationwide support experience while your team remains the trusted benefits relationship.</strong></Paragraph>
+    <ButtonWrapper>
+      <Button element="link" size="large" href={"#call-anchor"}>schedule my onboarding call</Button>
+    </ButtonWrapper>
+  </HeroHome>
+  <CarrierLogos />
+  <Section>
+    <ContentWrapper variant="columns" reverse style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">ICHRA BROKER SUPPORT</Eyebrow>
+    <Heading tag="h2" variant="h3">What happens when an ICHRA case does not fit the traditional group market?</Heading>
+    <Paragraph variant="large">PEOs and brokers often encounter groups that are declined, priced out, geographically complex, or poorly matched to the traditional group market. ICHRA can preserve the opportunity, but Medicare-eligible participants still need a distinct solution. A supported alternative gives the producer a better answer than ending the conversation.<br/><br/>Exact handles the individual Medicare education and enrollment-support work while the broker or PEO retains the wider client relationship.<a href="/ichra-and-medicare-services"> Learn more about ICHRA and Medicare services.</a> <a href="https://www.dol.gov/sites/default/files/ebsa/about-ebsa/our-activities/resource-center/faqs/health-reimbursement-arrangements.pdf"> Review the Department of Labor's Individual Coverage HRA guidance.</a></Paragraph>
+    <Img slot="column2" src={img1} alt={"Smiling man wearing a headset with microphone, sitting at a desk using a laptop and writing in a notebook, with a blue mug and small potted plant nearby, in a room with bookshelves and blue curtains."} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper variant="columns" style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">PARTNER BENEFITS</Eyebrow>
+    <Heading tag="h2" variant="h3">How do you keep Medicare from becoming the weak link in a multi-state client relationship?</Heading>
+    <Paragraph variant="large">A regional referral may work until a client has employees in several states. Exact gives the partner one Medicare resource with a consistent intake, consultation, and escalation process.<a href="https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare"> See Medicare.gov guidance on Medicare enrollment timing.</a></Paragraph>
+      <Grid xsmall={1} small={2} class="margin-top-6">
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">National Medicare support</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Individual participant consultations</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Named account manager</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Co-branded education</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Defined handoff and escalation</Heading>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Img src={img2} alt="" variant="densities" width={48} transparent />
+          <Heading tag="h3" variant="h5">Approved partner reporting</Heading>
+        </ContentWrapper>
+      </Grid>
+      <Img slot="column2" src={img3} alt={"Elderly man wearing glasses and a striped shirt writing in a binder at a desk near a window with natural light."} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper centered>
+    <Eyebrow variant="tag">MEDICARE SUPPORT MODEL</Eyebrow>
+      <Heading tag="h2" variant="h3">What does a Medicare specialist add behind the broker or PEO relationship?</Heading>
+    </ContentWrapper>
+    <Grid small={2} large={3}>
+      {cards0.map((c) => <Card raised headingVariant="h4" {...c} />)}
+    </Grid>
+  </Section>
+  <Section align="center">
+    <ContentWrapper centered>
+      <Heading tag="h2" variant="h3">How does the referral journey protect your relationship?</Heading>
+    </ContentWrapper>
+    <TableComparison caption={"How does the referral journey protect your relationship?"} baseHeading={"Generic referral"} highlightHeading={"Exact partner experience"} rows={rows1} highlightImage={comparisonTexture} />
+    <ButtonWrapper marginTop="0">
+      <Button element="link" size="large" href={"#call-anchor"}>Schedule a Consultation</Button>
+    </ButtonWrapper>
+  </Section>
+  <FaqSection tag={"FAQs"} heading={"What do brokers and PEOs ask before working with Exact?"} items={faqs2} />
+  <PartnershipsSection />
+  <NewsletterSection />
+  <ContactSection />
+</Layout>

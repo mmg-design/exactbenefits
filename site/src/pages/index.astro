@@ -7,34 +7,32 @@ import Grid from "@/components/wrapper/Grid.astro";
 import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
 import Eyebrow from "@/components/typography/Eyebrow.astro";
-import RichText from "@/components/typography/RichText.astro";
 import Button from "@/components/Button.astro";
 import Card from "@/components/item/Card.astro";
 import Img from "@/components/media/Img.astro";
 import Marquee from "@/components/interactive/Marquee.astro";
-import Accordion from "@/components/interactive/Accordion.astro";
-import AccordionItem from "@/components/interactive/AccordionItem.astro";
 import HeroHome from "@/components/section/HeroHome.astro";
+import CarrierLogos from "@/components/section/CarrierLogos.astro";
+import NewsletterSection from "@/components/section/NewsletterSection.astro";
+import PartnershipsSection from "@/components/section/PartnershipsSection.astro";
+import FaqSection from "@/components/section/FaqSection.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
 import TableComparison from "@/components/content/TableComparison.astro";
 import BentoWhyExact from "@/components/content/BentoWhyExact.astro";
 import CalculatorSavings from "@/components/content/CalculatorSavings.astro";
 
+import iconPiggyBank from "@/assets/icons/piggy-bank.svg";
+import iconXCircle from "@/assets/icons/x-circle.svg";
+import savingsAccent from "@/assets/images/home/home-savings-accent-icon.webp";
 import comparisonTexture from "@/assets/images/home/home-comparison-card-background.webp";
-import whyDirect from "@/assets/images/home/home-why-direct-support.webp";
 import whyTeam from "@/assets/images/home/home-why-account-team.webp";
 import whyAnalysis from "@/assets/images/home/home-why-plan-analysis.webp";
 import whyWorkshops from "@/assets/images/home/home-why-workshops.webp";
 import whyEnrollment from "@/assets/images/home/home-why-enrollment.webp";
 import whySupport from "@/assets/images/home/home-why-ongoing-support.webp";
-import newsletterBackground from "@/assets/images/home/home-newsletter-background.webp";
-import guideBook from "@/assets/images/home/home-newsletter-guide-book.webp";
 import iconPremium from "@/assets/images/home/home-savings-icon-premium.webp";
 import iconPlanSpend from "@/assets/images/home/home-savings-icon-plan-spend.webp";
 import iconBenefits from "@/assets/images/home/home-savings-icon-benefits.webp";
-import partnerAdministrators from "@/assets/images/home/home-partnerships-administrators.webp";
-import partnerPeos from "@/assets/images/home/home-partnerships-peos.webp";
-import partnerEmployers from "@/assets/images/home/home-partnerships-employers.webp";
-import partnerInsurtech from "@/assets/images/home/home-partnerships-insurtech.webp";
 import teamSarah from "@/assets/images/global/global-team-sarah.webp";
 import teamAshley from "@/assets/images/global/global-team-ashley.webp";
 import teamRicky from "@/assets/images/global/global-team-ricky.webp";
@@ -47,27 +45,9 @@ import tickerWellcare from "@/assets/images/home/home-ticker-wellcare-logo.webp"
 import tickerDevoted from "@/assets/images/home/home-ticker-devoted-logo.webp";
 import tickerAnthem from "@/assets/images/home/home-ticker-anthem-logo.webp";
 import tickerHeartland from "@/assets/images/home/home-ticker-heartland-logo.webp";
-import socialProof from "@/assets/images/home/home-contact-social-proof.webp";
-import partnerAetna from "@/assets/images/partners/global-partner-aetna.webp";
-import partnerAnthem from "@/assets/images/partners/global-partner-anthem.webp";
-import partnerCigna from "@/assets/images/partners/global-partner-cigna.webp";
-import partnerDevoted from "@/assets/images/partners/global-partner-devoted.webp";
-import partnerHeartland from "@/assets/images/partners/global-partner-heartland-national.webp";
-import partnerHumana from "@/assets/images/partners/global-partner-humana.webp";
-import partnerWellcare from "@/assets/images/partners/global-partner-wellcare.webp";
 import articleIrmaa from "@/assets/images/blog/blog-irmaa-how-income-impacts-medicare-premiums-main.webp";
 import articleDidntKnow from "@/assets/images/blog/blog-when-we-didnt-know-doesnt-fix-the-problem-main.webp";
 import articleDocumentation from "@/assets/images/blog/blog-documentation-what-hr-should-keep-on-file-main.webp";
-
-const partners = [
-  { src: partnerCigna, name: "Cigna" },
-  { src: partnerAetna, name: "Aetna" },
-  { src: partnerHeartland, name: "Heartland National" },
-  { src: partnerDevoted, name: "Devoted Health" },
-  { src: partnerHumana, name: "Humana" },
-  { src: partnerWellcare, name: "WellCare" },
-  { src: partnerAnthem, name: "Anthem" },
-];
 
 const comparison = [
   { label: "Monthly Premium", base: "$200 – $600+/month", highlight: "As low as $0/month—plans vary by location and carrier" },
@@ -81,12 +61,12 @@ const comparison = [
 ];
 
 const why = [
-  { heading: "Direct employee support", text: "Your employees get a direct line to a Medicare Account Manager. No more HR becoming the middleman for complex questions.", image: whyDirect, imageAlt: "Two people talking warmly over a laptop", tone: "mist" as const },
-  { heading: "Dedicated medicare account team", text: "Non-commissioned agents who act as an extension of your HR department, focused solely on employee outcomes.", image: whyTeam, imageAlt: "Smiling Medicare account manager with long curly blonde hair", tone: "aqua" as const },
-  { heading: "Plan analysis & comparison", text: "Personalized reviews of Medicare options based on individual health needs, providers, and prescriptions.", image: whyAnalysis, imageAlt: "Senior man in a grey cardigan reviewing plan options", tone: "mist" as const },
-  { heading: "Educational workshops", text: "Live webinars and on-demand resources that prepare employees months before their Medicare eligibility.", image: whyWorkshops, imageAlt: "Man wearing earbuds presenting during a live webinar", tone: "night" as const },
-  { heading: "Enrollment coordination", text: "We manage the entire transition process—from tracking deadlines to ensuring proper plan selection and enrollment.", image: whyEnrollment, imageAlt: "Two colleagues reviewing enrollment paperwork together", tone: "teal" as const },
-  { heading: "Ongoing support", text: "Live webinars and on-demand resources thatprepare employees months before their Medicare eligibility.", image: whySupport, imageAlt: "Smiling support specialist wearing a headset", tone: "foam" as const },
+  { heading: "Direct employee support", text: "Your employees get a direct line to a Medicare Account Manager. No more HR becoming the middleman for complex questions.", image: teamSarah, imageAlt: "Sarah, a smiling customer support representative wearing a headset", tone: "foam" as const, size: "small" as const, imageSide: "right" as const, imageWidth: "15rem" },
+  { heading: "Dedicated medicare account team", text: "Non-commissioned agents who act as an extension of your HR department, focused solely on employee outcomes.", image: whyTeam, imageAlt: "Smiling Medicare account manager with long curly blonde hair", tone: "aqua" as const, size: "large" as const, imageSide: "right" as const, imageWidth: "95%" },
+  { heading: "Plan analysis & comparison", text: "Personalized reviews of Medicare options based on individual health needs, providers, and prescriptions.", image: whyAnalysis, imageAlt: "Senior man in a grey cardigan reviewing plan options", tone: "brand" as const, size: "large" as const, imageSide: "right" as const, imageWidth: "100%" },
+  { heading: "Educational workshops", text: "Live webinars and on-demand resources that prepare employees months before their Medicare eligibility.", image: whyWorkshops, imageAlt: "Man wearing earbuds presenting during a live webinar", tone: "night" as const, size: "small" as const },
+  { heading: "Enrollment coordination", text: "We manage the entire transition process—from tracking deadlines to ensuring proper plan selection and enrollment.", image: whyEnrollment, imageAlt: "Two colleagues reviewing enrollment paperwork together", tone: "foam" as const, size: "small" as const },
+  { heading: "Ongoing support", text: "Live webinars and on-demand resources thatprepare employees months before their Medicare eligibility.", image: whySupport, imageAlt: "Smiling support specialist wearing a headset", tone: "foam" as const, size: "large" as const, imageSide: "left" as const, imageWidth: "68%", textSide: "right" as const },
 ];
 
 const myths = [
@@ -102,36 +82,31 @@ const savings = [
   { icon: iconBenefits, heading: "Better Benefits", text: "Employees often receive superior coverage on Medicare with lower out-of-pocket costs, prescription savings, and additional perks like dental and vision." },
 ];
 
-const partnerships = [
-  { image: partnerAdministrators, imageAlt: "Smiling middle-aged man with gray hair and beard", heading: "CHOICE/ICHRA Administrators", label: "Explore administrator partnerships", href: "/ichra-administrators-platforms" },
-  { image: partnerPeos, imageAlt: "Smiling older woman with long gray hair", heading: "PEOs", label: "Explore PEO partnerships", href: "/ichra-for-brokers-and-peos" },
-  { image: partnerEmployers, imageAlt: "Smiling middle-aged man with salt-and-pepper beard", heading: "Employers & HR", label: "Explore employer support", href: "/ichra-for-employers-and-employees" },
-  { image: teamSarah, imageAlt: "Sarah, a smiling customer support representative wearing a headset", heading: "Health Brokers", label: "Explore broker partnerships", href: "/ichra-for-brokers-and-peos" },
-  { image: partnerInsurtech, imageAlt: "Smiling elderly woman with short white hair", heading: "Insurtech Platforms", label: "Explore platform partnerships", href: "/ichra-for-employers-and-employees" },
-  { image: whySupport, imageAlt: "Smiling support specialist wearing a headset", heading: "HRIS", label: "Explore HRIS partnerships", href: "/ichra-for-employers-and-employees" },
-];
-
 const articles = [
   { image: articleIrmaa, title: "IRMAA: How Income Impacts Medicare Premiums", slug: "irmaa-how-income-impacts-medicare-premiums" },
   { image: articleDidntKnow, title: "When “We Didn’t Know” Doesn’t Fix the Problem", slug: "when-we-didnt-know-doesnt-fix-the-problem" },
   { image: articleDocumentation, title: "Documentation: What HR Should Keep on File", slug: "documentation-what-hr-should-keep-on-file" },
 ];
 
-const logos = [
-  { src: tickerAetna, alt: "Aetna" },
-  { src: tickerHumana, alt: "Humana" },
-  { src: tickerCigna, alt: "Cigna" },
-  { src: tickerWellcare, alt: "WellCare" },
-  { src: tickerDevoted, alt: "Devoted Health" },
-  { src: tickerAnthem, alt: "Anthem" },
-  { src: tickerHeartland, alt: "Heartland National" },
-];
+const logo = (src: ImageMetadata, alt: string) => ({ kind: "logo" as const, src, alt });
+const person = (src: ImageMetadata, alt: string) => ({ kind: "person" as const, src, alt });
 
-const team = [
-  { src: teamAshley, alt: "Ashley from the Exact Benefits team" },
-  { src: teamRicky, alt: "Ricky from the Exact Benefits team" },
-  { src: teamMatt, alt: "Matt Buchan from the Exact Benefits team" },
-  { src: teamCourtney, alt: "Courtney from the Exact Benefits team" },
+const aetna = logo(tickerAetna, "Aetna");
+const humana = logo(tickerHumana, "Humana");
+const cigna = logo(tickerCigna, "Cigna");
+const wellcare = logo(tickerWellcare, "WellCare");
+const devoted = logo(tickerDevoted, "Devoted Health");
+const anthem = logo(tickerAnthem, "Anthem");
+const heartland = logo(tickerHeartland, "Heartland National");
+const ashley = person(teamAshley, "Ashley from the Exact Benefits team");
+const ricky = person(teamRicky, "Ricky from the Exact Benefits team");
+const matt = person(teamMatt, "Matt Buchan from the Exact Benefits team");
+const courtney = person(teamCourtney, "Courtney from the Exact Benefits team");
+
+const tickerRows = [
+  [aetna, ashley, humana, ricky, cigna, ashley, wellcare, matt, devoted, courtney, anthem, ricky],
+  [humana, ashley, aetna, ricky, anthem, ashley, wellcare, matt, heartland, courtney, cigna, ricky],
+  [anthem, ashley, heartland, ricky, devoted, ashley, humana, ricky, devoted, ashley, anthem, ricky],
 ];
 
 const faqs = [
@@ -139,9 +114,12 @@ const faqs = [
   { q: "Does this cost the employer anything?", a: "There’s no added fee for working with Exact Benefits. In many cases, employers actually save money because Medicare becomes the primary payer for eligible employees, reducing claims on your group plan. Our advisors guide you through the process so you stay compliant and financially protected." },
   { q: "What if we’re a small group and Medicare pays first?", a: "For groups under 20 employees, Medicare <strong>usually</strong> becomes the primary payer. That means your group plan acts as secondary coverage. We help you structure coverage correctly, avoid compliance issues, and make sure your employees understand how their benefits work so there are no surprises." },
 ];
+const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"Organization\",\n      \"@id\": \"https://www.exactbenefits.com/#organization\",\n      \"name\": \"Exact Benefits Powered by Exact Medicare\",\n      \"url\": \"https://www.exactbenefits.com/\",\n      \"telephone\": \"+1-888-893-9553\"\n    },\n    {\n      \"@type\": \"Service\",\n      \"@id\": \"https://www.exactbenefits.com/#service\",\n      \"name\": \"Employer Medicare Benefits & Transition Support\",\n      \"serviceType\": \"Employer Medicare Benefits Consulting\",\n      \"description\": \"Exact Benefits helps employers provide trusted Medicare guidance for eligible employees, reduce healthcare costs, remove the Medicare burden from HR teams, coordinate Medicare enrollment, educate employees, and provide ongoing Medicare support at no cost to employers.\",\n      \"provider\": {\n        \"@id\": \"https://www.exactbenefits.com/#organization\"\n      },\n      \"url\": \"https://www.exactbenefits.com/\",\n      \"audience\": {\n        \"@type\": \"Audience\",\n        \"audienceType\": \"Employers, HR teams, CFOs, and business leadership\"\n      },\n      \"offers\": {\n        \"@type\": \"Offer\",\n        \"url\": \"https://www.exactbenefits.com/\",\n        \"priceSpecification\": {\n          \"@type\": \"PriceSpecification\",\n          \"price\": \"0\",\n          \"priceCurrency\": \"USD\",\n          \"description\": \"Schedule a free consultation with an Exact Benefits advisor.\"\n        }\n      }\n    },\n    {\n      \"@type\": \"FAQPage\",\n      \"@id\": \"https://www.exactbenefits.com/#faq\",\n      \"mainEntity\": [\n        {\n          \"@type\": \"Question\",\n          \"name\": \"What happens if an employee delays Medicare?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"If an eligible employee delays Medicare, your group plan usually becomes the primary payer until they enroll. This can increase your plan's cost exposure and may lead to higher premiums. Exact Benefits helps review each employee's situation to ensure proper timing and avoid coverage gaps or penalties.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Does this cost the employer anything?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"There is no added fee for working with Exact Benefits. In many cases, employers save money because Medicare becomes the primary payer for eligible employees, reducing claims on the group health plan while advisors help maintain compliance.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"What if we're a small group and Medicare pays first?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"For groups with fewer than 20 employees, Medicare usually becomes the primary payer while the employer group plan serves as secondary coverage. Exact Benefits helps structure coverage correctly, avoid compliance issues, and educate employees about how their benefits work.\"\n          }\n        }\n      ]\n    }\n  ]\n}";
 ---
 
 <Layout title="Employer Medicare Benefits & Transition Support">
+  <Fragment slot="head"><script is:inline type="application/ld+json" set:html={schema} /></Fragment>
+
   <!-- hero -->
   <HeroHome>
     <Eyebrow variant="tag">Employer Medicare Savings</Eyebrow>
@@ -151,28 +129,25 @@ const faqs = [
       remove the burden from HR—<strong>all at absolutely no cost to the employer.</strong>
     </Paragraph>
     <ButtonWrapper>
-      <Button element="link" href="/#call-anchor">schedule my onboarding call</Button>
+      <Button element="link" size="large" href="/#call-anchor">schedule my onboarding call</Button>
     </ButtonWrapper>
   </HeroHome>
 
   <!-- partners -->
-  <Section paddingTop="small" paddingBottom="small">
-    <Marquee label="Our Medicare carrier partners">
-      {partners.map((p) => (
-        <Img src={p.src} alt={p.name} variant="densities" height={44} transparent />
-      ))}
-    </Marquee>
-  </Section>
+  <CarrierLogos />
 
   <!-- significant savings -->
   <Section>
     <ContentWrapper variant="columns">
       <Card
+        variant="stat"
         theme="brand"
         eyebrow="Average HR savings"
-        heading="<span class='text-style-display'>$7,000+</span><br />per employee, per year."
-        headingTag="h3"
+        eyebrowIcon={iconPiggyBank}
+        stat="$7,000+"
+        statCaption="per employee, per year."
         text="Many employers reinvest those savings directly back into their workforce: meaning better candidates for your team."
+        accent={savingsAccent}
       />
       <Heading slot="column2" tag="h2">Significant savings</Heading>
       <Paragraph slot="column2" variant="large">
@@ -189,7 +164,7 @@ const faqs = [
 
   <!-- comparison -->
   <Section align="center">
-    <ContentWrapper centered>
+    <ContentWrapper centered style="--h3-margin-bottom: var(--space-2);">
       <Heading tag="h2" variant="h3">Are Your Employees Paying More for Less?</Heading>
       <Paragraph variant="large" maxWidth={60}>
         Most employees 65+ stay on the group plan, assuming Medicare is inferior —
@@ -205,59 +180,25 @@ const faqs = [
       highlightImage={comparisonTexture}
     />
     <ButtonWrapper marginTop="0">
-      <Button element="link" href="/#call-anchor">Schedule a Consultation</Button>
+      <Button element="link" size="large" href="/#call-anchor">Schedule a Consultation</Button>
     </ButtonWrapper>
   </Section>
 
   <!-- why exact -->
   <Section theme="dark" id="about" align="center">
     <ContentWrapper centered>
-      <Eyebrow variant="tag">Why Exact?</Eyebrow>
+      <Eyebrow variant="tag-outline">Why Exact?</Eyebrow>
       <Heading tag="h2" maxWidth={20}>The <em>obvious choice</em> for internal HR teams.</Heading>
     </ContentWrapper>
     <BentoWhyExact items={why} />
   </Section>
 
   <!-- newsletter -->
-  <Section>
-    <ContentWrapper
-      variant="card"
-      mediaOpacity={100}
-      style="--heading-accent: var(--lime-500);"
-    >
-      <ContentWrapper variant="columns">
-        <Eyebrow variant="tag">The Medicare Employer Guide</Eyebrow>
-        <Heading tag="h2" variant="h3" class="heading-accent">
-          <strong>The most trusted newsletter in Medicare.</strong>
-        </Heading>
-        <Paragraph>
-          From coordination of benefits and compliance risks to retiree coverage
-          strategies, this newsletter helps HR leaders and business owners make
-          confident decisions. Join hundreds of employers who rely on The Medicare
-          Employer Guide for clear, practical insights.
-        </Paragraph>
-        <Card
-          class="margin-top-6"
-          eyebrow="Form placeholder"
-          heading="Subscribe form (Go High Level)"
-          text="The live Go High Level embed goes here once it is approved in 02-compliance/tag-registry.csv."
-        />
-        <Img
-          slot="column2"
-          src={guideBook}
-          alt="Cover of The Employer Medicare Guide"
-          transparent
-          variant="constrained"
-          sizes="(width >= 62rem) 30vw, 90vw"
-        />
-      </ContentWrapper>
-      <Img slot="column2" src={newsletterBackground} alt="" />
-    </ContentWrapper>
-  </Section>
+  <NewsletterSection />
 
   <!-- medicare is changing -->
   <Section>
-    <ContentWrapper variant="sticky-content">
+    <ContentWrapper variant="sticky-stack">
       <Heading tag="h2">Medicare is changing.</Heading>
       <Paragraph maxWidth={40}>
         Most HR teams we see simply aren’t aware of the advantages they could be
@@ -269,7 +210,7 @@ const faqs = [
       </ButtonWrapper>
       <Fragment slot="column2">
         {myths.map((m) => (
-          <Card raised eyebrow={m.quote} heading={m.heading} text={m.text} headingTag="h3" />
+          <Card raised eyebrow={m.quote} eyebrowIcon={iconXCircle} heading={m.heading} headingVariant="h4" text={m.text} headingTag="h3" />
         ))}
       </Fragment>
     </ContentWrapper>
@@ -297,24 +238,7 @@ const faqs = [
   </Section>
 
   <!-- partnerships -->
-  <Section align="center">
-    <ContentWrapper centered>
-      <Eyebrow variant="tag">Partnerships</Eyebrow>
-      <Heading tag="h2">Our Medicare Partnerships</Heading>
-    </ContentWrapper>
-    <Grid small={2} large={3}>
-      {partnerships.map((p) => (
-        <Card
-          variant="stacked"
-          image={p.image}
-          imageAlt={p.imageAlt}
-          heading={p.heading}
-          buttonLabel={p.label}
-          buttonHref={p.href}
-        />
-      ))}
-    </Grid>
-  </Section>
+  <PartnershipsSection />
 
   <!-- featured articles -->
   <Section>
@@ -333,72 +257,23 @@ const faqs = [
   </Section>
 
   <!-- ticker -->
-  <Section theme="dark" align="center">
-    <ContentWrapper variant="card" cardTheme="light">
-      <ContentWrapper variant="columns">
-        <Marquee label="Our carrier partners">
-          {logos.map((l) => (
-            <Img src={l.src} alt={l.alt} variant="densities" height={48} transparent />
-          ))}
-        </Marquee>
-        <Marquee label="Our team" direction="backwards">
-          {team.map((t) => (
-            <Img src={t.src} alt={t.alt} variant="densities" height={72} transparent />
-          ))}
-        </Marquee>
-        <Marquee label="More carrier partners">
-          {[...logos].reverse().map((l) => (
-            <Img src={l.src} alt={l.alt} variant="densities" height={48} transparent />
-          ))}
-        </Marquee>
-        <Heading slot="column2" tag="h2" variant="h3" maxWidth={24}>
-          Connect with our team to simplify your Medicare complexity.
-        </Heading>
-        <ButtonWrapper slot="column2">
-          <Button element="link" href="/#call-anchor">schedule my call</Button>
-        </ButtonWrapper>
-      </ContentWrapper>
+  <Section theme="dark">
+    <ContentWrapper variant="contain" cardTheme="light" column1Class="padding-1">
+      <Marquee label="Our carrier partners and team" showcase={tickerRows[0]} controls={false} />
+      <Marquee label="More of our carrier partners and team" showcase={tickerRows[1]} direction="backwards" controls={false} />
+      <Marquee label="Our carrier partners and advisors" showcase={tickerRows[2]} controls={false} />
+      <Heading slot="column2" tag="h2" variant="h3" maxWidth={24}>
+        Connect with our team to simplify your Medicare complexity.
+      </Heading>
+      <ButtonWrapper slot="column2">
+        <Button element="link" size="large" href="/#call-anchor">schedule my call</Button>
+      </ButtonWrapper>
     </ContentWrapper>
   </Section>
 
   <!-- faq -->
-  <Section align="center">
-    <ContentWrapper centered>
-      <Eyebrow variant="tag">FAQ's</Eyebrow>
-      <Heading tag="h2">We’ve got the answers.</Heading>
-    </ContentWrapper>
-    <Accordion class="max-width-small">
-      {faqs.map((f) => (
-        <AccordionItem heading={f.q}>
-          <Paragraph><Fragment set:html={f.a} /></Paragraph>
-        </AccordionItem>
-      ))}
-    </Accordion>
-  </Section>
+  <FaqSection tag="FAQ's" heading="We’ve got the answers." items={faqs} />
 
   <!-- contact -->
-  <Section theme="dark" id="call-anchor">
-    <ContentWrapper variant="columns">
-      <Img src={socialProof} alt="Three smiling Exact Benefits advisors" variant="densities" height={56} transparent />
-      <Heading tag="h2">Ready to transform your medicare?</Heading>
-      <Paragraph variant="large">
-        <strong>Speak to a trusted team of experts who will learn your situation and clearly lay out next steps.</strong>
-      </Paragraph>
-      <RichText>
-        <ul>
-          <li>Save $7,300+ per year per 65+ employee</li>
-          <li>Zero cost to your company</li>
-          <li>Set up in 2-4 weeks</li>
-        </ul>
-      </RichText>
-      <Paragraph variant="large"><strong>4.9/5</strong> on 5,026 reviews</Paragraph>
-      <Card
-        slot="column2"
-        theme="light"
-        eyebrow="Form placeholder"
-        heading="Personal consultation form (Go High Level)"
-        text="The live Go High Level embed goes here once it is approved in 02-compliance/tag-registry.csv."
-      />
-    </ContentWrapper>
-  </Section>
+  <ContactSection />
 </Layout>

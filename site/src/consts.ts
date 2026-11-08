@@ -8,7 +8,7 @@ export const SITE_URL = "https://www.exactbenefits.com";
 /** BCP 47 locale tag used to format dates and numbers. */
 export const SITE_LOCALE = "en-US";
 /** Routes excluded from search and the sitemap. Surrounding slashes are ignored. */
-export const NOINDEX_ROUTES: string[] = ["/404", "/example-components"];
+export const NOINDEX_ROUTES: string[] = ["/404", "/example-components", "/education-pieces/medicare-and-preventive-services"];
 
 /** Main phone number, shown in the nav and footer. */
 export const SITE_PHONE = { label: "+1 888-893-9553", href: "tel:+18888939553" };

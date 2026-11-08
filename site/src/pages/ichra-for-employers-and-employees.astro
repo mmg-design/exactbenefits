@@ -1,0 +1,78 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Grid from "@/components/wrapper/Grid.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Button from "@/components/Button.astro";
+import Card from "@/components/item/Card.astro";
+import Img from "@/components/media/Img.astro";
+import HeroHome from "@/components/section/HeroHome.astro";
+import CarrierLogos from "@/components/section/CarrierLogos.astro";
+import NewsletterSection from "@/components/section/NewsletterSection.astro";
+import PartnershipsSection from "@/components/section/PartnershipsSection.astro";
+import FaqSection from "@/components/section/FaqSection.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+import img0 from "@/assets/images/home/home-partnerships-employers.webp";
+import img1 from "@/assets/images/ichra/ichra-for-employers-and-employees-feature-3.webp";
+import img2 from "@/assets/images/ichra/ichra-for-employers-and-employees-support.webp";
+
+const cards0 = [{"heading": "Early education", "text": "Introduce Medicare resources months before eligibility.<a href=\"https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/working-past-65\"> See Medicare.gov guidance for people working past 65.</a>"}, {"heading": "Direct scheduling", "text": "Give employees a clear way to request help."}, {"heading": "Individual review", "text": "Discuss the employee's providers, prescriptions, and budget."}, {"heading": "Enrollment coordination", "text": "Help the employee understand timing and next steps.<a href=\"/medicare-part-a-and-b\"> See how to apply for Medicare Part A and B online.</a>"}, {"heading": "Ongoing service", "text": "Provide a contact after enrollment."}];
+const cards1 = [{"heading": "Take Medicare questions off HR's desk", "text": "Shift personal plan and coverage questions to licensed Medicare specialists.<a href=\"/medicare-pricing-calculator\"> Estimate your Medicare savings with our calculator.</a>"}, {"heading": "Help employees make informed decisions", "text": "Base the conversation on the employee's real health, financial, and family situation."}, {"heading": "Support spouses and dependents", "text": "Review family coverage before an employee changes coverage.<a href=\"/blog/medicare-and-aca-transitions-for-under-65-spouses\"> Learn how Medicare affects under-65 spouses.</a>"}, {"heading": "Serve real-world employee situations", "text": "Support people working past 65, distributed employees, and participants with complex prescriptions."}, {"heading": "Coordinate reimbursement-ready steps", "text": "Explain what information the ICHRA administrator requires after enrollment.<a href=\"/ichra-administrators-platforms\"> See how ICHRA administrators and platforms coordinate Medicare support.</a>"}, {"heading": "Give HR a named contact", "text": "Create a consistent referral and escalation process for employee questions."}];
+const faqs2 = [{"q": "Can Medicare-eligible employees participate in an ICHRA?", "a": "They may be able to participate when applicable ICHRA and Medicare requirements are satisfied. The plan administrator and current guidance control the final determination.<strong></strong>"}, {"q": "Can an ICHRA reimburse Medicare premiums?", "a": "Certain Medicare premiums may be eligible when the arrangement is properly designed and the participant meets the requirements. Avoid treating every premium or expense as automatically reimbursable."}, {"q": "Does the employee have to leave the group plan?", "a": "If the employer replaces group coverage with an ICHRA for the applicable employee class, those employees generally move from the group plan to individual coverage. The precise treatment depends on the ICHRA design and employee circumstances."}, {"q": "What if the employee's spouse is not Medicare eligible?", "a": "Spouse and dependent coverage should be reviewed before the employee changes coverage so the household understands the full impact."}, {"q": "Does this create more work for HR?", "a": "The intended model gives HR a consistent referral path and shifts personal Medicare questions to licensed specialists."}];
+---
+
+<Layout fullTitle={"ICHRA for Medicare-Eligible Employees | Exact Benefits"} description={"Help Medicare-eligible employees understand ICHRA coverage, reimbursement, enrollment timing, and next steps with licensed Medicare support."}>
+  <HeroHome image={img0} imageAlt={"Smiling middle-aged man with gray hair and a salt-and-pepper beard wearing a green collared shirt against a white background."}>
+    <Eyebrow variant="tag">ICHRA FOR EMPLOYERS AND MEDICARE-ELIGIBLE EMPLOYEES</Eyebrow>
+    <Heading tag="h1" variant="h2">How can an ICHRA give Medicare-eligible employees better support?</Heading>
+    <Paragraph variant="large" maxWidth={34}><strong>Help employees understand how Medicare fits with the ICHRA without asking HR to interpret coverage, compare plans, or manage each individual decision.</strong></Paragraph>
+    <ButtonWrapper>
+      <Button element="link" size="large" href={"#call-anchor"}>schedule my onboarding call</Button>
+    </ButtonWrapper>
+  </HeroHome>
+  <CarrierLogos />
+  <Section>
+    <ContentWrapper variant="columns" reverse style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">ICHRA AND MEDICARE</Eyebrow>
+    <Heading tag="h2" variant="h3">Why does Medicare add complexity to an employee's ICHRA experience?</Heading>
+    <Paragraph variant="large">Employees approaching Medicare eligibility may need to understand enrollment rules, coverage structures, reimbursement questions, and timing requirements. A standard individual-market workflow may not answer those questions.<br/><br/>Exact handles the personal conversation about current coverage, doctors, prescriptions, budget, spouse needs, and available Medicare paths. HR provides the benefit framework and a trusted referral path without becoming the middleman for every decision.<a href="/ichra-and-medicare-services"> Learn more about ICHRA and Medicare services.</a></Paragraph>
+    <Img slot="column2" src={img1} alt={"Smiling elderly woman with white hair wearing a grey sweater and light scarf stands outdoors with red autumn leaves in the background."} />
+    </ContentWrapper>
+  </Section>
+  <Section>
+    <ContentWrapper centered>
+    <Eyebrow variant="tag">EMPLOYEE MEDICARE SUPPORT</Eyebrow>
+      <Heading tag="h2" variant="h3">How can employers answer Medicare questions before it becomes urgent?</Heading>
+    </ContentWrapper>
+    <Grid small={2} large={3}>
+      {cards0.map((c) => <Card raised headingVariant="h4" {...c} />)}
+    </Grid>
+  </Section>
+  <Section>
+    <ContentWrapper centered>
+    <Eyebrow variant="tag">benefits</Eyebrow>
+      <Heading tag="h2" variant="h3">What ICHRA benefits matter most to employers and employees?</Heading>
+    </ContentWrapper>
+    <Grid small={2} large={3}>
+      {cards1.map((c) => <Card raised headingVariant="h4" {...c} />)}
+    </Grid>
+  </Section>
+  <Section>
+    <ContentWrapper variant="columns" style="--_visual-ratio: 1 / 1;">
+    <Eyebrow variant="tag">ICHRA BENEFITS</Eyebrow>
+    <Heading tag="h2" variant="h3">How does the ICHRA decision differ from the employee's Medicare decision?</Heading>
+    <Paragraph variant="large">If an employer replaces group coverage with an ICHRA for an applicable employee class, those employees generally move to individual coverage. The employee still needs clear information to choose the coverage path that fits their circumstances.<a href="https://www.dol.gov/sites/default/files/ebsa/about-ebsa/our-activities/resource-center/faqs/health-reimbursement-arrangements.pdf"> Review the Department of Labor's Individual Coverage HRA guidance.</a></Paragraph>
+      <Grid xsmall={1} small={2} class="margin-top-6">
+      </Grid>
+      <Img slot="column2" src={img2} alt={"An older man and woman happily riding bicycles together on a tree-lined path in a sunny park."} />
+    </ContentWrapper>
+  </Section>
+  <FaqSection tag={"FAQs"} heading={"What do employers and employees ask about ICHRA and Medicare?"} items={faqs2} />
+  <PartnershipsSection />
+  <NewsletterSection />
+  <ContactSection />
+</Layout>

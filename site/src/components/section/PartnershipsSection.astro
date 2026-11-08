@@ -1,0 +1,51 @@
+---
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Grid from "@/components/wrapper/Grid.astro";
+import Card from "@/components/item/Card.astro";
+import administrators from "@/assets/images/home/home-partnerships-administrators.webp";
+import peos from "@/assets/images/home/home-partnerships-peos.webp";
+import employers from "@/assets/images/home/home-partnerships-employers.webp";
+import insurtech from "@/assets/images/home/home-partnerships-insurtech.webp";
+import sarah from "@/assets/images/global/global-team-sarah.webp";
+import support from "@/assets/images/home/home-why-ongoing-support.webp";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+}
+
+const { render = true } = Astro.props;
+
+const partnerships = [
+  { image: administrators, imageAlt: "Smiling middle-aged man with gray hair and beard", heading: "CHOICE/ICHRA Administrators", label: "Explore administrator partnerships", href: "/ichra-administrators-platforms" },
+  { image: peos, imageAlt: "Smiling older woman with long gray hair", heading: "PEOs", label: "Explore PEO partnerships", href: "/ichra-for-brokers-and-peos" },
+  { image: employers, imageAlt: "Smiling middle-aged man with salt-and-pepper beard", heading: "Employers & HR", label: "Explore employer support", href: "/ichra-for-employers-and-employees" },
+  { image: sarah, imageAlt: "Sarah, a smiling customer support representative wearing a headset", heading: "Health Brokers", label: "Explore broker partnerships", href: "/ichra-for-brokers-and-peos" },
+  { image: insurtech, imageAlt: "Smiling elderly woman with short white hair", heading: "Insurtech Platforms", label: "Explore platform partnerships", href: "/ichra-for-employers-and-employees" },
+  { image: support, imageAlt: "Smiling support specialist wearing a headset", heading: "HRIS", label: "Explore HRIS partnerships", href: "/ichra-for-employers-and-employees" },
+];
+---
+
+<Section render={render} align="center">
+  <ContentWrapper centered>
+    <Eyebrow variant="tag">Partnerships</Eyebrow>
+    <Heading tag="h2">Our Medicare Partnerships</Heading>
+  </ContentWrapper>
+  <Grid small={2} large={3}>
+    {partnerships.map((p) => (
+      <Card
+        variant="stacked"
+        cutout
+        image={p.image}
+        imageAlt={p.imageAlt}
+        heading={p.heading}
+        headingVariant="h4"
+        buttonLabel={p.label}
+        buttonHref={p.href}
+      />
+    ))}
+  </Grid>
+</Section>

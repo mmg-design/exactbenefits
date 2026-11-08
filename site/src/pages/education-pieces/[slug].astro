@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "@/layouts/BaseLayout.astro";
+import ArticleLayout from "@/components/content/ArticleLayout.astro";
+import NewsletterSection from "@/components/section/NewsletterSection.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+
+export async function getStaticPaths() {
+  const items = await getCollection("education");
+  return items.map((item) => ({ params: { slug: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+const when = item.data.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+---
+
+{/* Noindex matches the live page. */}
+<Layout fullTitle={item.data.fullTitle} description={item.data.description} noindex>
+  <ArticleLayout
+    tag="Featured Resources"
+    heading={item.data.title}
+    subheading={`${item.data.short} ${item.data.location} · ${when}`}
+    sideHeading="Need more help?"
+    sideLabel="Speak to an Agent"
+  >
+    <h2>Details &amp; Resources</h2>
+    <Content />
+  </ArticleLayout>
+  <NewsletterSection tag="" heading={"Get the latest news delivered straight to your inbox."} text={"An easy way to stay informed on Medicare facts, updates, and important changes is to sign up for the Employee Medicare Guide. Helpful articles, tips, and events will be sent directly to your inbox."} book={false} />
+  <ContactSection />
+</Layout>

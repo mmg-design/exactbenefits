@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "@/layouts/BaseLayout.astro";
+import ArticleLayout from "@/components/content/ArticleLayout.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+
+export async function getStaticPaths() {
+  const guides = await getCollection("guides");
+  return guides.map((guide) => ({ params: { guide: guide.id }, props: { guide } }));
+}
+
+const { guide } = Astro.props;
+const { Content, headings } = await render(guide);
+---
+
+<Layout fullTitle={guide.data.fullTitle} description={guide.data.description} type="article">
+  <ArticleLayout
+    tag={guide.data.tag}
+    heading={guide.data.title}
+    image={guide.data.image}
+    imageAlt={guide.data.imageAlt}
+    headings={headings}
+    aiSummary
+    sideHeading="Need more help?"
+    sideLabel="Speak to an Agent"
+  >
+    <Content />
+  </ArticleLayout>
+  <ContactSection />
+</Layout>

@@ -28,6 +28,22 @@ type Props = HTMLAttributes<"div"> & {
   max?: number;
   /** Small print under the results. */
   disclaimer?: string;
+  /** `simple` uses a fixed saving; `compare` asks for the current premium and shows a breakdown. */
+  variant?: "simple" | "compare";
+  /**
+   * Starting annual premium per employee, in dollars. `compare` only.
+   *
+   * @min 0
+   * @int
+   */
+  currentPremium?: number;
+  /**
+   * Average annual Medicare-based cost per employee, in dollars. `compare` only.
+   *
+   * @min 0
+   * @int
+   */
+  medicareCost?: number;
 };
 
 const {
@@ -36,15 +52,99 @@ const {
   initial = 10,
   max = 100,
   disclaimer = "Based on average annual premium savings when transitioning from employer group plans to Medicare. Actual savings vary by plan type, location, and employee health needs.",
+  variant = "simple",
+  currentPremium = 11500,
+  medicareCost = 4200,
   class: className,
   ...rest
 } = Astro.props;
 
 const id = uid("calculator-savings");
+const premiumId = uid("calculator-premium");
+const comparePer = Math.max(0, currentPremium - medicareCost);
 const format = (n: number) => n.toLocaleString("en-US");
 ---
 
-{render && (
+{render && variant === "compare" && (
+  <div
+    class:list={["calculator-savings_wrap", "compare", className]}
+    data-medicare={medicareCost}
+    {...rest}
+  >
+    <div class="calculator-savings_glow" aria-hidden="true" />
+    <div class="calculator-savings_card">
+      <div class="calculator-savings_header">
+        <div class="calculator-savings_icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="5" y="3" width="14" height="18" rx="2" />
+            <line x1="8" y1="7" x2="16" y2="7" />
+            <circle cx="9" cy="13" r="1" />
+            <circle cx="9" cy="17" r="1" />
+            <circle cx="13" cy="13" r="1" />
+            <circle cx="13" cy="17" r="1" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="calculator-savings_title">Savings Calculator</h3>
+          <p class="calculator-savings_subtitle">See your potential savings</p>
+        </div>
+      </div>
+
+      <div class="calculator-savings_grid">
+        <div>
+          <div class="calculator-savings_field">
+            <label class="calculator-savings_label" for={premiumId}>
+              What you currently pay per employee
+              <span class="calculator-savings_hint">Annual premium, age 65+</span>
+            </label>
+            <div class="calculator-savings_input-wrap">
+              <span aria-hidden="true">$</span>
+              <input id={premiumId} class="calculator-savings_input" type="text" inputmode="numeric" autocomplete="off" value={format(currentPremium)} data-premium />
+              <span>/ yr</span>
+            </div>
+          </div>
+          <div class="calculator-savings_slider">
+            <div class="calculator-savings_label-row">
+              <label class="calculator-savings_label" for={id}>Number of employees age 65+</label>
+              <div class="calculator-savings_badge">
+                <span aria-hidden="true">👥</span>
+                <span class="calculator-savings_badge-value" data-employees>{initial}</span>
+              </div>
+            </div>
+            <input id={id} class="calculator-savings_range" type="range" min="1" max={max} step="1" value={initial} />
+            <div class="calculator-savings_scale" aria-hidden="true">
+              <span>1</span>
+              <span>{max} employees</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="calculator-savings_col-title">Estimated breakdown</p>
+          <dl class="calculator-savings_breakdown">
+            <div class="calculator-savings_row"><dt>Current cost / employee</dt><dd data-current>${format(currentPremium)}</dd></div>
+            <div class="calculator-savings_row"><dt>Medicare cost / employee</dt><dd>${format(medicareCost)}</dd></div>
+            <div class="calculator-savings_row"><dt>Savings / employee</dt><dd data-per-employee>${format(comparePer)}</dd></div>
+            <div class="calculator-savings_row"><dt>Employees age 65+</dt><dd data-employees>{initial}</dd></div>
+            <div class="calculator-savings_row is-total"><dt>Total annual savings</dt><dd data-total-dollars>${format(comparePer * initial)}</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="calculator-savings_result" aria-live="polite" aria-atomic="true">
+        <div class="calculator-savings_result-label">Estimated Annual Savings</div>
+        <div class="calculator-savings_result-row">
+          <span class="calculator-savings_dollar" aria-hidden="true">$</span>
+          <span class="calculator-savings_amount" data-total>{format(comparePer * initial)}</span>
+        </div>
+        <div class="calculator-savings_result-label">per year</div>
+      </div>
+
+      <p class="calculator-savings_disclaimer">{disclaimer}</p>
+    </div>
+  </div>
+)}
+
+{render && variant === "simple" && (
   <div
     class:list={["calculator-savings_wrap", className]}
     data-savings={savingsPerEmployee}
@@ -132,13 +232,25 @@ const format = (n: number) => n.toLocaleString("en-US");
     ".calculator-savings_wrap",
   )) {
     const input = calc.querySelector<HTMLInputElement>(".calculator-savings_range");
-    const perEmployee = Number(calc.dataset.savings) || 0;
+    const premium = calc.querySelector<HTMLInputElement>("[data-premium]");
+    const medicare = Number(calc.dataset.medicare) || 0;
+    const fixed = Number(calc.dataset.savings) || 0;
     if (!input) continue;
+
+    const parse = (value: string) => parseInt(value.replace(/[^0-9]/g, ""), 10) || 0;
 
     const format = (n: number) => n.toLocaleString("en-US");
     const update = (value: string) => {
       const employees = parseInt(value, 10) || 0;
+      const current = premium ? parse(premium.value) : 0;
+      const perEmployee = premium ? Math.max(0, current - medicare) : fixed;
       const total = employees * perEmployee;
+      calc.querySelectorAll("[data-current]").forEach((el) => {
+        el.textContent = "$" + format(current);
+      });
+      calc.querySelectorAll("[data-per-employee]").forEach((el) => {
+        el.textContent = "$" + format(perEmployee);
+      });
       calc.querySelectorAll("[data-employees]").forEach((el) => {
         el.textContent = String(employees);
       });
@@ -152,6 +264,11 @@ const format = (n: number) => n.toLocaleString("en-US");
 
     update(input.value);
     input.addEventListener("input", () => update(input.value));
+    premium?.addEventListener("input", () => {
+      const amount = parse(premium.value);
+      premium.value = amount ? format(amount) : "";
+      update(input.value);
+    });
   }
 </script>
 
@@ -164,10 +281,66 @@ const format = (n: number) => n.toLocaleString("en-US");
       margin-inline: auto;
     }
 
+    .calculator-savings_wrap.compare {
+      max-width: 60rem;
+      text-align: start;
+    }
+
+    .calculator-savings_grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-5);
+      margin-bottom: var(--space-4);
+      @media (width >= 48rem) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .calculator-savings_field {
+      margin-bottom: var(--space-4);
+    }
+
+    .calculator-savings_hint {
+      display: block;
+      font-size: var(--text-small);
+      font-weight: var(--primary-regular);
+      color: var(--text-lighter, currentcolor);
+    }
+
+    .calculator-savings_input-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-top: var(--space-1);
+      padding: var(--space-2) var(--space-3);
+      border: var(--border-width) solid var(--light-300);
+      border-radius: var(--radius-small);
+      font-weight: var(--primary-bold);
+      &:focus-within {
+        outline: 0.125rem solid var(--teal-500);
+        outline-offset: 0.125rem;
+      }
+    }
+
+    .calculator-savings_input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font: inherit;
+      color: inherit;
+    }
+
+    .calculator-savings_col-title {
+      margin-bottom: var(--space-2);
+      font-weight: var(--primary-bold);
+    }
+
     .calculator-savings_glow {
       position: absolute;
       top: -1.5rem;
-      right: -1.5rem;
+      right: max(-1.5rem, -1 * var(--site-margin));
       width: 16.25rem;
       height: 16.25rem;
       background: color-mix(in srgb, var(--teal-500) 12%, transparent);

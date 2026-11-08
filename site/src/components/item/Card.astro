@@ -1,5 +1,5 @@
 ---
-import type { HTMLAttributes } from "astro/types";
+import type { HTMLAttributes, SvgComponent } from "astro/types";
 import Eyebrow from "@/components/typography/Eyebrow.astro";
 import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
@@ -15,10 +15,14 @@ type Base = HTMLAttributes<"div"> & {
   render?: boolean;
   /** Eyebrow text. Supports inline markup. */
   eyebrow?: string;
+  /** Decorative icon before the eyebrow text. */
+  eyebrowIcon?: SvgComponent;
   /** Card title. Supports inline markup. */
   heading?: string;
   /** Heading level. */
   headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  /** Heading size. Defaults to `h5`. */
+  headingVariant?: "h3" | "h4" | "h5";
   /** Body text. Supports inline markup. */
   text?: string;
   /** Button label. Omit to hide the button. */
@@ -26,7 +30,7 @@ type Base = HTMLAttributes<"div"> & {
   /** Button destination. Omit for a `<button>`. */
   buttonHref?: string;
   /** Card layout. */
-  variant?: "default" | "cover" | "stacked";
+  variant?: "default" | "cover" | "stacked" | "stat";
   /** Color theme of element and its children. */
   theme?: "inherit" | "light" | "dark" | "brand" | "invert";
 };
@@ -39,6 +43,9 @@ type Props = Base &
         imageAlt?: never;
         /** White surface with a soft shadow, accent heading and tag eyebrow. */
         raised?: boolean;
+        stat?: never;
+        statCaption?: never;
+        accent?: never;
       }
     | {
         variant: "cover";
@@ -47,6 +54,9 @@ type Props = Base &
         /** Image alt text. Omit for decorative images. */
         imageAlt?: string;
         raised?: never;
+        stat?: never;
+        statCaption?: never;
+        accent?: never;
       }
     | {
         variant: "stacked";
@@ -56,7 +66,24 @@ type Props = Base &
         image?: ImageSource;
         /** Image alt text. Omit for decorative images. */
         imageAlt?: string;
+        /** Show a transparent cut-out, whole, on a square white backdrop. */
+        cutout?: boolean;
         raised?: never;
+        stat?: never;
+        statCaption?: never;
+        accent?: never;
+      }
+    | {
+        variant: "stat";
+        image?: never;
+        imageAlt?: never;
+        raised?: never;
+        /** Headline figure. */
+        stat: string;
+        /** Line under the figure. */
+        statCaption?: string;
+        /** Decorative image in the top corner. */
+        accent?: ImageMetadata;
       }
   );
 
@@ -64,13 +91,19 @@ type AllProps = Base & {
   image?: ImageSource;
   imageAlt?: string;
   raised?: boolean;
+  cutout?: boolean;
+  stat?: string;
+  statCaption?: string;
+  accent?: ImageMetadata;
 };
 
 const {
   render = true,
   eyebrow,
+  eyebrowIcon,
   heading,
   headingTag = "h3",
+  headingVariant = "h5",
   text,
   buttonLabel,
   buttonHref,
@@ -79,18 +112,22 @@ const {
   image,
   imageAlt,
   raised = false,
+  cutout = false,
+  stat,
+  statCaption,
+  accent,
   class: className,
   ...rest
 } = Astro.props as AllProps;
 
 const hasImage = variant !== "default" && !!image;
-const hasContent = !!(eyebrow || heading || text || buttonLabel);
+const hasContent = !!(eyebrow || heading || text || buttonLabel || stat);
 const hasTheme = variant !== "stacked" && theme !== "inherit";
 
 /* The button each variant closes with, so a set of cards reads as one system.
    A link carries no emphasis of its own, so the two are picked together. */
 const buttonKind =
-  variant === "stacked"
+  variant === "stacked" || raised
     ? ({ variant: "link" } as const)
     : ({ emphasis: variant === "cover" ? "primary" : "secondary" } as const);
 
@@ -105,7 +142,7 @@ if (import.meta.env.DEV && render) {
       '[lumos] <Card variant="default"> holds no image, so `image` was dropped. Use the cover or stacked variant to show it.',
     );
   }
-  if (variant !== "default" && !image) {
+  if (variant !== "default" && variant !== "stat" && !image) {
     console.warn(
       `[lumos] <Card variant="${variant}"> has no \`image\`, so it renders as a plain card.`,
     );
@@ -119,6 +156,7 @@ if (import.meta.env.DEV && render) {
       "card_wrap",
       variant !== "default" && variant,
       raised && "raised",
+      cutout && "cutout",
       hasTheme && `theme-${theme}`,
       className,
     ]}
@@ -126,16 +164,42 @@ if (import.meta.env.DEV && render) {
   >
     {hasImage && (
       <div class="card_visual">
-        <Img src={image!} alt={imageAlt} />
+        <Img src={image!} alt={imageAlt} transparent={cutout} />
         {variant === "cover" && <Overlay variant="gradient" />}
       </div>
     )}
-    {hasContent && (
+    {variant === "stat" && (
+      <div class="card_content">
+        <div class="card_stat-top">
+          <Eyebrow variant="tag-outline" icon={eyebrowIcon}>
+            <Fragment set:html={eyebrow} />
+          </Eyebrow>
+          <Heading tag={headingTag} variant="h1">
+            <strong>{stat}</strong>
+          </Heading>
+          <Paragraph variant="large">
+            <strong>{statCaption}</strong>
+          </Paragraph>
+        </div>
+        <div class="card_stat-divider" aria-hidden="true" />
+        <div class="card_stat-bottom">
+          <Paragraph>
+            <strong><Fragment set:html={text} /></strong>
+          </Paragraph>
+        </div>
+        {accent && (
+          <div class="card_stat-accent" aria-hidden="true">
+            <Img src={accent} alt="" transparent variant="constrained" sizes="20rem" />
+          </div>
+        )}
+      </div>
+    )}
+    {variant !== "stat" && hasContent && (
       <div class="card_content margin-trim">
-        <Eyebrow variant={raised ? "tag" : "default"}>
+        <Eyebrow variant={raised ? "tag" : "default"} icon={eyebrowIcon}>
           <Fragment set:html={eyebrow} />
         </Eyebrow>
-        <Heading tag={headingTag} variant="h5">
+        <Heading tag={headingTag} variant={headingVariant}>
           <Fragment set:html={heading} />
         </Heading>
         <Paragraph>
@@ -184,6 +248,93 @@ if (import.meta.env.DEV && render) {
         & .heading {
           color: var(--link-accent);
         }
+      }
+
+      /* A physical card: layered drop shadows, a lit top edge and a slight
+         tilt that settles flat on hover. The gradient holds at teal-600 under
+         the text so white copy keeps its contrast. */
+      &.stat {
+        --_padding: var(--space-5);
+        --_shadow: var(--teal-900);
+        --_edge: var(--light-100);
+        min-height: 20rem;
+        background-image: linear-gradient(
+          70deg,
+          var(--teal-800),
+          var(--teal-600) 80%,
+          var(--teal-500)
+        );
+        box-shadow:
+          inset 0 0.0625rem 0 color-mix(in srgb, var(--_edge) 40%, transparent),
+          inset 0 0 0 0.0625rem color-mix(in srgb, var(--_edge) 12%, transparent),
+          inset 0 -0.125rem 0.375rem color-mix(in srgb, var(--_shadow) 50%, transparent),
+          0 0.125rem 0.25rem color-mix(in srgb, var(--_shadow) 30%, transparent),
+          0 0.75rem 1.5rem -0.25rem color-mix(in srgb, var(--_shadow) 40%, transparent),
+          0 2.5rem 4rem -1rem color-mix(in srgb, var(--_shadow) 60%, transparent);
+        @media (width >= 30rem) {
+          min-height: 27rem;
+        }
+        @media (width >= 62rem) {
+          min-height: 23rem;
+          transform: perspective(75rem) rotateY(-5deg) rotateX(3deg);
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          transition: transform calc(var(--hover-duration) * 2) var(--hover-ease);
+        }
+        @media (hover: hover) and (width >= 62rem) {
+          &:hover {
+            transform: perspective(75rem) translateY(-0.25rem);
+          }
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background-image: radial-gradient(
+            60% 80% at 100% 0%,
+            color-mix(in srgb, var(--_edge) 22%, transparent),
+            transparent 70%
+          );
+        }
+        & .card_content {
+          position: relative;
+          justify-content: space-between;
+          --h1-margin-bottom: var(--space-2);
+        }
+      }
+    }
+
+    .card_wrap.cutout .card_visual {
+      aspect-ratio: 1 / 1;
+      background-color: var(--light-100);
+      & > .image {
+        object-fit: contain;
+        object-position: bottom center;
+      }
+    }
+
+    .card_stat-divider {
+      width: 100%;
+      height: 0.1rem;
+      margin-block: 1rem;
+      background-color: var(--teal-300);
+    }
+
+    .card_stat-accent {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      justify-content: flex-end;
+      max-width: 50%;
+      max-height: 50%;
+      pointer-events: none;
+      & > * {
+        object-fit: contain;
+        object-position: top right;
+        max-height: 100%;
       }
     }
 

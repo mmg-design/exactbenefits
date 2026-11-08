@@ -14,7 +14,7 @@ type Props = HTMLAttributes<"div"> & {
   /** Header for the highlighted column. */
   highlightHeading?: string;
   /** One entry per row: the feature, the standard value, the highlighted value. */
-  rows?: { label: string; base: string; highlight: string }[];
+  rows?: { label?: string; base: string; highlight: string }[];
   /** Texture behind the highlighted column. Decorative. */
   highlightImage?: ImageMetadata;
 };
@@ -22,7 +22,7 @@ type Props = HTMLAttributes<"div"> & {
 const {
   render = true,
   caption,
-  labelHeading = "Feature",
+  labelHeading,
   baseHeading,
   highlightHeading,
   rows = [],
@@ -30,118 +30,146 @@ const {
   class: className,
   ...rest
 } = Astro.props;
+const hasLabels = rows.some((row) => row.label);
 ---
 
 {render && rows.length > 0 && baseHeading && highlightHeading && (
-  <div class:list={["table-comparison_wrap", className]} {...rest}>
-    {highlightImage && (
-      <div class="table-comparison_texture" aria-hidden="true">
-        <Img src={highlightImage} alt="" />
+  <div class:list={["table-comparison_wrap", !hasLabels && "no-labels", className]} {...rest}>
+    <div class="table-comparison_inner">
+      <div class="table-comparison_card" aria-hidden="true">
+        {highlightImage && <Img src={highlightImage} alt="" />}
       </div>
-    )}
-    <table class="table-comparison_table">
-      {caption && <caption class="sr-only">{caption}</caption>}
-      <thead>
-        <tr>
-          <th scope="col" class="table-comparison_label">{labelHeading}</th>
-          <th scope="col">{baseHeading}</th>
-          <th scope="col" class="table-comparison_highlight">
-            {highlightHeading}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((row) => (
+      <table class="table-comparison_table">
+        {caption && <caption class="sr-only">{caption}</caption>}
+        <colgroup>
+          {hasLabels && <col class="table-comparison_label-col" />}
+          <col />
+          <col />
+        </colgroup>
+        <thead>
           <tr>
-            <th scope="row" class="table-comparison_label">{row.label}</th>
-            <td>{row.base}</td>
-            <td class="table-comparison_highlight">{row.highlight}</td>
+            {hasLabels && <th scope="col" class="table-comparison_label">{labelHeading ?? "Feature"}</th>}
+            <th scope="col" class="table-comparison_base">{baseHeading}</th>
+            <th scope="col" class="table-comparison_highlight">
+              {highlightHeading}
+            </th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr>
+              {hasLabels && <th scope="row" class="table-comparison_label">{row.label}</th>}
+              <td class="table-comparison_base">{row.base}</td>
+              <td class="table-comparison_highlight">{row.highlight}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </div>
 )}
 
 <style is:global>
   @layer components {
     .table-comparison_wrap {
-      --_highlight-width: calc(100% / 3);
-      position: relative;
       width: 100%;
       overflow-x: auto;
-      border-radius: var(--radius-main);
-      border: var(--border-width) solid var(--border);
-      background-color: var(--background);
     }
 
-    .table-comparison_texture {
+    .table-comparison_inner {
+      --_label: 8.5rem;
+      position: relative;
+      min-width: 32.5rem;
+      @media (width >= 48rem) {
+        --_label: calc(100% / 3);
+        min-width: 40rem;
+      }
+    }
+
+    .table-comparison_wrap.no-labels .table-comparison_inner {
+      --_label: 0%;
+      min-width: 0;
+    }
+
+    .table-comparison_card {
       position: absolute;
       inset: 0 0 0 auto;
-      width: var(--_highlight-width);
-      min-width: 12rem;
-      border-radius: var(--radius-main);
+      width: calc((100% - var(--_label)) / 2);
       overflow: clip;
-      pointer-events: none;
-      & > * {
+      background-color: var(--teal-600);
+      border: var(--border-width) solid color-mix(in srgb, black 12%, transparent);
+      border-radius: var(--radius-main);
+      & > .image {
         width: 100%;
         height: 100%;
       }
+      /* The texture alone gives white text about 3.2:1. This lifts it past 4.5:1. */
       &::after {
         content: "";
         position: absolute;
         inset: 0;
-        background-color: color-mix(in srgb, var(--teal-900) 45%, transparent);
+        background-color: color-mix(in srgb, var(--teal-900) 30%, transparent);
       }
     }
 
     .table-comparison_table {
       position: relative;
       width: 100%;
-      min-width: 36rem;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       table-layout: fixed;
       text-align: center;
-      font-size: var(--text-small);
-      @media (width >= 48rem) {
-        font-size: var(--text-main);
-      }
+      font-size: var(--text-medium);
+      line-height: 1.5;
 
       & th,
       & td {
-        padding: var(--space-3) var(--space-2);
-        border-bottom: var(--border-width) solid var(--border);
+        padding: var(--space-3) var(--space-4);
+        border-bottom: var(--border-width) solid color-mix(in srgb, black 10%, transparent);
+        font-weight: var(--primary-regular);
+        vertical-align: middle;
         text-wrap: balance;
       }
 
       & thead th {
         font-family: var(--heading-family);
-        font-size: var(--h5);
-        font-weight: var(--primary-regular);
-        line-height: var(--line-height-small);
+        font-size: var(--h4);
+        line-height: 1;
+        letter-spacing: var(--letter-spacing-tight);
       }
+    }
 
-      & tbody tr:last-child > * {
-        border-bottom: 0;
-      }
+    .table-comparison_label-col {
+      width: var(--_label);
     }
 
     .table-comparison_label {
       text-align: start;
-      font-weight: var(--primary-bold);
+      @media (width < 48rem) {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: var(--background);
+      }
     }
 
-    .table-comparison_highlight {
-      color: var(--light-100);
-      font-weight: var(--primary-bold);
+    .table-comparison_table .table-comparison_base {
+      background-color: var(--teal-50);
+    }
+
+    .table-comparison_table thead .table-comparison_base {
+      border-start-start-radius: 0.25rem;
+      border-start-end-radius: 0.25rem;
+    }
+
+    .table-comparison_table tbody tr:last-child .table-comparison_base {
+      border-end-start-radius: 0.25rem;
+      border-end-end-radius: 0.25rem;
     }
 
     .table-comparison_table .table-comparison_highlight {
-      border-bottom-color: color-mix(in srgb, var(--light-100) 20%, transparent);
-    }
-
-    .table-comparison_wrap:not(:has(.table-comparison_texture)) .table-comparison_highlight {
-      background-color: var(--teal-700);
+      color: var(--light-100);
+      border-bottom-color: color-mix(in srgb, var(--light-100) 10%, transparent);
     }
   }
 </style>

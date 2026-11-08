@@ -1,5 +1,6 @@
 ---
-import type { HTMLAttributes } from "astro/types";
+import type { HTMLAttributes, SvgComponent } from "astro/types";
+import Icon from "@/components/media/Icon.astro";
 import { slotContent } from "@/utils/slots.ts";
 
 type Props = HTMLAttributes<"div"> & {
@@ -7,14 +8,17 @@ type Props = HTMLAttributes<"div"> & {
   render?: boolean;
   /** HTML element. */
   tag?: "span" | "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  /** Eyebrow style. */
-  variant?: "default" | "tag";
+  /** Eyebrow style. `tag` is the lime pill, `tag-outline` the outlined pill for dark surfaces. */
+  variant?: "default" | "tag" | "tag-outline";
+  /** Decorative icon before the text. */
+  icon?: SvgComponent;
 };
 
 const {
   render = true,
   tag: Tag = "p",
   variant = "default",
+  icon,
   class: className,
   ...rest
 } = Astro.props;
@@ -30,6 +34,7 @@ const content = await slotContent(Astro.slots);
     {variant === "default" && (
       <span class="eyebrow_marker" aria-hidden="true" />
     )}
+    <Icon src={icon} render={!!icon} variant="small" />
     <Tag class="eyebrow_text text-style-small">
       <Fragment set:html={content} />
     </Tag>
@@ -44,15 +49,35 @@ const content = await slotContent(Astro.slots);
       justify-content: var(--_alignment, start);
       gap: var(--space-2);
 
-      &.tag {
-        background-color: var(--lime-500);
-        color: var(--dark-900);
-        border: var(--border-width) solid var(--lime-600);
-        padding: 0.2em 0.6em;
+      &:is(.tag, .tag-outline) {
+        gap: 0.5rem;
+        justify-content: center;
+        padding: 0.175rem 0.5rem;
+        border: var(--border-width) solid var(--_tag-border);
         border-radius: var(--radius-round);
-        font-size: var(--text-small);
-        font-weight: var(--primary-bold);
-        text-transform: uppercase;
+        background-color: var(--_tag-background);
+        color: var(--_tag-text);
+
+        & .eyebrow_text {
+          margin: 0;
+          text-box: normal;
+          font-weight: var(--primary-bold);
+          line-height: 1.5;
+          text-transform: uppercase;
+        }
+        & .icon {
+          --_size: 1rem;
+        }
+      }
+      &.tag {
+        --_tag-background: var(--lime-500);
+        --_tag-border: var(--lime-700);
+        --_tag-text: var(--dark-950);
+      }
+      &.tag-outline {
+        --_tag-background: transparent;
+        --_tag-border: var(--light-300);
+        --_tag-text: var(--light-100);
       }
       .eyebrow_marker {
         flex: none;
@@ -60,6 +85,10 @@ const content = await slotContent(Astro.slots);
         height: 0.75rem;
         background-color: currentcolor;
       }
+    }
+
+    :is(.eyebrow_wrap.tag, .eyebrow_wrap.tag-outline) + .heading {
+      margin-top: var(--space-4);
     }
   }
 </style>

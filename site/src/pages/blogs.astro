@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Grid from "@/components/wrapper/Grid.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Card from "@/components/item/Card.astro";
+import Img from "@/components/media/Img.astro";
+import ContactSection from "@/components/section/ContactSection.astro";
+import background from "@/assets/images/home/home-newsletter-background.webp";
+
+/* Newest first, matching the live listing. */
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+
+const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"Organization\",\n      \"@id\": \"https://www.exactbenefits.com/#organization\",\n      \"name\": \"Exact Benefits Powered by Exact Medicare\",\n      \"url\": \"https://www.exactbenefits.com/\",\n      \"telephone\": \"+1-888-893-9553\"\n    }\n  ]\n}";
+---
+
+<Layout fullTitle={"Medicare Insights for Employers & HR Teams | Exact Benefits Blog"} description={"Medicare insights blog for employers and HR teams. Read expert articles on compliance, COB, penalties, and Medicare strategy from Exact Benefits. Read now"}>
+  <Fragment slot="head"><script is:inline type="application/ld+json" set:html={schema} /></Fragment>
+  <Section>
+    <ContentWrapper variant="card" mediaOpacity={100}>
+      <ContentWrapper centered>
+        <Eyebrow variant="tag-outline">The Employer Medicare Guide Newsletter</Eyebrow>
+        <Heading tag="h1" variant="h2" maxWidth={24}>Industry Insights Curated Just For You</Heading>
+        <Paragraph variant="large" maxWidth={50}>Stay informed with trusted education, research-backed insights, and practical guidance. Our articles help you understand medication management, emerging healthcare trends, and the evolving world of pharmacy—written for both patients and providers.</Paragraph>
+      </ContentWrapper>
+      <Img slot="column2" src={background} alt="" />
+    </ContentWrapper>
+  </Section>
+
+  <Section>
+    <Heading tag="h2" variant="h3">Featured Articles</Heading>
+    <Grid small={2} large={3}>
+      {posts.map((post) => (
+        <Card
+          variant="stacked"
+          image={post.data.mainImage}
+          imageAlt={post.data.title}
+          eyebrow={`${post.data.category} · ${formatDate(post.data.date)}`}
+          heading={post.data.title}
+          buttonLabel="Read More"
+          buttonHref={`/blog/${post.id}`}
+        />
+      ))}
+    </Grid>
+  </Section>
+
+  <ContactSection />
+</Layout>

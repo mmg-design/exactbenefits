@@ -215,7 +215,9 @@ const {
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
-        padding-inline-end: 0.08em;
+        /* Room for the italic overhang, which background-clip would cut off. */
+        margin-inline-start: -0.12em;
+        padding-inline: 0.12em 0.08em;
       }
     }
   }

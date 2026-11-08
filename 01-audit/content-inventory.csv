@@ -1,0 +1,48 @@
+# CONTENT INVENTORY - every piece of content to move into Sanity, with its source and status.
+# Owner: Marketing (TBD). Source: Webflow export + live sitemap, 2026-11-07. CMS item bodies are NOT in the Webflow site export - export each collection as CSV from Webflow.
+# Columns: slug=URL path | title | content_type | source=where it lives today | sanity_type=planned Sanity document type (see 04-content/sanity-schema-plan.md) |
+#   owner=content approver | migration_status=not started/in progress/in Sanity/approved | notes
+# Lines starting with # are notes; skip them when importing into a spreadsheet.
+slug,title,content_type,source,sanity_type,owner,migration_status,notes
+/,Employer Medicare Benefits & Transition Support | Exact Benefits,home,Webflow static page,page,Marketing (TBD),not started,
+webinars,Medicare Webinars | Live & On-Demand Expert Sessions,listing,Webflow static page,page (listing),Marketing (TBD),not started,
+privacy-policy,Privacy Policy | Exact Benefits Group,legal,Webflow static page,legalPage,Marketing (TBD),not started,
+thank-you-consultation,Consultation Thank-You | Exact Benefits,thank-you,Webflow static page,page,Marketing (TBD),not started,
+thank-you-webinar,Webinar Registration | Exact Benefits,thank-you,Webflow static page,page,Marketing (TBD),not started,
+global-thank-you-page,Thanks for Booking a Call! | Exact Benefits Group,thank-you,Webflow static page,page,Marketing (TBD),not started,
+blogs,Medicare Insights for Employers & HR Teams | Exact Benefits Blog,listing,Webflow static page,page (listing),Marketing (TBD),not started,
+sms-terms-of-service,SMS Terms of Service | Exact Benefits,legal,Webflow static page,legalPage,Marketing (TBD),not started,
+ichra-strategy,ICHRA Strategy for Employers | Exact Benefits,service,Webflow static page,page,Marketing (TBD),not started,
+the-employee-medicare-guide,The Employee Medicare Guide for Employers | Exact Benefits,resource,Webflow static page,page,Marketing (TBD),not started,
+medicare-pricing-calculator,Medicare Pricing Calculator | See Your Employee Savings,tool,Webflow static page,page,Marketing (TBD),not started,
+ichra-and-medicare-services,ICHRA and Medicare Services | Exact Benefits,service,Webflow static page,page,Marketing (TBD),not started,
+ichra-administrators-platforms,ICHRA Administration and Medicare Support | Exact Benefits,service,Webflow static page,page,Marketing (TBD),not started,
+ichra-for-brokers-and-peos,ICHRA Medicare Support for Brokers and PEOs | Exact Benefits,service,Webflow static page,page,Marketing (TBD),not started,
+ichra-for-employers-and-employees,ICHRA for Medicare-Eligible Employees | Exact Benefits,service,Webflow static page,page,Marketing (TBD),not started,
+medicare-part-a-and-b,Apply for Medicare Part A and B Online: Step-by-Step Guide,guide,Webflow static page,page,Marketing (TBD),not started,
+filling-out-the-l564-form,CMS-L564 Form: How to Fill Out the L564 Step by Step,guide,Webflow static page,page,Marketing (TBD),not started,
+creating-a-social-security-account,How to Set Up Your my Social Security Account Online,guide,Webflow static page,page,Marketing (TBD),not started,
+enrolling-in-part-d,Medicare Part D Enrollment: How to Enroll Step by Step,guide,Webflow static page,page,Marketing (TBD),not started,
+blog/cobra-vs-medicare,COBRA vs Medicare: What Every Employer Needs to Know  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/common-medicare-mistakes-employers-make,5 Most Common Medicare Mistakes Employers Make  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/coordination-of-benefits-how-employer-plans-and-medicare-decide-who-pays-first,How Employer Plans and Medicare Decide Who Pays First  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/do-employees-still-working-past-65-actually-need-medicare,Do Employees Still Working Past 65 Actually Need Medicare?  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/do-you-need-medicare-if-you-still-have-employer-coverage,Do You Need Medicare If You Still Have Employer Coverage?  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/documentation-what-hr-should-keep-on-file,Documentation: What HR Should Keep on File  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/employer-medicare-20-employee-rule-ohio,What Ohio Medicare Compliance Means for Employers | Exact Benefits  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/how-employer-size-misclassification-creates-liability,How Employer Size Misclassification Creates Liability  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/irmaa-how-income-impacts-medicare-premiums,IRMAA 2026: How Income Impacts Medicare Premiums  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/medicare-and-aca-transitions-for-under-65-spouses,Medicare and ACA Transitions For Under-65 Spouses  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/medicare-for-employers-when-medicare-should-have-been-primary,When Medicare Should Have Been Primary for Employers  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/medicare-insurance-coverage-explained-whats-covered-and-whats-not,Medicare Insurance Coverage Explained: What’s Covered and What’s Not   – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/medicare-late-enrollment-penalties-what-employers-need-to-know,Medicare Late Enrollment Penalties: What Employers Need to Know  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/medicare-part-a-hsa-conflicts-what-employers-overlook,Medicare Part A & HSA Conflicts: What Employers Need to Know  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/medicare-part-b-penalties-explained-for-hr-teams,Medicare Part B Penalties: What HR Teams Need to Know  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/what-employers-need-to-know-when-employees-turn-65,What Employers Need to Know When Employees Turn 65  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/when-a-spouse-under-65-complicates-the-decision,When a Spouse Under 65 Complicates the Decision  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+blog/when-we-didnt-know-doesnt-fix-the-problem,When “We Didn’t Know” Doesn’t Fix the Problem  – Exact Benefits,blog-post,Webflow CMS: Blog,post,Marketing (TBD),not started,
+legal/cookie-policy,(page missing),legal,Webflow static page,legalPage,Marketing (TBD),not started,
+TBD,CMS collection: Blog Categories,cms-collection,Webflow CMS: Blog Categories,TBD,Marketing (TBD),blocked: need CSV export,template detail_blog-category; items unknown
+TBD,CMS collection: Education Pieces,cms-collection,Webflow CMS: Education Pieces,TBD,Marketing (TBD),blocked: need CSV export,template detail_education-pieces; uses Webinar Registration GHL form
+TBD,CMS collection: Employers,cms-collection,Webflow CMS: Employers,TBD,Marketing (TBD),blocked: need CSV export,"template detail_employers (""Welcome, ...""); possibly per-employer landing pages - confirm if private"
+TBD,CMS collection: Partners,cms-collection,Webflow CMS: Partners,TBD,Marketing (TBD),blocked: need CSV export,template detail_partners; items unknown

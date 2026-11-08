@@ -17,6 +17,8 @@ type Base = HTMLAttributes<"div"> & {
   eyebrow?: string;
   /** Decorative icon before the eyebrow text. */
   eyebrowIcon?: SvgComponent;
+  /** Eyebrow style. Raised cards always use `tag`. */
+  eyebrowVariant?: "default" | "tag";
   /** Card title. Supports inline markup. */
   heading?: string;
   /** Heading level. */
@@ -101,6 +103,7 @@ const {
   render = true,
   eyebrow,
   eyebrowIcon,
+  eyebrowVariant = "default",
   heading,
   headingTag = "h3",
   headingVariant = "h5",
@@ -196,7 +199,7 @@ if (import.meta.env.DEV && render) {
     )}
     {variant !== "stat" && hasContent && (
       <div class="card_content margin-trim">
-        <Eyebrow variant={raised ? "tag" : "default"} icon={eyebrowIcon}>
+        <Eyebrow variant={raised ? "tag" : eyebrowVariant} icon={eyebrowIcon}>
           <Fragment set:html={eyebrow} />
         </Eyebrow>
         <Heading tag={headingTag} variant={headingVariant}>

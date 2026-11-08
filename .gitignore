@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# environment variables / secrets (never commit)
+.env
+.env.*
+!.env.example
+
+# local agent settings
+.claude/settings.local.json

@@ -138,6 +138,7 @@ const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n   
     <ContentWrapper variant="columns">
       <Card
         variant="stat"
+        headingTag="h2"
         theme="brand"
         eyebrow="Average HR savings"
         eyebrowIcon={iconPiggyBank}
@@ -247,6 +248,7 @@ const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n   
           image={a.image}
           heading={a.title}
           buttonLabel="Read More"
+          buttonContext={a.title}
           buttonHref={`/blog/${a.slug}`}
         />
       ))}

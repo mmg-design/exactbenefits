@@ -27,7 +27,7 @@
 
 ### From the Webflow CMS exports (2026-11-07)
 
-7. **34 broken internal links in blog posts.** Posts link to 5 `/webinars/{slug}` Education pages that all return 404, including the one item marked published in the CMS (OQ-24):
+7. **34 broken internal links in blog posts.** Posts link to Education items at `/webinars/{slug}`, a path that has never existed. Education items actually live at `/education-pieces/{slug}`; only `medicare-and-preventive-services` is published (200), the other 4 are drafts. *(Corrected 2026-11-07: the first audit pass tested only `/webinars/` and wrongly reported the published item as 404.)* (OQ-24):
 
    | Dead URL | Links |
    |---|---|

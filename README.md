@@ -43,4 +43,5 @@ Branch → PR into `staging` → preview + approval → PR `staging` → `main` 
 - ✅ Project structure and reference files; audit pre-filled from the Webflow export and live site
 - ✅ Webflow CMS CSVs (4 collections) and 301 list received and mapped into the audit
 - ⏳ Waiting on: approvers, launch date, Employers CSV, GA4/GSC access, GHL form fields, content decisions on drafts and dead webinar links (see open questions)
-- ⬜ Not started: brand tokens applied to Lumos, Sanity project, Cloudflare project, consent component, page builds
+- 🟡 Homepage, nav and footer rebuilt in Lumos (first slice, awaiting review before other pages)
+- ⬜ Not started: Sanity project, Cloudflare project, consent component, remaining pages

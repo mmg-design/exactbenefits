@@ -7,7 +7,7 @@ import play from "@/assets/icons/play.svg";
 import pause from "@/assets/icons/pause.svg";
 import { slotContent } from "@/utils/slots.ts";
 
-type Emphasis = "primary" | "secondary";
+type Emphasis = "primary" | "secondary" | "accent";
 
 type Tag =
   | (HTMLAttributes<"button"> & {
@@ -168,32 +168,71 @@ const named = {
       background-color: var(--button-background);
       color: var(--button-text);
       border: var(--border-width) solid var(--button-border);
-      border-radius: 0.5em;
+      border-radius: 0.375rem;
+      font-size: var(--text-main);
+      font-weight: var(--primary-bold);
       line-height: 1.2;
+      text-transform: uppercase;
       text-decoration: none;
       text-align: center;
       transition:
         background-color var(--hover-duration) var(--hover-ease),
         color var(--hover-duration) var(--hover-ease),
-        border-color var(--hover-duration) var(--hover-ease);
+        border-color var(--hover-duration) var(--hover-ease),
+        box-shadow var(--hover-duration) var(--hover-ease),
+        transform var(--hover-duration) var(--hover-ease);
+      &:not(.link) {
+        margin: calc(0.25rem + var(--border-width));
+        background-image: linear-gradient(
+          180deg,
+          var(--button-background),
+          var(--button-background-end)
+        );
+        box-shadow:
+          0 0 0 0.25rem var(--button-ring),
+          0 0 0 calc(0.25rem + var(--border-width)) var(--light-100),
+          0 0.25rem 1.25rem var(--shadow-soft);
+      }
       @media (hover: hover) {
         &:hover:not(:disabled) {
           background-color: var(--button-background-hover);
           color: var(--button-text-hover);
           border-color: var(--button-border-hover);
         }
+        &:not(.link):hover:not(:disabled) {
+          transform: translateY(-0.125rem);
+          background-image: linear-gradient(
+            180deg,
+            var(--button-background-hover),
+            var(--button-background-end-hover)
+          );
+        }
       }
       &.secondary {
         --button-background: var(--button-2-background);
+        --button-background-end: var(--button-2-background-end);
         --button-text: var(--button-2-text);
         --button-border: var(--button-2-border);
         --button-background-hover: var(--button-2-background-hover);
+        --button-background-end-hover: var(--button-2-background-end-hover);
         --button-text-hover: var(--button-2-text-hover);
         --button-border-hover: var(--button-2-border-hover);
       }
+      &.accent {
+        --button-background: var(--lime-500);
+        --button-background-end: var(--lime-600);
+        --button-text: var(--dark-900);
+        --button-border: var(--lime-200);
+        --button-background-hover: var(--lime-600);
+        --button-background-end-hover: var(--lime-600);
+        --button-text-hover: var(--dark-900);
+        --button-border-hover: var(--lime-200);
+      }
       &.link {
         --button-background: transparent;
-        --button-text: var(--link-text);
+        --button-text: var(--link-accent);
+        --button-text-hover: var(--link-accent);
+        text-transform: none;
         --button-border: var(--link-border);
         --button-background-hover: transparent;
         --button-text-hover: var(--link-text-hover);

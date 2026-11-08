@@ -161,6 +161,10 @@
   inset: 0%;
 }
 
+.heading em {
+  color: var(--heading-accent);
+}
+
 .heading-accent strong {
   color: var(--heading-accent);
   font-weight: inherit;

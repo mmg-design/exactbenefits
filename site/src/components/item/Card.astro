@@ -37,6 +37,8 @@ type Props = Base &
         variant?: "default";
         image?: never;
         imageAlt?: never;
+        /** White surface with a soft shadow, accent heading and tag eyebrow. */
+        raised?: boolean;
       }
     | {
         variant: "cover";
@@ -44,6 +46,7 @@ type Props = Base &
         image?: ImageSource;
         /** Image alt text. Omit for decorative images. */
         imageAlt?: string;
+        raised?: never;
       }
     | {
         variant: "stacked";
@@ -53,12 +56,14 @@ type Props = Base &
         image?: ImageSource;
         /** Image alt text. Omit for decorative images. */
         imageAlt?: string;
+        raised?: never;
       }
   );
 
 type AllProps = Base & {
   image?: ImageSource;
   imageAlt?: string;
+  raised?: boolean;
 };
 
 const {
@@ -73,6 +78,7 @@ const {
   theme = "inherit",
   image,
   imageAlt,
+  raised = false,
   class: className,
   ...rest
 } = Astro.props as AllProps;
@@ -112,6 +118,7 @@ if (import.meta.env.DEV && render) {
     class:list={[
       "card_wrap",
       variant !== "default" && variant,
+      raised && "raised",
       hasTheme && `theme-${theme}`,
       className,
     ]}
@@ -125,7 +132,7 @@ if (import.meta.env.DEV && render) {
     )}
     {hasContent && (
       <div class="card_content margin-trim">
-        <Eyebrow>
+        <Eyebrow variant={raised ? "tag" : "default"}>
           <Fragment set:html={eyebrow} />
         </Eyebrow>
         <Heading tag={headingTag} variant="h5">
@@ -169,6 +176,14 @@ if (import.meta.env.DEV && render) {
       &.stacked {
         background-color: transparent;
         overflow: visible;
+      }
+      &.raised {
+        background-color: var(--background);
+        border: var(--border-width) solid var(--border);
+        box-shadow: 0 0.5rem 1.25rem color-mix(in srgb, black 6%, transparent);
+        & .heading {
+          color: var(--link-accent);
+        }
       }
     }
 

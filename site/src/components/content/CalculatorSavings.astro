@@ -1,0 +1,367 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { uid } from "@/utils/unique-id.ts";
+
+type Props = HTMLAttributes<"div"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /**
+   * Average annual savings per employee, in dollars.
+   *
+   * @min 0
+   * @int
+   */
+  savingsPerEmployee?: number;
+  /**
+   * Employees selected on load.
+   *
+   * @min 1
+   * @int
+   */
+  initial?: number;
+  /**
+   * Largest selectable number of employees.
+   *
+   * @min 2
+   * @int
+   */
+  max?: number;
+  /** Small print under the results. */
+  disclaimer?: string;
+};
+
+const {
+  render = true,
+  savingsPerEmployee = 7300,
+  initial = 10,
+  max = 100,
+  disclaimer = "Based on average annual premium savings when transitioning from employer group plans to Medicare. Actual savings vary by plan type, location, and employee health needs.",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const id = uid("calculator-savings");
+const format = (n: number) => n.toLocaleString("en-US");
+---
+
+{render && (
+  <div
+    class:list={["calculator-savings_wrap", className]}
+    data-savings={savingsPerEmployee}
+    {...rest}
+  >
+    <div class="calculator-savings_glow" aria-hidden="true" />
+    <div class="calculator-savings_card">
+      <div class="calculator-savings_header">
+        <div class="calculator-savings_icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="5" y="3" width="14" height="18" rx="2" />
+            <line x1="8" y1="7" x2="16" y2="7" />
+            <circle cx="9" cy="13" r="1" />
+            <circle cx="9" cy="17" r="1" />
+            <circle cx="13" cy="13" r="1" />
+            <circle cx="13" cy="17" r="1" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="calculator-savings_title">Savings Calculator</h3>
+          <p class="calculator-savings_subtitle">See your potential savings</p>
+        </div>
+      </div>
+
+      <div class="calculator-savings_slider">
+        <div class="calculator-savings_label-row">
+          <label class="calculator-savings_label" for={id}>
+            Number of employees age 65+
+          </label>
+          <div class="calculator-savings_badge">
+            <span aria-hidden="true">👥</span>
+            <span class="calculator-savings_badge-value" data-employees>
+              {initial}
+            </span>
+          </div>
+        </div>
+        <input
+          id={id}
+          class="calculator-savings_range"
+          type="range"
+          min="1"
+          max={max}
+          step="1"
+          value={initial}
+        />
+        <div class="calculator-savings_scale" aria-hidden="true">
+          <span>1</span>
+          <span>{max} employees</span>
+        </div>
+      </div>
+
+      <div class="calculator-savings_result" aria-live="polite" aria-atomic="true">
+        <div class="calculator-savings_result-label">Estimated Annual Savings</div>
+        <div class="calculator-savings_result-row">
+          <span class="calculator-savings_dollar" aria-hidden="true">$</span>
+          <span class="calculator-savings_amount" data-total>
+            {format(initial * savingsPerEmployee)}
+          </span>
+        </div>
+        <div class="calculator-savings_result-label">per year</div>
+      </div>
+
+      <dl class="calculator-savings_breakdown">
+        <div class="calculator-savings_row">
+          <dt>Employees (65+)</dt>
+          <dd data-employees>{initial}</dd>
+        </div>
+        <div class="calculator-savings_row">
+          <dt>Avg. savings per employee</dt>
+          <dd>${format(savingsPerEmployee)}</dd>
+        </div>
+        <div class="calculator-savings_row is-total">
+          <dt>Total Annual Savings</dt>
+          <dd data-total-dollars>${format(initial * savingsPerEmployee)}</dd>
+        </div>
+      </dl>
+
+      <p class="calculator-savings_disclaimer">{disclaimer}</p>
+    </div>
+  </div>
+)}
+
+<script>
+  for (const calc of document.querySelectorAll<HTMLElement>(
+    ".calculator-savings_wrap",
+  )) {
+    const input = calc.querySelector<HTMLInputElement>(".calculator-savings_range");
+    const perEmployee = Number(calc.dataset.savings) || 0;
+    if (!input) continue;
+
+    const format = (n: number) => n.toLocaleString("en-US");
+    const update = (value: string) => {
+      const employees = parseInt(value, 10) || 0;
+      const total = employees * perEmployee;
+      calc.querySelectorAll("[data-employees]").forEach((el) => {
+        el.textContent = String(employees);
+      });
+      calc.querySelectorAll("[data-total]").forEach((el) => {
+        el.textContent = format(total);
+      });
+      calc.querySelectorAll("[data-total-dollars]").forEach((el) => {
+        el.textContent = "$" + format(total);
+      });
+    };
+
+    update(input.value);
+    input.addEventListener("input", () => update(input.value));
+  }
+</script>
+
+<style is:global>
+  @layer components {
+    .calculator-savings_wrap {
+      position: relative;
+      width: 100%;
+      max-width: 30rem;
+      margin-inline: auto;
+    }
+
+    .calculator-savings_glow {
+      position: absolute;
+      top: -1.5rem;
+      right: -1.5rem;
+      width: 16.25rem;
+      height: 16.25rem;
+      background: color-mix(in srgb, var(--teal-500) 12%, transparent);
+      filter: blur(2.5rem);
+      border-radius: var(--radius-round);
+      pointer-events: none;
+    }
+
+    .calculator-savings_card {
+      position: relative;
+      z-index: 1;
+      padding: var(--space-5);
+      background: var(--light-100);
+      color: var(--dark-900);
+      border: var(--border-width) solid var(--light-300);
+      border-radius: var(--radius-main);
+      box-shadow: 0 1.5rem 3.75rem color-mix(in srgb, var(--dark-900) 9%, transparent);
+    }
+
+    .calculator-savings_header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-5);
+    }
+
+    .calculator-savings_icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.875rem;
+      background: var(--teal-600);
+      color: var(--light-100);
+      & svg {
+        width: 1.625rem;
+        height: 1.625rem;
+      }
+    }
+
+    .calculator-savings_title {
+      font-family: var(--primary-family);
+      font-size: var(--h5);
+      font-weight: var(--primary-bold);
+      line-height: var(--line-height-medium);
+    }
+
+    .calculator-savings_subtitle,
+    .calculator-savings_label,
+    .calculator-savings_scale,
+    .calculator-savings_result-label,
+    .calculator-savings_row,
+    .calculator-savings_disclaimer {
+      font-size: var(--text-small);
+      color: var(--text-lighter);
+    }
+
+    .calculator-savings_slider {
+      margin-bottom: var(--space-5);
+    }
+
+    .calculator-savings_label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+
+    .calculator-savings_label {
+      color: var(--dark-900);
+    }
+
+    .calculator-savings_badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.375rem 0.625rem;
+      border-radius: var(--radius-round);
+      background: color-mix(in srgb, var(--teal-500) 8%, transparent);
+      font-size: var(--text-small);
+    }
+
+    .calculator-savings_badge-value {
+      font-size: var(--h5);
+      font-weight: var(--primary-bold);
+      color: var(--teal-700);
+    }
+
+    .calculator-savings_range {
+      width: 100%;
+      height: 0.375rem;
+      margin-bottom: 0.375rem;
+      appearance: none;
+      background: var(--light-300);
+      border-radius: var(--radius-round);
+      cursor: pointer;
+      &:focus-visible {
+        outline: var(--focus-width) solid var(--teal-700);
+        outline-offset: var(--focus-offset);
+      }
+      &::-webkit-slider-thumb {
+        appearance: none;
+        width: 1.125rem;
+        height: 1.125rem;
+        margin-top: -0.375rem;
+        border-radius: 50%;
+        background: var(--teal-600);
+        border: 0.125rem solid var(--light-100);
+        box-shadow: 0 0 0 0.125rem color-mix(in srgb, var(--teal-500) 40%, transparent);
+      }
+      &::-webkit-slider-runnable-track {
+        height: 0.375rem;
+        border-radius: var(--radius-round);
+      }
+      &::-moz-range-thumb {
+        width: 1.125rem;
+        height: 1.125rem;
+        border-radius: 50%;
+        background: var(--teal-600);
+        border: 0.125rem solid var(--light-100);
+        box-shadow: 0 0 0 0.125rem color-mix(in srgb, var(--teal-500) 40%, transparent);
+      }
+      &::-moz-range-track {
+        height: 0.375rem;
+        border-radius: var(--radius-round);
+        background: var(--light-300);
+      }
+    }
+
+    .calculator-savings_scale {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .calculator-savings_result {
+      margin-bottom: var(--space-4);
+      padding: var(--space-4) var(--space-3);
+      border-radius: 0.875rem;
+      background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--teal-500) 8%, transparent),
+        color-mix(in srgb, var(--teal-500) 18%, transparent)
+      );
+    }
+
+    .calculator-savings_result-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.375rem;
+      margin-block: 0.375rem 0.25rem;
+    }
+
+    .calculator-savings_dollar {
+      font-size: 1.625rem;
+      font-weight: var(--primary-bold);
+      line-height: 1;
+      color: var(--teal-700);
+    }
+
+    .calculator-savings_amount {
+      font-size: var(--h3);
+      font-weight: var(--primary-bold);
+      line-height: var(--line-height-medium);
+    }
+
+    .calculator-savings_breakdown {
+      margin-bottom: var(--space-4);
+    }
+
+    .calculator-savings_row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-block: var(--space-1);
+      border-bottom: var(--border-width) solid var(--light-300);
+      &:last-child {
+        border-bottom: 0;
+      }
+      & dd {
+        font-weight: var(--primary-bold);
+        color: var(--dark-900);
+      }
+      &.is-total dd {
+        font-size: var(--text-large);
+        color: var(--teal-700);
+      }
+    }
+
+    .calculator-savings_disclaimer {
+      margin-top: var(--space-2);
+      line-height: var(--line-height-huge);
+    }
+  }
+</style>

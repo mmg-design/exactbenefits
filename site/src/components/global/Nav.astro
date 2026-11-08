@@ -1,8 +1,10 @@
 ---
 import Icon from "@/components/media/Icon.astro";
 import NavLink from "@/components/global/NavLink.astro";
-import logo from "@/assets/logo/logo.svg";
-import { SITE_NAME } from "@/consts.ts";
+import Dropdown from "@/components/interactive/Dropdown.astro";
+import Button from "@/components/Button.astro";
+import logo from "@/assets/images/global/global-nav-logo.svg";
+import { SITE_NAME, SITE_PHONE } from "@/consts.ts";
 
 interface Props {
   /** Set to `false` to omit the component. */
@@ -12,6 +14,38 @@ interface Props {
 }
 
 const { render = true, overlap = false } = Astro.props;
+
+const resources = [
+  { href: "/blogs", label: "The Exact Blog + Newsletter" },
+  {
+    href: "/medicare-part-a-and-b",
+    label: "How to Enroll in Medicare: A Step-by-Step Instruction Guide",
+  },
+  { href: "/filling-out-the-l564-form", label: "CMS-L564 Form Guide" },
+  {
+    href: "/creating-a-social-security-account",
+    label: "Set Up Your Social Security Account",
+  },
+  { href: "/enrolling-in-part-d", label: "Medicare Part D Enrollment" },
+  { href: "/medicare-pricing-calculator", label: "Medicare Savings Calculator" },
+];
+
+const ichra = [
+  { href: "/ichra-strategy", label: "What is CHOICE/ICHRA?" },
+  { href: "/ichra-and-medicare-services", label: "CHOICE/ICHRA Medicare Support" },
+  {
+    href: "/ichra-administrators-platforms",
+    label: "CHOICE/ICHRA for Administrators & Platforms",
+  },
+  { href: "/ichra-for-brokers-and-peos", label: "CHOICE/ICHRA for Brokers & PEOs" },
+  {
+    href: "/ichra-for-employers-and-employees",
+    label: "CHOICE/ICHRA for Employers + Employees",
+  },
+];
+
+const dashboard =
+  "https://ichra-provider-dashboard-a6g2g7crfxb5czga.eastus-01.azurewebsites.net/";
 ---
 
 {render && (
@@ -32,9 +66,35 @@ const { render = true, overlap = false } = Astro.props;
       <nav class="nav_menu" id="nav-menu" aria-label="Main">
         <div class="nav_menu_inner">
           <ul class="nav_links">
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/example-components">Example Components</NavLink>
+            <NavLink href="/#about">About</NavLink>
+            <li>
+              <Dropdown label="Medicare Resource Center" variant="responsive">
+                <ul class="nav_sublinks">
+                  {resources.map((link) => (
+                    <NavLink href={link.href}>{link.label}</NavLink>
+                  ))}
+                </ul>
+              </Dropdown>
+            </li>
+            <li>
+              <Dropdown label="CHOICE/ICHRA" variant="responsive">
+                <ul class="nav_sublinks">
+                  {ichra.map((link) => (
+                    <NavLink href={link.href}>{link.label}</NavLink>
+                  ))}
+                </ul>
+              </Dropdown>
+            </li>
+            <NavLink href={dashboard}>Dashboard Login</NavLink>
           </ul>
+          <div class="nav_buttons">
+            <Button element="link" href={SITE_PHONE.href} emphasis="accent">
+              {SITE_PHONE.label}
+            </Button>
+            <Button element="link" href="/#call-anchor">
+              schedule my call
+            </Button>
+          </div>
         </div>
       </nav>
     </div>
@@ -89,7 +149,7 @@ const { render = true, overlap = false } = Astro.props;
     });
 
     window
-      .matchMedia("(width >= 48rem)")
+      .matchMedia("(width >= 80rem)")
       .addEventListener("change", (event) => {
         if (event.matches) setOpen(false);
       });
@@ -107,7 +167,6 @@ const { render = true, overlap = false } = Astro.props;
       padding-inline: var(--site-margin);
       background-color: var(--background);
       color: var(--text);
-      border-bottom: var(--border-width) solid var(--border);
 
       &.overlap {
         position: fixed;
@@ -121,7 +180,7 @@ const { render = true, overlap = false } = Astro.props;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0 var(--space-6);
+      gap: 0 var(--space-4);
     }
 
     /* Bar height */
@@ -133,7 +192,8 @@ const { render = true, overlap = false } = Astro.props;
     .nav_logo {
       display: flex;
       align-items: center;
-      width: 6.5rem;
+      width: 12rem;
+      max-width: 50vw;
       transition: opacity var(--hover-duration) var(--hover-ease);
       @media (hover: hover) {
         &:hover {
@@ -230,31 +290,42 @@ const { render = true, overlap = false } = Astro.props;
       flex-direction: column;
       padding: var(--space-2) var(--site-margin) var(--space-4);
       font-size: var(--text-main);
-      font-weight: var(--primary-medium);
       & > li + li {
         border-top: var(--border-width) solid var(--border);
       }
     }
 
+    .nav_sublinks {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
     .nav_link {
       display: block;
       padding-block: var(--space-3);
-      color: color-mix(in lab, currentcolor 60%, transparent);
+      color: var(--text);
       text-decoration: none;
-      text-underline-offset: 0.4em;
-      text-decoration-thickness: var(--border-width);
       transition: color var(--hover-duration) var(--hover-ease);
       &[aria-current="page"] {
-        color: var(--text);
+        color: var(--teal-700);
       }
       @media (hover: hover) {
         &:hover {
-          color: var(--text);
+          color: var(--teal-700);
         }
       }
     }
 
-    @media (width >= 48rem) {
+    .nav_buttons {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 0 var(--site-margin) var(--space-6);
+    }
+
+    @media (width >= 80rem) {
       .nav_toggle {
         display: none;
       }
@@ -268,27 +339,37 @@ const { render = true, overlap = false } = Astro.props;
       }
 
       .nav_menu_inner {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
         overflow: visible;
         opacity: 1;
       }
 
       .nav_links {
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         align-items: center;
         padding: 0;
-        gap: var(--space-4);
-        font-size: var(--text-small);
+        gap: var(--space-2);
+        white-space: nowrap;
         & > li + li {
           border-top: 0;
         }
       }
 
+      .nav_sublinks .nav_link {
+        padding-block: var(--space-1);
+      }
+
       .nav_link {
         padding-block: 0;
-        &[aria-current="page"] {
-          text-decoration: underline;
-        }
+      }
+
+      .nav_buttons {
+        flex-wrap: nowrap;
+        padding: 0;
+        white-space: nowrap;
       }
     }
   }

@@ -9,6 +9,8 @@ type Props = HTMLAttributes<"div"> & {
   render?: boolean;
   /** Trigger text. */
   label?: string;
+  /** Panel placement. `responsive` floats from 80rem (the nav breakpoint) and sits inline below it, for menus. */
+  variant?: "floating" | "responsive";
   /** Keep the panel open in design mode. */
   preview?: boolean;
 };
@@ -16,6 +18,7 @@ type Props = HTMLAttributes<"div"> & {
 const {
   render = true,
   label,
+  variant = "floating",
   preview = false,
   class: className,
   ...rest
@@ -26,7 +29,12 @@ const content = await slotContent(Astro.slots);
 
 {render && label && content && (
   <details
-    class:list={["dropdown_wrap", preview && "preview", className]}
+    class:list={[
+      "dropdown_wrap",
+      variant !== "floating" && variant,
+      preview && "preview",
+      className,
+    ]}
     {...rest}
   >
     <summary class="dropdown_toggle">
@@ -176,6 +184,17 @@ const content = await slotContent(Astro.slots);
       transition:
         translate var(--open-duration) var(--open-ease),
         scale var(--open-duration) var(--open-ease);
+    }
+
+    .dropdown_wrap.responsive .dropdown_content {
+      @media (width < 80rem) {
+        position: static;
+        width: auto;
+        max-width: none;
+        background-color: transparent;
+        translate: 0 0;
+        scale: 1;
+      }
     }
 
     .dropdown_body {

@@ -1,0 +1,134 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Img from "@/components/media/Img.astro";
+
+type Tone = "mist" | "foam" | "aqua" | "teal" | "night";
+
+type Item = {
+  heading: string;
+  text: string;
+  image: ImageMetadata;
+  /** Alt text. Omit for decorative images. */
+  imageAlt?: string;
+  /** Card colour. */
+  tone: Tone;
+};
+
+type Props = HTMLAttributes<"div"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Cards in reading order. Rows alternate small and large, three rows of two. */
+  items?: Item[];
+  /** Heading level for each card. */
+  headingTag?: "h3" | "h4";
+};
+
+const {
+  render = true,
+  items = [],
+  headingTag = "h3",
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+{render && items.length > 0 && (
+  <div class:list={["bento-why-exact_wrap", className]} {...rest}>
+    {items.map((item) => (
+      <article class:list={["bento-why-exact_card", item.tone]}>
+        <div class="bento-why-exact_content">
+          <Heading tag={headingTag} variant="h4">
+            {item.heading}
+          </Heading>
+          <Paragraph>{item.text}</Paragraph>
+        </div>
+        <div class="bento-why-exact_visual">
+          <Img src={item.image} alt={item.imageAlt} transparent variant="constrained" sizes="(width >= 62rem) 40vw, 100vw" />
+        </div>
+      </article>
+    ))}
+  </div>
+)}
+
+<style is:global>
+  @layer components {
+    .bento-why-exact_wrap {
+      --_alignment: start;
+      display: grid;
+      text-align: start;
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+      width: 100%;
+      @media (width >= 48rem) {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        & > :nth-child(4n + 1),
+        & > :nth-child(4n) {
+          grid-column: span 2;
+        }
+        & > :nth-child(4n + 2),
+        & > :nth-child(4n + 3) {
+          grid-column: span 3;
+        }
+      }
+    }
+
+    .bento-why-exact_card {
+      --_card-background: var(--teal-100);
+      --_card-text: var(--dark-900);
+      display: flex;
+      flex-direction: column;
+      min-height: 22rem;
+      background-color: var(--_card-background);
+      color: var(--_card-text);
+      border-radius: var(--radius-main);
+      overflow: clip;
+      @media (width >= 62rem) {
+        min-height: 28rem;
+      }
+
+      &.foam {
+        --_card-background: var(--teal-200);
+        --_card-text: var(--teal-900);
+      }
+      &.aqua {
+        --_card-background: var(--teal-300);
+        --_card-text: var(--teal-900);
+      }
+      &.teal {
+        --_card-background: var(--teal-500);
+        --_card-text: var(--dark-900);
+      }
+      &.night {
+        --_card-background: var(--dark-700);
+        --_card-text: var(--teal-100);
+      }
+    }
+
+    .bento-why-exact_content {
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-6) var(--space-6) 0;
+      max-width: 32rem;
+    }
+
+    .bento-why-exact_visual {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      flex: 1;
+      min-height: 12rem;
+      padding-top: var(--space-4);
+      transition: scale calc(var(--hover-duration) * 2) var(--hover-ease);
+      transform-origin: bottom center;
+      & > * {
+        max-height: 20rem;
+        object-position: bottom center;
+      }
+      .bento-why-exact_card:hover & {
+        scale: 1.02;
+      }
+    }
+  }
+</style>

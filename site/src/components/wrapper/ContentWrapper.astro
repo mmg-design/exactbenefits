@@ -34,12 +34,14 @@ type Props = Base &
         /** Center each column's content. */
         centered?: boolean;
         mediaOpacity?: never;
+        cardTheme?: never;
       }
     | {
         variant: "auto-width";
         reverse?: never;
         centered?: never;
         mediaOpacity?: never;
+        cardTheme?: never;
       }
     | {
         variant: "columns" | "breakout" | "contain";
@@ -47,12 +49,14 @@ type Props = Base &
         reverse?: boolean;
         centered?: never;
         mediaOpacity?: never;
+        cardTheme?: never;
       }
     | {
         variant: "sticky-content" | "sticky-visual";
         reverse?: never;
         centered?: never;
         mediaOpacity?: never;
+        cardTheme?: never;
       }
     | {
         variant: "card";
@@ -66,6 +70,8 @@ type Props = Base &
          * @int
          */
         mediaOpacity?: number;
+        /** Card color theme. Defaults to `dark`. */
+        cardTheme?: "dark" | "light";
       }
   ) &
   ColumnClasses;
@@ -76,6 +82,7 @@ type AllProps = Base &
     reverse?: boolean;
     centered?: boolean;
     mediaOpacity?: number;
+    cardTheme?: "dark" | "light";
   };
 
 const {
@@ -84,6 +91,7 @@ const {
   reverse = false,
   centered = false,
   mediaOpacity,
+  cardTheme = "dark",
   column1Class,
   column2Class,
   class: className,
@@ -117,7 +125,7 @@ const variantClasses =
   variant === "stack"
     ? []
     : variant === "card"
-      ? ["card-layout", "theme-dark"]
+      ? ["card-layout", `theme-${cardTheme}`]
       : [variant];
 
 const column1 = await slotContent(Astro.slots);
@@ -212,7 +220,7 @@ const column2 = await slotContent(Astro.slots, "column2");
       &.columns {
         display: grid;
         column-gap: var(--section-space-small);
-        @media (width >= 64rem) {
+        @media (width >= 62rem) {
           --_column-count: 2;
           &.reversed {
             & > :last-child {
@@ -224,7 +232,7 @@ const column2 = await slotContent(Astro.slots, "column2");
       &.sticky-content {
         --_visual-ratio: 1 / 1;
         display: grid;
-        @media (width >= 64rem) {
+        @media (width >= 62rem) {
           --_column-count: 2;
           & > :first-child {
             align-self: start;
@@ -236,7 +244,7 @@ const column2 = await slotContent(Astro.slots, "column2");
       &.sticky-visual {
         --_visual-ratio: 1 / 1;
         display: grid;
-        @media (width >= 64rem) {
+        @media (width >= 62rem) {
           --_column-count: 2;
           & > :first-child {
             align-self: start;
@@ -266,7 +274,7 @@ const column2 = await slotContent(Astro.slots, "column2");
         & > :last-child {
           border-radius: 0;
         }
-        @media (width >= 64rem) {
+        @media (width >= 62rem) {
           --_column-count: 2;
           & > :first-child {
             max-width: calc(var(--max-width-main) / 2);
@@ -300,7 +308,7 @@ const column2 = await slotContent(Astro.slots, "column2");
         & > :last-child {
           border-radius: 0;
         }
-        @media (width >= 64rem) {
+        @media (width >= 62rem) {
           --_column-count: 2;
           &.reversed {
             & > :last-child {
@@ -311,6 +319,7 @@ const column2 = await slotContent(Astro.slots, "column2");
       }
       &.card-layout {
         border-radius: var(--radius-main);
+        background-color: var(--background);
         position: relative;
         overflow: clip;
         min-height: 26rem;
@@ -325,7 +334,7 @@ const column2 = await slotContent(Astro.slots, "column2");
           z-index: 1;
           --_alignment: center;
         }
-        & > :last-child {
+        & > :last-child:not(:first-child) {
           position: absolute;
           inset: 0;
           border-radius: 0;

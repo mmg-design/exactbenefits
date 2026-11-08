@@ -37,7 +37,7 @@ type Props = Base &
          */
         medium?: number;
         /**
-         * Columns from 64rem. Inherits `medium`.
+         * Columns from 62rem. Inherits `medium`.
          *
          * @min 1
          * @max 12
@@ -155,7 +155,7 @@ const columns =
       @media (width >= 48rem) {
         --_cols: var(--_cols-md);
       }
-      @media (width >= 64rem) {
+      @media (width >= 62rem) {
         --_cols: var(--_cols-lg);
       }
       &:is(.autofit, .autofill) {

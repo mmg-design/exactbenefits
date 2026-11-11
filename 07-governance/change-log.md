@@ -5,6 +5,7 @@
 
 | Date | Change | Branch / PR | Environment | Requested by | Approved by |
 |---|---|---|---|---|---|
+| 2026-11-11 | Homepage partnerships: Insurtech Platforms and HRIS links now go to `/ichra-administrators-platforms` (were wrong on the original Webflow site too); Dashboard Login removed from the nav | `fix/homepage-links-dashboard` (no PR yet) | Local dev (not deployed) | Andy Milligan | Andy Milligan |
 | 2026-11-08 | Homepage hero: fixed clipping on the italic "for" in the heading | `fix/hero-heading-clipping` → [PR #16](https://github.com/mmg-design/exactbenefits/pull/16) into `staging` | Staging preview | Andy Milligan | Andy Milligan |
 | 2026-11-08 | Fix: Go High Level forms not loading; removed lazy loading from the form iframes (D-053) | `fix/ghl-forms-loading` → [PR #14](https://github.com/mmg-design/exactbenefits/pull/14) into `staging` | Staging preview | Andy Milligan | Andy Milligan |
 | 2026-11-08 | Apollo.io removed from the consent component and Cookie Policy (D-052); Clarity and Leadfeeder confirmed live behind consent | `fix/disable-apollo` → [PR #12](https://github.com/mmg-design/exactbenefits/pull/12) into `staging` | Staging preview | Andy Milligan | Andy Milligan (on behalf of Legal/Compliance for the policy change; Compliance to confirm, OQ-02) |

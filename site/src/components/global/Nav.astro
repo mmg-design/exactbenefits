@@ -45,8 +45,6 @@ const ichra = [
   },
 ];
 
-const dashboard =
-  "https://ichra-provider-dashboard-a6g2g7crfxb5czga.eastus-01.azurewebsites.net/";
 
 /* Every page ends in the contact section except the 404. */
 const callHref = Astro.url.pathname.replace(/\.html$/, "") === "/404" ? "/#call-anchor" : "#call-anchor";
@@ -55,7 +53,6 @@ const desktopMenu = [
   { label: "About", href: "/#about" },
   { label: "Medicare Resource Center", links: resources },
   { label: "CHOICE/ICHRA", links: ichra },
-  { label: "Dashboard Login", href: dashboard },
 ];
 ---
 
@@ -101,7 +98,6 @@ const desktopMenu = [
                 </ul>
               </Dropdown>
             </li>
-            <NavLink href={dashboard}>Dashboard Login</NavLink>
           </ul>
           <div class="nav_buttons">
             <Button element="link" href={SITE_PHONE.href} emphasis="accent">

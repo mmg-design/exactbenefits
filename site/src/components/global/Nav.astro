@@ -31,19 +31,8 @@ const resources = [
   { href: "/medicare-pricing-calculator", label: "Medicare Savings Calculator" },
 ];
 
-const ichra = [
-  { href: "/ichra-strategy", label: "What is CHOICE/ICHRA?" },
-  { href: "/ichra-and-medicare-services", label: "CHOICE/ICHRA Medicare Support" },
-  {
-    href: "/ichra-administrators-platforms",
-    label: "CHOICE/ICHRA for Administrators & Platforms",
-  },
-  { href: "/ichra-for-brokers-and-peos", label: "CHOICE/ICHRA for Brokers & PEOs" },
-  {
-    href: "/ichra-for-employers-and-employees",
-    label: "CHOICE/ICHRA for Employers + Employees",
-  },
-];
+/* Partnership tiles on the homepage: visitors pick the option that fits them there. */
+const partnershipsHref = "/#partnerships";
 
 
 /* Every page ends in the contact section except the 404. */
@@ -52,7 +41,7 @@ const callHref = Astro.url.pathname.replace(/\.html$/, "") === "/404" ? "/#call-
 const desktopMenu = [
   { label: "About", href: "/#about" },
   { label: "Medicare Resource Center", links: resources },
-  { label: "CHOICE/ICHRA", links: ichra },
+  { label: "Partnerships", href: partnershipsHref },
 ];
 ---
 
@@ -89,15 +78,7 @@ const desktopMenu = [
                 </ul>
               </Dropdown>
             </li>
-            <li>
-              <Dropdown label="CHOICE/ICHRA" variant="responsive">
-                <ul class="nav_sublinks">
-                  {ichra.map((link) => (
-                    <NavLink href={link.href}>{link.label}</NavLink>
-                  ))}
-                </ul>
-              </Dropdown>
-            </li>
+            <NavLink href={partnershipsHref}>Partnerships</NavLink>
           </ul>
           <div class="nav_buttons">
             <Button element="link" href={SITE_PHONE.href} emphasis="accent">

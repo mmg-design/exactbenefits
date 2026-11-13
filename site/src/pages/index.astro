@@ -225,7 +225,8 @@ const schema = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n   
       <Grid xsmall={1} class="margin-top-6">
         {savings.map((s) => (
           <ContentWrapper>
-            <Img src={s.icon} alt="" variant="densities" width={48} transparent />
+            {/* Eager: lazy, these load with no reserved height and push the partnerships anchor down mid-scroll. */}
+            <Img src={s.icon} alt="" variant="densities" width={48} transparent loading="eager" />
             <Heading tag="h3" variant="h5">{s.heading}</Heading>
             <Paragraph>{s.text}</Paragraph>
           </ContentWrapper>

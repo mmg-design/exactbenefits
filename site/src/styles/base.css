@@ -491,7 +491,14 @@ select:has(option[value=""]:checked) {
 }
 
 :target {
-  scroll-margin-block: 2rem;
+  /* Clears the sticky nav so a jump lands with its section fully in view. */
+  scroll-margin-block: calc(var(--nav-height) + var(--space-6));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 :focus-visible {
